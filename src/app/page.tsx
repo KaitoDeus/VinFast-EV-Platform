@@ -7,34 +7,34 @@ export default function Home() {
 
       <main className="flex-1 max-w-5xl mx-auto px-6 py-16 space-y-10">
         <div className="text-center space-y-4">
-          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">
-            Standard Next.js Setup
+          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 inline-block">
+            VinFast EV Platform
           </span>
           <h1 className="text-4xl font-extrabold text-white">
             VinFast EV Platform
           </h1>
           <p className="text-slate-400 max-w-xl mx-auto text-sm">
-            Dự án đã sẵn sàng với cấu trúc chuẩn: Next.js App Router, TypeScript, Tailwind CSS, Lucide Icons, và mô hình chia thư mục tiêu chuẩn.
+            Dự án đã được tích hợp đúng bộ Font <strong className="text-white">Mulish</strong> và bảng màu thương hiệu chuẩn VinFast (<span className="text-primary font-mono">#1464F4</span>, <span className="text-secondary font-mono">#92A0B2</span>, <span className="text-slate-300 font-mono">#D9E1E2</span>).
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
-            <h3 className="font-bold text-sky-400">📁 src/app</h3>
+            <h3 className="font-bold text-primary">Font chữ chính</h3>
             <p className="text-slate-400 text-xs leading-relaxed">
-              Next.js App Router quản lý layout, routing và API endpoints.
+              Mulish (phù hợp đúng bản vẽ Figma VinFast LandingPage).
             </p>
           </div>
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
-            <h3 className="font-bold text-emerald-400">📁 src/components</h3>
+            <h3 className="font-bold text-primary">Màu sắc chính</h3>
             <p className="text-slate-400 text-xs leading-relaxed">
-              Thư mục chứa UI Components dùng chung (Header, Buttons, Cards...).
+              Primary: <span className="font-mono text-primary">#1464F4</span> (Future Blue).
             </p>
           </div>
           <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
-            <h3 className="font-bold text-purple-400">📁 src/services & types</h3>
+            <h3 className="font-bold text-secondary">Màu sắc phụ</h3>
             <p className="text-slate-400 text-xs leading-relaxed">
-              Thư mục chứa kiểu dữ liệu TypeScript và logic gọi API/Services.
+              Secondary: <span className="font-mono text-secondary">#92A0B2</span> & Neutral: <span className="font-mono text-slate-300">#D9E1E2</span>.
             </p>
           </div>
         </div>
@@ -42,3 +42,5 @@ export default function Home() {
     </div>
   );
 }
+
+
