@@ -29,7 +29,7 @@ export function DesktopHeroSection() {
               <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[70%] h-8 bg-black/80 blur-2xl rounded-full pointer-events-none" />
               
               <Image
-                src="/section/sec1_v2.png"
+                src="/section/sec1.png"
                 alt="VinFast Klara Electric Scooter"
                 fill
                 priority

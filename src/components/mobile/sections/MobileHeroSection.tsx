@@ -35,7 +35,7 @@ export function MobileHeroSection() {
           <div className="relative w-full max-w-[420px] aspect-[4/3] mx-auto translate-y-4">
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[70%] h-6 bg-black/80 blur-xl rounded-full pointer-events-none" />
             <Image
-              src="/section/sec1_v2.png"
+              src="/section/sec1.png"
               alt="VinFast Klara Electric Scooter"
               fill
               priority

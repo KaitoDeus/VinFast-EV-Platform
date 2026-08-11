@@ -2,114 +2,61 @@
 
 import React from "react";
 import Image from "next/image";
-import { Gauge, Zap, Compass, Users, CheckCircle2 } from "lucide-react";
-import { useCarSelector } from "@/hooks";
 
 export function MobileTechSpecsSection() {
-  const { models, selectedModel, selectModel } = useCarSelector();
+  const specCards = [
+    {
+      title: "Di chuyển được khoảng 80 km",
+      desc: "Xe có thể di chuyển được khoảng 80 km sau một lần sạc đầy.",
+      bg: "bg-[#E2ECF1]",
+    },
+    {
+      title: "Tốc độ trung bình 30 km/h",
+      desc: "Vận tốc tối đa 50 km/h phù hợp với đô thị.",
+      bg: "bg-[#FDFFED]",
+    },
+    {
+      title: "Cốp xe dung tích lớn hơn Honda Vision",
+      desc: "Cốp xe dung tích lớn hơn Honda Vision.",
+      bg: "bg-[#F1E2EC]",
+    },
+    {
+      title: 'Klara "bất tử" khi lội nước',
+      desc: "Với tiêu chuẩn IP57, về nguyên lý, động cơ điện của VinFast có thể ngâm nước 0,5m trong 30 phút mà không ảnh hưởng.",
+      bg: "bg-[#FFE6D8]",
+    },
+  ];
 
   return (
-    <section id="thong-so-ky-thuat" className="py-12 px-5 theme-bg border-t border-slate-800/40">
-      <div className="space-y-8">
-        <div className="text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-primary">
-            Khám phá dải sản phẩm
-          </span>
-          <h2 className="text-2xl font-extrabold theme-text tracking-tight">
-            THÔNG SỐ KỸ THUẬT & DÒNG XE
-          </h2>
-          <p className="theme-muted text-xs font-light">
-            Đa dạng phân khúc đáp ứng mọi nhu cầu di chuyển.
-          </p>
+    <section id="thong-so-ky-thuat" className="scroll-mt-[64px] py-10 px-5 theme-bg transition-colors duration-300">
+      <div className="space-y-6">
+        {/* Mobile Flipped 8K HD Scooter Cutout */}
+        <div className="relative w-full max-w-[490px] aspect-[4/3] mx-auto p-0">
+          <Image
+            src="/section/sec3.png"
+            alt="VinFast Klara Rear View Performance & Range"
+            fill
+            priority
+            sizes="100vw"
+            className="object-contain object-center drop-shadow-xl"
+          />
         </div>
 
-        {/* Mobile Horizontal Scroll Tab Selector */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-          {models.map((model) => {
-            const isSelected = selectedModel.id === model.id;
-            return (
-              <button
-                key={model.id}
-                onClick={() => selectModel(model)}
-                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
-                  isSelected
-                    ? "bg-[#00a8ff] text-white shadow-md scale-105"
-                    : "theme-card theme-text border border-slate-800"
-                }`}
-              >
-                {model.name}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Mobile Compact Card Spec Layout */}
-        <div className="theme-card border rounded-2xl p-5 space-y-5 shadow-xl">
-          <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950/40 border border-slate-800/50">
-            <Image
-              src="/section/sec3.jpg"
-              alt={selectedModel.name}
-              fill
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-            <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-semibold text-cyan-400">
-              {selectedModel.segment}
+        {/* 4 Colored Specification Callout Cards (Title: 18px, Desc: 16px) */}
+        <div className="space-y-3.5">
+          {specCards.map((card, index) => (
+            <div
+              key={index}
+              className={`p-4 rounded-[15px] ${card.bg} border border-[#CDCDCD] shadow-sm space-y-1`}
+            >
+              <h3 className="text-[18px] font-bold text-slate-900 leading-snug">
+                {card.title}
+              </h3>
+              <p className="text-[16px] font-normal text-slate-800 leading-relaxed">
+                {card.desc}
+              </p>
             </div>
-          </div>
-
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-xl font-bold theme-text">{selectedModel.name}</h3>
-              <p className="text-primary font-bold text-base mt-0.5">{selectedModel.price}</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/60">
-                <div className="flex items-center gap-1.5 theme-muted text-[11px] mb-1">
-                  <Gauge className="w-3.5 h-3.5 text-primary shrink-0" />
-                  <span>Công suất</span>
-                </div>
-                <div className="text-sm font-bold theme-text">{selectedModel.power}</div>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/60">
-                <div className="flex items-center gap-1.5 theme-muted text-[11px] mb-1">
-                  <Compass className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>Quãng đường</span>
-                </div>
-                <div className="text-sm font-bold theme-text">{selectedModel.range}</div>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/60">
-                <div className="flex items-center gap-1.5 theme-muted text-[11px] mb-1">
-                  <Zap className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>Sạc nhanh</span>
-                </div>
-                <div className="text-sm font-bold theme-text">{selectedModel.chargeTime}</div>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/60">
-                <div className="flex items-center gap-1.5 theme-muted text-[11px] mb-1">
-                  <Users className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                  <span>Chỗ ngồi</span>
-                </div>
-                <div className="text-sm font-bold theme-text">{selectedModel.seats}</div>
-              </div>
-            </div>
-
-            <div className="space-y-1.5 pt-1">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider theme-muted">Điểm nổi bật</h4>
-              <div className="space-y-1">
-                {selectedModel.highlights.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-xs theme-text">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

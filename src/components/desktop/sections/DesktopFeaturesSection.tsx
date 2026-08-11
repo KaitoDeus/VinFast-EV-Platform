@@ -49,7 +49,7 @@ export function DesktopFeaturesSection() {
           <div className="col-span-6 relative flex justify-center items-end h-full">
             <div className="relative w-full max-w-[560px] aspect-[4/3] -mb-1 transform hover:scale-102 transition-transform duration-500">
               <Image
-                src="/section/sec2_v2.png"
+                src="/section/sec2.png"
                 alt="VinFast Klara Front Dashboard View"
                 fill
                 priority

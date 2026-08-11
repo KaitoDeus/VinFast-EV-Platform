@@ -20,7 +20,7 @@ export function MobileHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 transition-colors duration-300 theme-header border-b border-slate-800/40">
+    <header className="sticky top-0 z-50 transition-colors duration-300 theme-header">
       <div className="flex items-center justify-between px-5 h-[64px]">
         {/* Mobile Logo */}
         <Link href="/" className="flex items-center gap-2 focus:outline-none">

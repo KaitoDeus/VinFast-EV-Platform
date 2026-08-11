@@ -18,7 +18,7 @@ export function DesktopHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 transition-colors duration-300 theme-header border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+    <header className="sticky top-0 z-50 transition-colors duration-300 theme-header">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-8 h-[80px]">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 focus:outline-none shrink-0">

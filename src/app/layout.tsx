@@ -9,8 +9,9 @@ const mulish = Mulish({
 });
 
 export const metadata: Metadata = {
-  title: "VinFast EV Platform | Boundless Together",
-  description: "VinFast Electric Vehicle Ecosystem & Community Landing Page",
+  title: "VinFast - Website chính thức",
+  description: "Website chính thức của VinFast. Khám phá dải sản phẩm xe máy điện thông minh VinFast Klara, Feliz, Vento, Evo200.",
+  keywords: ["VinFast", "Xe máy điện VinFast", "VinFast Klara", "Xe điện thông minh", "VinFast EV"],
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },

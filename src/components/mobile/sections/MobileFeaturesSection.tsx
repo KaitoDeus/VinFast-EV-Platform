@@ -36,7 +36,7 @@ export function MobileFeaturesSection() {
         {/* Front 8K HD Scooter Dashboard Image */}
         <div className="relative w-full max-w-[340px] aspect-[4/3] mx-auto">
           <Image
-            src="/section/sec2_v2.png"
+            src="/section/sec2.png"
             alt="VinFast Klara Front Dashboard View"
             fill
             priority
