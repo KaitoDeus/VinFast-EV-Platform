@@ -9,16 +9,28 @@ const mulish = Mulish({
 });
 
 export const metadata: Metadata = {
-  title: "VinFast EV Platform",
-  description: "VinFast Landing Page & Platform",
+  title: "VinFast EV Platform | Boundless Together",
+  description: "VinFast Electric Vehicle Ecosystem & Community Landing Page",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.png",
+  },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="vi" className={`${mulish.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="vi" className={`${mulish.variable} h-full antialiased`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }
-
-

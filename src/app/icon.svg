@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32">
+  <defs>
+    <linearGradient id="vf-metallic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00D2FF" />
+      <stop offset="40%" stop-color="#1464F4" />
+      <stop offset="100%" stop-color="#0038A8" />
+    </linearGradient>
+    <linearGradient id="vf-silver" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#92A0B2" />
+    </linearGradient>
+  </defs>
+  <!-- Outer Metallic V Wing -->
+  <path fill="url(#vf-metallic)" d="M 6,12 Q 36,26 47,88 L 53,88 Q 64,26 94,12 L 80,12 Q 58,24 50,68 Q 42,24 20,12 Z"/>
+  <!-- Inner Silver Chrome Highlights -->
+  <path fill="url(#vf-silver)" d="M 18,16 Q 38,26 48,76 L 52,76 Q 62,26 82,16 L 72,16 Q 56,25 50,58 Q 44,25 28,16 Z" opacity="0.95"/>
+</svg>

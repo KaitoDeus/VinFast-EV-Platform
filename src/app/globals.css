@@ -5,21 +5,74 @@
   --font-mulish: var(--font-mulish), system-ui, sans-serif;
 
   --color-primary: #1464F4;
+  --color-primary-hover: #0053E2;
   --color-secondary: #92A0B2;
+  --color-cta: #00A8FF;
+  --color-cta-hover: #0093E0;
   --color-neutral-light: #D9E1E2;
-  --color-bg-dark: #080D1A;
-  --color-surface-dark: #0F172A;
 }
 
 :root {
   --background: #080d1a;
-  --foreground: #f1f5f9;
+  --foreground: #f8fafc;
+  --header-bg: #000000;
+  --card-bg: #0f172a;
+  --card-border: rgba(255, 255, 255, 0.1);
+  --muted-text: #94a3b8;
   --primary: #1464f4;
   --secondary: #92a0b2;
+  --cta: #00a8ff;
+}
+
+[data-theme="light"] {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --header-bg: #ffffff;
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --muted-text: #475569;
+}
+
+[data-theme="dark"] {
+  --background: #080d1a;
+  --foreground: #f8fafc;
+  --header-bg: #000000;
+  --card-bg: #0f172a;
+  --card-border: rgba(255, 255, 255, 0.1);
+  --muted-text: #94a3b8;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* Custom Utilities for VinFast Landing Page */
+.theme-bg {
+  background-color: var(--background);
+}
+
+.theme-card {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+.theme-text {
+  color: var(--foreground);
+}
+
+.theme-muted {
+  color: var(--muted-text);
+}
+
+.theme-header {
+  background-color: var(--header-bg);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
 }
