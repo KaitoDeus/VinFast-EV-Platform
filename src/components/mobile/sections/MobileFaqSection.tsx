@@ -1,84 +1,115 @@
 "use client";
 
-import React from "react";
-import { ChevronDown, HelpCircle, PhoneCall } from "lucide-react";
-import Link from "next/link";
-import { useFaqAccordion } from "@/hooks";
+import React, { useState } from "react";
+import Image from "next/image";
+import { ChevronDown } from "lucide-react";
 
 export function MobileFaqSection() {
-  const { faqs, openIndex, toggleFaq } = useFaqAccordion(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      num: "01",
+      question: "Xe sạc đầy đi được bao lâu?",
+      answer: "Trong điều kiện tiêu chuẩn, VinFast Klara có thể di chuyển khoảng 80 km sau mỗi lần sạc đầy.",
+    },
+    {
+      num: "02",
+      question: "Có dễ dàng thay thế pin khi hết điện không?",
+      answer: "Pin Lithium-ion của VinFast được thiết kế tháo rời dễ dàng, hỗ trợ đổi pin nhanh tại hệ thống trạm sạc V-GREEN toàn quốc.",
+    },
+    {
+      num: "03",
+      question: "Vận tốc tối đa mà xe đạt được là bao nhiêu?",
+      answer: "Xe có thể đạt vận tốc tối đa lên tới 50 km/h, rất phù hợp và an toàn khi di chuyển trong đô thị.",
+    },
+    {
+      num: "04",
+      question: "Xe đi ngập nước tối đa bao nhiêu mét?",
+      answer: "Động cơ đạt tiêu chuẩn chống nước IP57, có khả năng ngâm nước sâu 0,5m liên tục trong 30 phút mà vẫn hoạt động bình thường.",
+    },
+    {
+      num: "05",
+      question: "Dung tích cốp xe?",
+      answer: "Cốp xe Klara có dung tích lớn lên tới 22 lít, đủ sức chứa 2 mũ bảo hiểm nửa đầu cùng nhiều vật dụng cá nhân.",
+    },
+    {
+      num: "06",
+      question: "Xe cần sạc thường xuyên khi chưa hết điện không?",
+      answer: "Pin Lithium-ion cao cấp không bị hiện tượng chai pin khi sạc nhồi, bạn có thể sạc bất cứ lúc nào thuận tiện.",
+    },
+  ];
+
+  const toggleFaq = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
-    <section id="cau-hoi-thuong-gap" className="py-12 px-5 theme-bg border-t border-slate-800/40">
-      <div className="space-y-8">
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-semibold">
-            <HelpCircle className="w-3.5 h-3.5" />
-            <span>Giải đáp thắc mắc</span>
-          </div>
-          <h2 className="text-2xl font-extrabold theme-text tracking-tight">
-            CÂU HỎI THƯỜNG GẶP
+    <section id="cau-hoi-thuong-gap" className="scroll-mt-[64px] relative w-full bg-slate-950 py-12 px-5 overflow-hidden">
+      {/* Background Showroom Image Overlay */}
+      <div className="absolute inset-0 z-0 opacity-35 mix-blend-luminosity">
+        <Image
+          src="/section/Banner.png"
+          alt="VinFast Factory Showroom Background"
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
+
+      {/* Dark Gradient Mask */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/85 via-slate-950/90 to-slate-950" />
+
+      <div className="relative z-10 space-y-6">
+        {/* Header Title (36px on desktop / 26px mobile) */}
+        <div className="text-center">
+          <h2 className="text-[26px] sm:text-[36px] font-bold text-white tracking-tight leading-snug">
+            Mẫu xe máy điện thông minh đầu tiên
           </h2>
-          <p className="theme-muted text-xs font-light">
-            Mọi thông tin cần biết về xe điện VinFast.
-          </p>
         </div>
 
-        {/* Mobile Accordion */}
+        {/* Mobile Accordion Stack (Regular 16px font size inside cards, no extra bolding) */}
         <div className="space-y-3">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
-              <div
-                key={index}
-                className="theme-card border rounded-xl overflow-hidden transition-all duration-200"
-              >
+              <div key={index} className="flex flex-col">
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full p-4 text-left flex items-center justify-between gap-3 cursor-pointer"
+                  className="w-full bg-white text-slate-900 rounded-[12px] p-4 flex items-center justify-between shadow-md transition-all duration-300 cursor-pointer"
                 >
-                  <span className="font-bold text-xs theme-text leading-snug">
-                    {faq.question}
-                  </span>
+                  <div className="flex items-center gap-3 text-left pr-2">
+                    <span className="text-[16px] font-extrabold text-slate-900">
+                      {faq.num}
+                    </span>
+                    <span className="text-[16px] font-normal text-slate-900 leading-snug">
+                      {faq.question}
+                    </span>
+                  </div>
                   <ChevronDown
-                    className={`w-4 h-4 text-primary shrink-0 transition-transform duration-300 ${
-                      isOpen ? "rotate-180" : ""
+                    className={`w-4 h-4 text-slate-700 flex-shrink-0 transition-transform duration-300 ease-in-out ${
+                      isOpen ? "rotate-180" : "rotate-0"
                     }`}
                   />
                 </button>
-                {isOpen && (
-                  <div className="px-4 pb-4 pt-0 text-xs theme-muted leading-relaxed font-light border-t border-slate-800/30 mt-1">
-                    {faq.answer}
+
+                {/* Gentle, Buttery-Smooth Grid Dropdown Animation */}
+                <div
+                  className={`grid transition-all duration-300 ease-out overflow-hidden ${
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100 mt-2"
+                      : "grid-rows-[0fr] opacity-0 mt-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="bg-white/95 text-slate-800 rounded-[12px] p-4 text-[16px] font-normal leading-relaxed shadow-lg border border-slate-200">
+                      {faq.answer}
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
             );
           })}
-        </div>
-
-        {/* Mobile Pre-order CTA Box */}
-        <div
-          id="dat-truoc"
-          className="p-6 rounded-2xl bg-gradient-to-br from-blue-900/80 via-slate-900 to-cyan-950 border border-cyan-500/30 text-center space-y-4 shadow-xl"
-        >
-          <h3 className="text-xl font-black text-white tracking-tight">
-            ĐẶT CỌC XE ĐIỆN VINFAST
-          </h3>
-          <p className="text-slate-300 text-xs font-light leading-relaxed">
-            Nhận ưu đãi bộ sạc 7.4kW tại nhà & miễn phí sạc 1 năm V-GREEN.
-          </p>
-          <div className="space-y-3 pt-2">
-            <button className="w-full bg-[#00a8ff] active:bg-[#0093e0] text-white font-extrabold text-sm py-3 rounded-full shadow-lg shadow-cyan-500/30">
-              Xác nhận Đặt Trước (10.000.000 VNĐ)
-            </button>
-            <Link
-              href="tel:1900232389"
-              className="w-full border border-white/20 active:bg-white/10 text-white font-semibold text-xs py-3 rounded-full flex items-center justify-center gap-2"
-            >
-              <PhoneCall className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Hotline: 1900 23 23 89</span>
-            </Link>
-          </div>
         </div>
       </div>
     </section>

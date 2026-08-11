@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/theme-provider";
+import { LanguageProvider } from "@/components/language-provider";
 
 // Desktop Components
 import {
@@ -10,6 +11,8 @@ import {
   DesktopColorSelectorSection,
   DesktopGallerySection,
   DesktopFaqSection,
+  DesktopContactSection,
+  DesktopBlogSection,
 } from "@/components/desktop";
 
 // Mobile Components
@@ -22,40 +25,48 @@ import {
   MobileColorSelectorSection,
   MobileGallerySection,
   MobileFaqSection,
+  MobileContactSection,
+  MobileBlogSection,
 } from "@/components/mobile";
 
 export default function Home() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen theme-bg theme-text flex flex-col font-sans transition-colors duration-300 selection:bg-primary selection:text-white">
-        {/* Desktop Viewport (≥ 1024px) */}
-        <div className="hidden lg:flex flex-col min-h-screen">
-          <DesktopHeader />
-          <main className="flex-1">
-            <DesktopHeroSection />
-            <DesktopFeaturesSection />
-            <DesktopTechSpecsSection />
-            <DesktopColorSelectorSection />
-            <DesktopGallerySection />
-            <DesktopFaqSection />
-          </main>
-          <DesktopFooter />
-        </div>
+      <LanguageProvider>
+        <div className="min-h-screen theme-bg theme-text flex flex-col font-sans transition-colors duration-300 selection:bg-primary selection:text-white">
+          {/* Desktop Viewport (≥ 1024px) */}
+          <div className="hidden lg:flex flex-col min-h-screen">
+            <DesktopHeader />
+            <main className="flex-1">
+              <DesktopHeroSection />
+              <DesktopFeaturesSection />
+              <DesktopTechSpecsSection />
+              <DesktopColorSelectorSection />
+              <DesktopGallerySection />
+              <DesktopFaqSection />
+              <DesktopContactSection />
+              <DesktopBlogSection />
+            </main>
+            <DesktopFooter />
+          </div>
 
-        {/* Mobile Viewport (< 1024px) */}
-        <div className="flex lg:hidden flex-col min-h-screen">
-          <MobileHeader />
-          <main className="flex-1">
-            <MobileHeroSection />
-            <MobileFeaturesSection />
-            <MobileTechSpecsSection />
-            <MobileColorSelectorSection />
-            <MobileGallerySection />
-            <MobileFaqSection />
-          </main>
-          <MobileFooter />
+          {/* Mobile Viewport (< 1024px) */}
+          <div className="flex lg:hidden flex-col min-h-screen">
+            <MobileHeader />
+            <main className="flex-1">
+              <MobileHeroSection />
+              <MobileFeaturesSection />
+              <MobileTechSpecsSection />
+              <MobileColorSelectorSection />
+              <MobileGallerySection />
+              <MobileFaqSection />
+              <MobileContactSection />
+              <MobileBlogSection />
+            </main>
+            <MobileFooter />
+          </div>
         </div>
-      </div>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

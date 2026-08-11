@@ -34,7 +34,7 @@ export function DesktopHeroSection() {
                 fill
                 priority
                 sizes="60vw"
-                className="object-contain hover:scale-105 transition-transform duration-500 relative z-10"
+                className="object-contain relative z-10"
               />
             </div>
           </div>

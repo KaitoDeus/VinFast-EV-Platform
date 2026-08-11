@@ -45,12 +45,12 @@ export function MobileFeaturesSection() {
           />
         </div>
 
-        {/* Feature Callouts List (18px, Transparent Background Fill) */}
+        {/* Feature Callouts List (18px, Solid Full Border on Hover) */}
         <div className="grid grid-cols-1 gap-3.5">
           {features.map((text, idx) => (
             <div
               key={idx}
-              className="border-2 border-dashed border-[#00a8ff] rounded-xl p-3.5 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md text-sm sm:text-[18px] font-semibold theme-text leading-snug"
+              className="border-2 border-dashed border-[#00a8ff] rounded-xl p-3.5 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md text-sm sm:text-[18px] font-semibold theme-text leading-snug transition-all duration-300 hover:border-solid cursor-pointer"
             >
               {text}
             </div>

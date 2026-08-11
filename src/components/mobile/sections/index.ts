@@ -4,3 +4,6 @@ export * from "./MobileTechSpecsSection";
 export * from "./MobileColorSelectorSection";
 export * from "./MobileGallerySection";
 export * from "./MobileFaqSection";
+export * from "./MobileOrderSection";
+export * from "./MobileContactSection";
+export * from "./MobileBlogSection";

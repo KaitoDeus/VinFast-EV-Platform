@@ -31,23 +31,23 @@ export function DesktopFeaturesSection() {
           {/* Left Feature Callouts Column */}
           <div className="col-span-3 space-y-20 flex flex-col justify-center h-full py-4 z-20">
             {/* Left Top Feature */}
-            <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:scale-105 hover:border-solid hover:bg-white dark:hover:bg-white/10">
+            <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:border-solid hover:bg-white dark:hover:bg-white/10 cursor-pointer">
               <p className="text-[18px] font-semibold theme-text leading-snug">
                 Động cơ điện công nghệ Bosch cho lượng khí thải CO2 bằng 0
               </p>
             </div>
 
             {/* Left Bottom Feature */}
-            <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:scale-105 hover:border-solid hover:bg-white dark:hover:bg-white/10">
+            <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:border-solid hover:bg-white dark:hover:bg-white/10 cursor-pointer">
               <p className="text-[18px] font-semibold theme-text leading-snug">
                 Xe hỗ trợ các kết nối 3G, Bluetooth và định vị GPS
               </p>
             </div>
           </div>
 
-          {/* Center Front 8K HD Scooter Dashboard Image */}
+          {/* Center Front 8K HD Scooter Dashboard Image (No zoom hover effect) */}
           <div className="col-span-6 relative flex justify-center items-end h-full">
-            <div className="relative w-full max-w-[560px] aspect-[4/3] -mb-1 transform hover:scale-102 transition-transform duration-500">
+            <div className="relative w-full max-w-[560px] aspect-[4/3] -mb-1">
               <Image
                 src="/section/sec2.png"
                 alt="VinFast Klara Front Dashboard View"
@@ -62,14 +62,14 @@ export function DesktopFeaturesSection() {
           {/* Right Feature Callouts Column */}
           <div className="col-span-3 space-y-20 flex flex-col justify-center h-full py-4 z-20">
             {/* Right Top Feature */}
-            <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:scale-105 hover:border-solid hover:bg-white dark:hover:bg-white/10">
+            <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:border-solid hover:bg-white dark:hover:bg-white/10 cursor-pointer">
               <p className="text-[18px] font-semibold theme-text leading-snug">
                 Kiểm soát bằng smartphone
               </p>
             </div>
 
             {/* Right Bottom Feature */}
-            <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:scale-105 hover:border-solid hover:bg-white dark:hover:bg-white/10">
+            <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:border-solid hover:bg-white dark:hover:bg-white/10 cursor-pointer">
               <p className="text-[18px] font-semibold theme-text leading-snug">
                 Màn hình LED, 4,5 inch hiển thị thông tin trực quan
               </p>

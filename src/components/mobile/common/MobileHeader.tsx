@@ -4,19 +4,21 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 import { useMobileMenu } from "@/hooks";
 import { Sun, Moon, Menu, X } from "lucide-react";
 
 export function MobileHeader() {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLanguage();
   const { mobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useMobileMenu();
 
   const navLinks = [
-    { name: "Giới thiệu", href: "#gioi-thieu" },
-    { name: "Lý do lựa chọn", href: "#ly-do-lua-chon" },
-    { name: "Thông số kỹ thuật", href: "#thong-so-ky-thuat" },
-    { name: "Màu xe", href: "#mau-xe" },
-    { name: "Câu hỏi thường gặp", href: "#cau-hoi-thuong-gap" },
+    { name: t("nav.about"), href: "#gioi-thieu" },
+    { name: t("nav.features"), href: "#ly-do-lua-chon" },
+    { name: t("nav.specs"), href: "#thong-so-ky-thuat" },
+    { name: t("nav.colors"), href: "#mau-xe" },
+    { name: t("nav.faq"), href: "#cau-hoi-thuong-gap" },
   ];
 
   return (
@@ -25,7 +27,7 @@ export function MobileHeader() {
         {/* Mobile Logo */}
         <Link href="/" className="flex items-center gap-2 focus:outline-none">
           <Image
-            src="/logo.png"
+            src="/VinFast-logo-2026.webp"
             alt="VinFast Mobile Logo"
             width={140}
             height={35}
@@ -36,11 +38,12 @@ export function MobileHeader() {
 
         {/* Mobile Action Controls */}
         <div className="flex items-center gap-2.5">
+          {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
             aria-label="Chuyển đổi giao diện Sáng / Tối"
             suppressHydrationWarning
-            className="p-2 rounded-full border border-slate-700/60 dark:border-slate-700/60 light:border-slate-300 theme-text hover:bg-slate-800/40 transition-all"
+            className="p-2 rounded-full border border-slate-700/60 dark:border-slate-700/60 theme-text hover:bg-slate-800/40 transition-all"
           >
             {theme === "dark" ? (
               <Sun className="w-4 h-4 text-amber-400" />
@@ -49,11 +52,12 @@ export function MobileHeader() {
             )}
           </button>
 
+          {/* CTA Pre-order Button */}
           <Link
             href="#dat-truoc"
-            className="bg-[#00a8ff] hover:bg-[#0093e0] text-white font-bold text-xs px-4 py-2 rounded-full shadow-md active:scale-95"
+            className="bg-[#00a8ff] hover:bg-[#0093e0] text-white font-extrabold text-xs px-4 py-2.5 rounded-full shadow-md active:scale-95"
           >
-            Đặt trước
+            {t("nav.preorder")}
           </Link>
 
           <button

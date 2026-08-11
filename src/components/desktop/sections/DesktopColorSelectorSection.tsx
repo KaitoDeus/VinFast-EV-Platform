@@ -2,87 +2,96 @@
 
 import React from "react";
 import Image from "next/image";
-import { Check } from "lucide-react";
-import { useColorSelector } from "@/hooks";
+import { ShieldCheck } from "lucide-react";
 
 export function DesktopColorSelectorSection() {
-  const { colors, selectedColor, selectColor } = useColorSelector();
+  const valueProps = [
+    {
+      title: "Kỹ thuật Đức",
+      desc: "Linh kiện được sản xuất theo công nghệ Đức.",
+    },
+    {
+      title: "Thiết kế Ý",
+      desc: "Được thiết kế bởi nhà thiết kế ô tô hàng đầu Italy",
+    },
+    {
+      title: "Tiêu chuẩn Quốc tế",
+      desc: "Nội, ngoại thất sang chảnh nhưng vẫn mang đậm bản sắc của Việt Nam.",
+    },
+    {
+      title: "Bản sắc Việt",
+      desc: "Nội, ngoại thất sang chảnh nhưng vẫn mang đậm bản sắc của Việt Nam.",
+    },
+  ];
 
   return (
-    <section id="mau-xe" className="scroll-mt-[80px] py-24 theme-bg border-t border-slate-800/40">
-      <div className="max-w-[1440px] mx-auto px-8">
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-primary">
-            Tùy biến phong cách
-          </h2>
-          <p className="text-4xl font-extrabold theme-text tracking-tight">
-            BỘ MÀU SƠN NGOẠI THẤT
-          </p>
-          <p className="theme-muted text-base font-light">
-            Công nghệ sơn phủ 5 lớp cao cấp chống trầy xước và bền màu dưới mọi điều kiện thời tiết.
-          </p>
+    <section id="mau-xe" className="scroll-mt-[80px] theme-bg transition-colors duration-300">
+      {/* Top Banner Container with Dark Showroom Background (Extended Downwards +30% to pb-48) */}
+      <div className="relative w-full bg-slate-950 pt-20 pb-48 px-8 overflow-hidden">
+        {/* Background Showroom Image Overlay */}
+        <div className="absolute inset-0 z-0 opacity-40 mix-blend-luminosity">
+          <Image
+            src="/section/Banner.png"
+            alt="VinFast Factory Showroom Background"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
         </div>
 
-        <div className="grid grid-cols-12 gap-10 items-center">
-          <div className="col-span-8">
-            <div className="relative w-full aspect-[16/10] rounded-3xl overflow-hidden border border-slate-800/60 dark:border-slate-800 light:border-slate-200 shadow-2xl">
-              <Image
-                src="/section/sec4.jpg"
-                alt={`VinFast EV ${selectedColor.name}`}
-                fill
-                sizes="66vw"
-                className="object-cover object-center transition-all duration-500"
-              />
-              <div className="absolute bottom-8 left-8 bg-black/80 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10 flex items-center gap-4">
-                <div
-                  className="w-5 h-5 rounded-full border border-white/40 shadow-inner"
-                  style={{ backgroundColor: selectedColor.hex }}
-                />
-                <div>
-                  <div className="text-base font-bold text-white">{selectedColor.name}</div>
-                  <div className="text-xs text-slate-300 font-light">{selectedColor.desc}</div>
-                </div>
+        {/* Dark Gradient Mask */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/80 via-slate-950/90 to-slate-950" />
+
+        {/* Watermark VinFast "V" Logo Background */}
+        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-[0.05]">
+          <svg className="w-[550px] h-[550px] text-white" viewBox="0 0 100 100" fill="currentColor">
+            <path d="M50 85L15 20h20l15 45 15-45h20L50 85z" />
+          </svg>
+        </div>
+
+        {/* Header Text Content */}
+        <div className="relative z-10 text-center max-w-4xl mx-auto space-y-2">
+          <h2 className="text-[60px] font-extrabold text-[#00a8ff] tracking-tight uppercase leading-none">
+            6 MÀU SƠN
+          </h2>
+          <p className="text-[16px] font-normal text-slate-200 tracking-wide">
+            Phù hợp với mọi lứa tuổi, giới tính
+          </p>
+        </div>
+      </div>
+
+      {/* Overlapping 6-Scooter Lineup Image Container */}
+      <div className="relative z-20 max-w-[1140px] mx-auto px-8 -mt-40">
+        <div className="relative w-full max-w-[1020px] aspect-[21/9] mx-auto">
+          <Image
+            src="/section/sec4.png"
+            alt="VinFast Klara 6 Màu Sơn Ngoại Thất"
+            fill
+            priority
+            sizes="(max-width: 1200px) 100vw, 1020px"
+            className="object-contain object-center drop-shadow-2xl"
+          />
+        </div>
+      </div>
+
+      {/* Bottom 4 Value Proposition Heritage Columns (Both Title & Description use theme-text for identical solid color) */}
+      <div className="max-w-[1140px] mx-auto pt-12 pb-20 px-8">
+        <div className="grid grid-cols-2 gap-x-16 gap-y-10">
+          {valueProps.map((item, index) => (
+            <div key={index} className="flex items-start gap-4">
+              <div className="flex-shrink-0 mt-1">
+                <ShieldCheck className="w-10 h-10 text-[#00a8ff]" strokeWidth={1.8} />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-[35px] font-bold theme-text tracking-tight leading-tight">
+                  {item.title}
+                </h3>
+                <p className="text-[14px] font-normal theme-text leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
             </div>
-          </div>
-
-          <div className="col-span-4 space-y-6">
-            <div className="theme-card border rounded-3xl p-8 space-y-7 shadow-xl">
-              <h3 className="text-xl font-bold theme-text">Chọn màu ngoại thất</h3>
-
-              <div className="grid grid-cols-3 gap-4">
-                {colors.map((color) => {
-                  const isSelected = selectedColor.id === color.id;
-                  return (
-                    <button
-                      key={color.id}
-                      onClick={() => selectColor(color)}
-                      title={color.name}
-                      className={`group relative flex flex-col items-center gap-3 p-4 rounded-2xl border transition-all cursor-pointer ${
-                        isSelected
-                          ? "border-primary bg-primary/10 shadow-lg scale-105"
-                          : "border-slate-800 hover:border-slate-600"
-                      }`}
-                    >
-                      <div
-                        className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center shadow-md transition-transform group-hover:scale-110"
-                        style={{ backgroundColor: color.hex }}
-                      >
-                        {isSelected && <Check className="w-5 h-5 text-white drop-shadow-md" />}
-                      </div>
-                      <span className="text-xs font-semibold theme-text text-center line-clamp-1">
-                        {color.name}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="pt-5 border-t border-slate-800/40 text-xs theme-muted leading-relaxed">
-                * Màu sắc thực tế có thể có sự sai lệch nhẹ do ánh sáng hiển thị màn hình. Hãy đăng ký lái thử trực tiếp để trải nghiệm màu sơn chân thực nhất.
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

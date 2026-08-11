@@ -4,30 +4,33 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 import { Sun, Moon } from "lucide-react";
 
 export function DesktopHeader() {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLanguage();
 
   const navLinks = [
-    { name: "Giới thiệu", href: "#gioi-thieu" },
-    { name: "Lý do lựa chọn", href: "#ly-do-lua-chon" },
-    { name: "Thông số kỹ thuật", href: "#thong-so-ky-thuat" },
-    { name: "Màu xe", href: "#mau-xe" },
-    { name: "Câu hỏi thường gặp", href: "#cau-hoi-thuong-gap" },
+    { name: t("nav.about"), href: "#gioi-thieu" },
+    { name: t("nav.features"), href: "#ly-do-lua-chon" },
+    { name: t("nav.specs"), href: "#thong-so-ky-thuat" },
+    { name: t("nav.colors"), href: "#mau-xe" },
+    { name: t("nav.faq"), href: "#cau-hoi-thuong-gap" },
   ];
 
   return (
     <header className="sticky top-0 z-50 transition-colors duration-300 theme-header">
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-8 h-[80px]">
+      {/* Container: Max Width 1440px, Height 80px, Horizontal Padding 56px, Vertical Padding 16px (Exact Figma Spec) */}
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-[56px] py-[16px] h-[80px]">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 focus:outline-none shrink-0">
           <Image
-            src="/logo.png"
+            src="/VinFast-logo-2026.webp"
             alt="VinFast Logo"
             width={193}
             height={48}
-            className="h-9 w-auto object-contain transition-transform hover:scale-105"
+            className="h-9 w-auto object-contain"
             priority
           />
         </Link>
@@ -48,6 +51,7 @@ export function DesktopHeader() {
 
         {/* Action Controls */}
         <div className="flex items-center gap-4 shrink-0">
+          {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
             aria-label="Chuyển đổi giao diện Sáng / Tối"
@@ -62,11 +66,12 @@ export function DesktopHeader() {
             )}
           </button>
 
+          {/* Enlarged CTA Pre-Order Button */}
           <Link
             href="#dat-truoc"
-            className="bg-[#00a8ff] hover:bg-[#0093e0] text-white font-bold text-sm px-6 py-2.5 rounded-full transition-all duration-200 shadow-lg shadow-cyan-500/25 active:scale-95 text-center"
+            className="bg-[#00a8ff] hover:bg-[#0093e0] text-white font-extrabold text-[16px] px-7 py-3 rounded-full transition-all duration-200 shadow-lg shadow-cyan-500/25 active:scale-95 text-center"
           >
-            Đặt trước
+            {t("nav.preorder")}
           </Link>
         </div>
       </div>

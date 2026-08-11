@@ -4,3 +4,6 @@ export * from "./DesktopTechSpecsSection";
 export * from "./DesktopColorSelectorSection";
 export * from "./DesktopGallerySection";
 export * from "./DesktopFaqSection";
+export * from "./DesktopOrderSection";
+export * from "./DesktopContactSection";
+export * from "./DesktopBlogSection";

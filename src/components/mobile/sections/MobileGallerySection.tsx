@@ -4,39 +4,29 @@ import React from "react";
 import Image from "next/image";
 
 export function MobileGallerySection() {
+  const images = [
+    { src: "/section/gallery_1.jpg", alt: "Cốp xe Klara dung tích lớn" },
+    { src: "/section/gallery_2.jpg", alt: "Phanh đĩa và bánh trước VinFast Klara" },
+    { src: "/section/gallery_3.jpg", alt: "Đèn LED và đầu xe VinFast Klara" },
+    { src: "/section/gallery_3.jpg", alt: "Đầu xe Klara màu trắng ngà" },
+    { src: "/section/gallery_4.jpg", alt: "Logo Klara S mạ chrome bên sườn xe" },
+    { src: "/section/gallery_1.jpg", alt: "Cốp xe rộng rãi chứa vừa mũ bảo hiểm" },
+  ];
+
   return (
-    <section className="py-12 px-5 theme-bg border-t border-slate-800/40">
-      <div className="space-y-6">
-        <div className="text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-primary">
-            Phong cách sống di chuyển xanh
-          </span>
-          <h2 className="text-2xl font-extrabold theme-text tracking-tight">
-            THƯ VIỆN HÌNH ẢNH
-          </h2>
-        </div>
-
-        <div className="space-y-4">
-          <div className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-slate-800/60 shadow-lg">
+    <section className="w-full bg-black overflow-hidden">
+      <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-0.5 bg-slate-900">
+        {images.map((img, index) => (
+          <div key={index} className="relative aspect-[4/3] w-full overflow-hidden">
             <Image
-              src="/section/Gallery.jpg"
-              alt="VinFast Mobile Gallery 1"
+              src={img.src}
+              alt={img.alt}
               fill
-              sizes="100vw"
-              className="object-cover"
+              sizes="50vw"
+              className="object-cover object-center"
             />
           </div>
-
-          <div className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-slate-800/60 shadow-lg">
-            <Image
-              src="/section/contact.jpg"
-              alt="VinFast Mobile Gallery 2"
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

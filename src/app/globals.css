@@ -13,33 +13,51 @@
 }
 
 :root {
-  --background: #080d1a;
-  --foreground: #f8fafc;
-  --header-bg: #000000;
-  --card-bg: #0f172a;
-  --card-border: rgba(255, 255, 255, 0.1);
-  --muted-text: #94a3b8;
-  --primary: #1464f4;
-  --secondary: #92a0b2;
-  --cta: #00a8ff;
-}
-
-[data-theme="light"] {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #ffffff;
+  --foreground: #000000;
   --header-bg: #ffffff;
   --card-bg: #ffffff;
   --card-border: rgba(0, 0, 0, 0.08);
   --muted-text: #475569;
+  --primary: #1464f4;
+  --secondary: #92a0b2;
+  --cta: #00a8ff;
+
+  --contact-form-bg: #eeeeee;
+  --contact-showcase-bg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #e2e8f0;
+  --input-text: #0f172a;
+}
+
+[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #000000;
+  --header-bg: #ffffff;
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --muted-text: #475569;
+
+  --contact-form-bg: #eeeeee;
+  --contact-showcase-bg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #e2e8f0;
+  --input-text: #0f172a;
 }
 
 [data-theme="dark"] {
-  --background: #080d1a;
-  --foreground: #f8fafc;
-  --header-bg: #000000;
-  --card-bg: #0f172a;
-  --card-border: rgba(255, 255, 255, 0.1);
-  --muted-text: #94a3b8;
+  --background: #434343;
+  --foreground: #ffffff;
+  --header-bg: #1f1f1f;
+  --card-bg: #333333;
+  --card-border: rgba(255, 255, 255, 0.15);
+  --muted-text: #e2e8f0;
+
+  --contact-form-bg: #242424;
+  --contact-showcase-bg: #333333;
+  --input-bg: #181818;
+  --input-border: #334155;
+  --input-text: #ffffff;
 }
 
 body {
@@ -61,15 +79,54 @@ body {
 }
 
 .theme-text {
-  color: var(--foreground);
+  color: var(--foreground) !important;
 }
 
 .theme-muted {
-  color: var(--muted-text);
+  color: var(--muted-text) !important;
 }
 
 .theme-header {
   background-color: var(--header-bg);
+}
+
+.contact-form-bg {
+  background-color: var(--contact-form-bg);
+}
+
+.contact-showcase-bg {
+  background-color: var(--contact-showcase-bg);
+}
+
+.contact-input {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border-color: var(--input-border);
+}
+
+/* Custom VinFast Electric Blue Scrollbar matching Image 2 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1464f4;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #0093e0;
+}
+
+/* Firefox Custom Scrollbar Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1464f4 transparent;
 }
 
 /* Smooth Scrolling */
