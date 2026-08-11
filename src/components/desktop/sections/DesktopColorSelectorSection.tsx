@@ -3,30 +3,33 @@
 import React from "react";
 import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 
 export function DesktopColorSelectorSection() {
+  const { t } = useLanguage();
+
   const valueProps = [
     {
-      title: "Kỹ thuật Đức",
-      desc: "Linh kiện được sản xuất theo công nghệ Đức.",
+      title: t("colors.prop1.title"),
+      desc: t("colors.prop1.desc"),
     },
     {
-      title: "Thiết kế Ý",
-      desc: "Được thiết kế bởi nhà thiết kế ô tô hàng đầu Italy",
+      title: t("colors.prop2.title"),
+      desc: t("colors.prop2.desc"),
     },
     {
-      title: "Tiêu chuẩn Quốc tế",
-      desc: "Nội, ngoại thất sang chảnh nhưng vẫn mang đậm bản sắc của Việt Nam.",
+      title: t("colors.prop3.title"),
+      desc: t("colors.prop3.desc"),
     },
     {
-      title: "Bản sắc Việt",
-      desc: "Nội, ngoại thất sang chảnh nhưng vẫn mang đậm bản sắc của Việt Nam.",
+      title: t("colors.prop4.title"),
+      desc: t("colors.prop4.desc"),
     },
   ];
 
   return (
     <section id="mau-xe" className="scroll-mt-[80px] theme-bg transition-colors duration-300">
-      {/* Top Banner Container with Dark Showroom Background (Extended Downwards +30% to pb-48) */}
+      {/* Top Banner Container with Dark Showroom Background */}
       <div className="relative w-full bg-slate-950 pt-20 pb-48 px-8 overflow-hidden">
         {/* Background Showroom Image Overlay */}
         <div className="absolute inset-0 z-0 opacity-40 mix-blend-luminosity">
@@ -52,10 +55,10 @@ export function DesktopColorSelectorSection() {
         {/* Header Text Content */}
         <div className="relative z-10 text-center max-w-4xl mx-auto space-y-2">
           <h2 className="text-[60px] font-extrabold text-[#00a8ff] tracking-tight uppercase leading-none">
-            6 MÀU SƠN
+            {t("colors.headline")}
           </h2>
           <p className="text-[16px] font-normal text-slate-200 tracking-wide">
-            Phù hợp với mọi lứa tuổi, giới tính
+            {t("colors.subtitle")}
           </p>
         </div>
       </div>
@@ -74,7 +77,7 @@ export function DesktopColorSelectorSection() {
         </div>
       </div>
 
-      {/* Bottom 4 Value Proposition Heritage Columns (Both Title & Description use theme-text for identical solid color) */}
+      {/* Bottom 4 Value Proposition Heritage Columns */}
       <div className="max-w-[1140px] mx-auto pt-12 pb-20 px-8">
         <div className="grid grid-cols-2 gap-x-16 gap-y-10">
           {valueProps.map((item, index) => (

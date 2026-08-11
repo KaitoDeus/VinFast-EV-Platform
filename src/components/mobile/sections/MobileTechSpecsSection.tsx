@@ -2,27 +2,30 @@
 
 import React from "react";
 import Image from "next/image";
+import { useLanguage } from "@/components/language-provider";
 
 export function MobileTechSpecsSection() {
+  const { t } = useLanguage();
+
   const specCards = [
     {
-      title: "Di chuyển được khoảng 80 km",
-      desc: "Xe có thể di chuyển được khoảng 80 km sau một lần sạc đầy.",
+      title: t("specs.card1.title"),
+      desc: t("specs.card1.desc"),
       bg: "bg-[#E2ECF1]",
     },
     {
-      title: "Tốc độ trung bình 30 km/h",
-      desc: "Vận tốc tối đa 50 km/h phù hợp với đô thị.",
+      title: t("specs.card2.title"),
+      desc: t("specs.card2.desc"),
       bg: "bg-[#FDFFED]",
     },
     {
-      title: "Cốp xe dung tích lớn hơn Honda Vision",
-      desc: "Cốp xe dung tích lớn hơn Honda Vision.",
+      title: t("specs.card3.title"),
+      desc: t("specs.card3.desc"),
       bg: "bg-[#F1E2EC]",
     },
     {
-      title: 'Klara "bất tử" khi lội nước',
-      desc: "Với tiêu chuẩn IP57, về nguyên lý, động cơ điện của VinFast có thể ngâm nước 0,5m trong 30 phút mà không ảnh hưởng.",
+      title: t("specs.card4.title"),
+      desc: t("specs.card4.desc"),
       bg: "bg-[#FFE6D8]",
     },
   ];

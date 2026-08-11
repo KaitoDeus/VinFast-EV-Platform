@@ -3,40 +3,42 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 
 export function MobileFaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const faqs = [
     {
       num: "01",
-      question: "Xe sạc đầy đi được bao lâu?",
-      answer: "Trong điều kiện tiêu chuẩn, VinFast Klara có thể di chuyển khoảng 80 km sau mỗi lần sạc đầy.",
+      question: t("faq.q1"),
+      answer: t("faq.a1"),
     },
     {
       num: "02",
-      question: "Có dễ dàng thay thế pin khi hết điện không?",
-      answer: "Pin Lithium-ion của VinFast được thiết kế tháo rời dễ dàng, hỗ trợ đổi pin nhanh tại hệ thống trạm sạc V-GREEN toàn quốc.",
+      question: t("faq.q2"),
+      answer: t("faq.a2"),
     },
     {
       num: "03",
-      question: "Vận tốc tối đa mà xe đạt được là bao nhiêu?",
-      answer: "Xe có thể đạt vận tốc tối đa lên tới 50 km/h, rất phù hợp và an toàn khi di chuyển trong đô thị.",
+      question: t("faq.q3"),
+      answer: t("faq.a3"),
     },
     {
       num: "04",
-      question: "Xe đi ngập nước tối đa bao nhiêu mét?",
-      answer: "Động cơ đạt tiêu chuẩn chống nước IP57, có khả năng ngâm nước sâu 0,5m liên tục trong 30 phút mà vẫn hoạt động bình thường.",
+      question: t("faq.q4"),
+      answer: t("faq.a4"),
     },
     {
       num: "05",
-      question: "Dung tích cốp xe?",
-      answer: "Cốp xe Klara có dung tích lớn lên tới 22 lít, đủ sức chứa 2 mũ bảo hiểm nửa đầu cùng nhiều vật dụng cá nhân.",
+      question: t("faq.q5"),
+      answer: t("faq.a5"),
     },
     {
       num: "06",
-      question: "Xe cần sạc thường xuyên khi chưa hết điện không?",
-      answer: "Pin Lithium-ion cao cấp không bị hiện tượng chai pin khi sạc nhồi, bạn có thể sạc bất cứ lúc nào thuận tiện.",
+      question: t("faq.q6"),
+      answer: t("faq.a6"),
     },
   ];
 
@@ -61,14 +63,14 @@ export function MobileFaqSection() {
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/85 via-slate-950/90 to-slate-950" />
 
       <div className="relative z-10 space-y-6">
-        {/* Header Title (36px on desktop / 26px mobile) */}
+        {/* Header Title */}
         <div className="text-center">
           <h2 className="text-[26px] sm:text-[36px] font-bold text-white tracking-tight leading-snug">
-            Mẫu xe máy điện thông minh đầu tiên
+            {t("faq.title")}
           </h2>
         </div>
 
-        {/* Mobile Accordion Stack (Regular 16px font size inside cards, no extra bolding) */}
+        {/* Mobile Accordion Stack */}
         <div className="space-y-3">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
@@ -93,7 +95,7 @@ export function MobileFaqSection() {
                   />
                 </button>
 
-                {/* Gentle, Buttery-Smooth Grid Dropdown Animation */}
+                {/* Gentle Dropdown Animation */}
                 <div
                   className={`grid transition-all duration-300 ease-out overflow-hidden ${
                     isOpen

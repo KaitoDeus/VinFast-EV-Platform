@@ -3,16 +3,18 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/components/language-provider";
 
 export function DesktopBlogSection() {
+  const { t } = useLanguage();
+
   const posts = [
     {
-      day: "05",
-      month: "tháng 11",
-      title: "Xe máy điện VinFast Klara có giá 21-54 triệu đồng/chiếc",
-      meta: "14 Feb 2018 | Sarah Doe",
-      excerpt:
-        "VinFast vừa chính thức công bố giá bán cho các phiên bản xe Klara ra mắt hôm 3/11 của hãng. Theo đó, trong lô hàng đầu tiên đến tay người tiêu dùng, Klara có giá bán 21 triệu đồng cho...",
+      day: t("blog.item1.day"),
+      month: t("blog.item1.month"),
+      title: t("blog.item1.title"),
+      meta: t("blog.item1.meta"),
+      excerpt: t("blog.item1.excerpt"),
       image: "/section/gallery_4.jpg",
     },
   ];
@@ -23,13 +25,13 @@ export function DesktopBlogSection() {
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
           <h2 className="text-[28px] font-bold theme-text tracking-tight">
-            Blog thông tin
+            {t("blog.header")}
           </h2>
           <Link
             href="#"
             className="text-[14px] font-medium text-slate-400 hover:text-[#00a8ff] transition-colors"
           >
-            Xem tất cả
+            {t("blog.viewall")}
           </Link>
         </div>
 

@@ -2,8 +2,11 @@
 
 import React from "react";
 import Image from "next/image";
+import { useLanguage } from "@/components/language-provider";
 
 export function DesktopFeaturesSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="ly-do-lua-chon" className="relative scroll-mt-[80px] pt-16 pb-0 theme-bg overflow-hidden transition-colors duration-300">
       {/* Background Concentric Tech Grid & Dial Graphic (Positioned Below Header Text) */}
@@ -15,13 +18,13 @@ export function DesktopFeaturesSection() {
         </svg>
       </div>
 
-      {/* Section Header (Cleanly Above the Circle Arc) */}
+      {/* Section Header */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-8 mb-12 text-center">
         <h2 className="text-[36px] font-bold theme-text tracking-tight mb-3">
-          Mẫu xe máy điện thông minh đầu tiên
+          {t("features.title")}
         </h2>
         <p className="theme-muted text-[16px] font-normal max-w-2xl mx-auto leading-relaxed">
-          Đây là dòng xe được tích hợp nhiều công nghệ hiện đại bên trong thiết kế điệu đà nhưng giá bán lại phù hợp với đại đa số người Việt
+          {t("features.subtitle")}
         </p>
       </div>
 
@@ -33,19 +36,19 @@ export function DesktopFeaturesSection() {
             {/* Left Top Feature */}
             <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:border-solid hover:bg-white dark:hover:bg-white/10 cursor-pointer">
               <p className="text-[18px] font-semibold theme-text leading-snug">
-                Động cơ điện công nghệ Bosch cho lượng khí thải CO2 bằng 0
+                {t("features.f1")}
               </p>
             </div>
 
             {/* Left Bottom Feature */}
             <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:border-solid hover:bg-white dark:hover:bg-white/10 cursor-pointer">
               <p className="text-[18px] font-semibold theme-text leading-snug">
-                Xe hỗ trợ các kết nối 3G, Bluetooth và định vị GPS
+                {t("features.f2")}
               </p>
             </div>
           </div>
 
-          {/* Center Front 8K HD Scooter Dashboard Image (No zoom hover effect) */}
+          {/* Center Front 8K HD Scooter Dashboard Image */}
           <div className="col-span-6 relative flex justify-center items-end h-full">
             <div className="relative w-full max-w-[560px] aspect-[4/3] -mb-1">
               <Image
@@ -64,14 +67,14 @@ export function DesktopFeaturesSection() {
             {/* Right Top Feature */}
             <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:border-solid hover:bg-white dark:hover:bg-white/10 cursor-pointer">
               <p className="text-[18px] font-semibold theme-text leading-snug">
-                Kiểm soát bằng smartphone
+                {t("features.f3")}
               </p>
             </div>
 
             {/* Right Bottom Feature */}
             <div className="border-2 border-dashed border-[#00a8ff] rounded-2xl p-4 bg-white/80 dark:bg-transparent backdrop-blur-sm shadow-md transition-all duration-300 hover:border-solid hover:bg-white dark:hover:bg-white/10 cursor-pointer">
               <p className="text-[18px] font-semibold theme-text leading-snug">
-                Màn hình LED, 4,5 inch hiển thị thông tin trực quan
+                {t("features.f4")}
               </p>
             </div>
           </div>
@@ -82,7 +85,7 @@ export function DesktopFeaturesSection() {
       <div className="relative z-20 w-full bg-[#00a8ff] py-10 px-4 shadow-lg shadow-cyan-500/20">
         <div className="max-w-[1440px] mx-auto text-center">
           <h3 className="text-white text-[36px] font-extrabold tracking-wider uppercase leading-tight">
-            LÀ SẢN PHẨM TỰ VINFAST SẢN XUẤT, KHÔNG PHẢI LẮP RÁP
+            {t("features.banner")}
           </h3>
         </div>
       </div>
