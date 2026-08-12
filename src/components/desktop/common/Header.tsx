@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "@/components/theme-provider";
 import { useLanguage } from "@/components/language-provider";
+import { AnalyticsManager } from "@/infrastructure/analytics";
 import { Sun, Moon } from "lucide-react";
 
 export function Header() {
@@ -18,6 +19,10 @@ export function Header() {
     { name: t("nav.colors"), href: "#colors" },
     { name: t("nav.faq"), href: "#faq" },
   ];
+
+  const handlePreorderClick = () => {
+    AnalyticsManager.getInstance().trackPreorderClick("desktop_header_cta");
+  };
 
   return (
     <header className="sticky top-0 z-50 transition-colors duration-300 theme-header">
@@ -69,6 +74,7 @@ export function Header() {
           {/* Enlarged CTA Pre-Order Button */}
           <Link
             href="#preorder"
+            onClick={handlePreorderClick}
             className="bg-[#00a8ff] hover:bg-[#0093e0] text-white font-extrabold text-[16px] px-7 py-3 rounded-full transition-all duration-200 shadow-lg shadow-cyan-500/25 active:scale-95 text-center"
           >
             {t("nav.preorder")}

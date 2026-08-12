@@ -1,14 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/components/language-provider";
+import { AnalyticsManager } from "@/infrastructure/analytics";
 
 export function ContactSection() {
   const { t } = useLanguage();
+  const [formData, setFormData] = useState({ phone: "", name: "", email: "", content: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    AnalyticsManager.getInstance().trackContactSubmit(formData);
     alert(t("contact.alert"));
   };
 
@@ -27,6 +30,8 @@ export function ContactSection() {
                 <input
                   type="tel"
                   placeholder={t("contact.phone")}
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   required
                   className="w-full contact-input placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-[8px] px-4 py-3.5 text-[16px] font-normal shadow-sm border outline-none focus:ring-2 focus:ring-[#00a8ff] transition-all"
                 />
@@ -36,6 +41,8 @@ export function ContactSection() {
                 <input
                   type="text"
                   placeholder={t("contact.name")}
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
                   className="w-full contact-input placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-[8px] px-4 py-3.5 text-[16px] font-normal shadow-sm border outline-none focus:ring-2 focus:ring-[#00a8ff] transition-all"
                 />
@@ -45,6 +52,8 @@ export function ContactSection() {
                 <input
                   type="email"
                   placeholder={t("contact.email")}
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
                   className="w-full contact-input placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-[8px] px-4 py-3.5 text-[16px] font-normal shadow-sm border outline-none focus:ring-2 focus:ring-[#00a8ff] transition-all"
                 />
@@ -53,6 +62,8 @@ export function ContactSection() {
               <div>
                 <textarea
                   placeholder={t("contact.content")}
+                  value={formData.content}
+                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                   rows={4}
                   className="w-full contact-input placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-[8px] px-4 py-3.5 text-[16px] font-normal shadow-sm border outline-none focus:ring-2 focus:ring-[#00a8ff] resize-none transition-all"
                 />
@@ -79,7 +90,7 @@ export function ContactSection() {
           <div className="relative w-full max-w-[580px] aspect-[4/3]">
             <Image
               src="/section/sec7.png"
-              alt="VinFast Klara Pre-order Showcase Artwork"
+              alt="VinFast Klara Smart Electric Scooter Pre-order Showcase"
               fill
               priority
               sizes="50vw"

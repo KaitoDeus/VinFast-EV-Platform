@@ -4,9 +4,18 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/components/language-provider";
+import { AnalyticsManager } from "@/infrastructure/analytics";
 
 export function Footer() {
   const { lang, setLanguage, t } = useLanguage();
+
+  const handlePhoneClick = () => {
+    AnalyticsManager.getInstance().trackPhoneCall();
+  };
+
+  const handleSocialClick = (platform: string) => {
+    AnalyticsManager.getInstance().trackSocialClick(platform);
+  };
 
   return (
     <footer className="relative w-full bg-[#121629] py-14 px-8 overflow-hidden transition-colors duration-300 border-t border-slate-800">
@@ -23,12 +32,12 @@ export function Footer() {
       </div>
 
       <div className="relative z-10 max-w-[1240px] mx-auto text-center space-y-6">
-        {/* Top Centered Brand Logo (Bright Pure White Inverted Filter for High Contrast) */}
+        {/* Top Centered Brand Logo */}
         <div className="flex justify-center">
           <Link href="/" className="inline-block">
             <Image
               src="/VinFast-logo-2026.webp"
-              alt="VinFast Logo"
+              alt="VinFast Official Brand Logo"
               width={193}
               height={48}
               className="h-10 w-auto object-contain brightness-0 invert filter"
@@ -37,20 +46,26 @@ export function Footer() {
           </Link>
         </div>
 
-        {/* Main Headline (36px Font Size) */}
+        {/* Main Headline */}
         <h2 className="text-[36px] font-extrabold text-white tracking-wide uppercase leading-snug">
           {t("footer.headline")}
         </h2>
 
-        {/* Address Subtitle (16px Font Size) */}
+        {/* Address Subtitle */}
         <p className="text-[16px] text-slate-300 font-normal">
           {t("footer.address")}
         </p>
 
-        {/* Contact Info Grey Box Bar (16px Font Size, Enlarged Button Padding) */}
+        {/* Contact Info Grey Box Bar */}
         <div className="flex justify-center pt-2 pb-1">
           <div className="bg-[#4a4e63]/60 backdrop-blur-md rounded-sm px-8 py-3.5 text-[16px] text-slate-200 font-normal inline-flex items-center gap-6 justify-center flex-wrap shadow-lg border border-slate-600/30">
-            <span>Tel: 0123 456 789</span>
+            <a
+              href="tel:0123456789"
+              onClick={handlePhoneClick}
+              className="hover:text-[#00a8ff] transition-colors"
+            >
+              Tel: 0123 456 789
+            </a>
             <span className="text-slate-500">|</span>
             <span>Fax: 0123 456 789</span>
             <span className="text-slate-500">|</span>
@@ -66,7 +81,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Social Media Icons Row (Enlarged Button Sizes: w-11 h-11) */}
+        {/* Social Media Icons Row */}
         <div className="flex items-center justify-center gap-4 pt-2">
           {/* Facebook */}
           <a
@@ -74,6 +89,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
+            onClick={() => handleSocialClick("facebook")}
             className="w-11 h-11 rounded-lg bg-[#3b5998] hover:bg-[#324b81] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-md cursor-pointer"
           >
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -87,6 +103,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="YouTube"
+            onClick={() => handleSocialClick("youtube")}
             className="w-11 h-11 rounded-lg bg-[#cd2019] hover:bg-[#b31c16] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-md cursor-pointer"
           >
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -98,6 +115,7 @@ export function Footer() {
           <a
             href="#"
             aria-label="RSS Feed"
+            onClick={() => handleSocialClick("rss")}
             className="w-11 h-11 rounded-lg bg-[#f26522] hover:bg-[#d9561a] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-md cursor-pointer"
           >
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -106,7 +124,7 @@ export function Footer() {
           </a>
         </div>
 
-        {/* Sleek Clean i18n Language Selector (No Underline) */}
+        {/* Sleek Clean i18n Language Selector */}
         <div className="flex items-center justify-center gap-6 pt-3 text-[16px]">
           {/* Vietnam 🇻🇳 Option */}
           <button
