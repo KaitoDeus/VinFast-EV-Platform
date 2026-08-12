@@ -28,14 +28,17 @@ export function Header() {
     <header className="sticky top-0 z-50 transition-colors duration-300 theme-header">
       {/* Container: Max Width 1440px, Height 80px, Horizontal Padding 56px, Vertical Padding 16px (Exact Figma Spec) */}
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-[56px] py-[16px] h-[80px]">
-        {/* Brand Logo */}
+        {/* Brand Logo (Bright Pure White in Dark Mode & Solid Black in Light Mode) */}
         <Link href="/" className="flex items-center gap-3 focus:outline-none shrink-0">
           <Image
             src="/VinFast-logo-2026.webp"
             alt="VinFast Logo"
             width={193}
             height={48}
-            className="h-9 w-auto object-contain"
+            style={{
+              filter: theme === "dark" ? "brightness(0) invert(1)" : "brightness(0)",
+            }}
+            className="h-9 w-auto object-contain transition-all"
             priority
           />
         </Link>

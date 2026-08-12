@@ -29,14 +29,17 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 transition-colors duration-300 theme-header">
       <div className="flex items-center justify-between px-5 h-[64px]">
-        {/* Mobile Logo */}
+        {/* Mobile Logo (Bright Pure White in Dark Mode & Solid Black in Light Mode) */}
         <Link href="/" className="flex items-center gap-2 focus:outline-none">
           <Image
             src="/VinFast-logo-2026.webp"
             alt="VinFast Mobile Logo"
             width={140}
             height={35}
-            className="h-7 w-auto object-contain"
+            style={{
+              filter: theme === "dark" ? "brightness(0) invert(1)" : "brightness(0)",
+            }}
+            className="h-7 w-auto object-contain transition-all"
             priority
           />
         </Link>
