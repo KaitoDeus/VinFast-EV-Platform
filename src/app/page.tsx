@@ -1,5 +1,4 @@
-import { ThemeProvider } from "@/components/theme-provider";
-import { LanguageProvider } from "@/components/language-provider";
+import { ThemeProvider, LanguageProvider } from "@/components/providers";
 
 // Desktop Components
 import {

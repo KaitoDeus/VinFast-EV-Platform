@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { FaqService } from "@/services";
+import { ServiceContainer } from "@/infrastructure/di";
+import { FaqItemEntity } from "@/domain/models";
 
 export function useFaqAccordion(initialOpenIndex: number | null = 0) {
-  const faqs = FaqService.getAllFaqs();
+  const faqService = ServiceContainer.getInstance().getFaqService();
+  const faqs: FaqItemEntity[] = faqService.getAllFaqs();
   const [openIndex, setOpenIndex] = useState<number | null>(initialOpenIndex);
 
   const toggleFaq = (index: number) => {

@@ -1,2 +1,2 @@
-export * from "./DesktopHeader";
-export * from "./DesktopFooter";
+export * from "./Header";
+export * from "./Footer";

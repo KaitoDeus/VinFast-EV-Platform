@@ -1,19 +1,20 @@
 import { useState } from "react";
-import { CarModelSpec } from "@/types";
-import { CarService } from "@/services";
+import { ServiceContainer } from "@/infrastructure/di";
+import { CarModelEntity } from "@/domain/models";
 
 export function useCarSelector() {
-  const models = CarService.getAllModels();
-  const [selectedModel, setSelectedModel] = useState<CarModelSpec>(
-    CarService.getDefaultModel()
+  const carService = ServiceContainer.getInstance().getCarService();
+  const models = carService.getAllModels();
+  const [selectedModel, setSelectedModel] = useState<CarModelEntity>(
+    carService.getDefaultModel()
   );
 
-  const selectModel = (model: CarModelSpec) => {
+  const selectModel = (model: CarModelEntity) => {
     setSelectedModel(model);
   };
 
   const selectModelById = (id: string) => {
-    const found = CarService.getModelById(id);
+    const found = carService.getModelById(id);
     if (found) {
       setSelectedModel(found);
     }

@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { ColorOption } from "@/types";
-import { ColorService } from "@/services";
+import { ServiceContainer } from "@/infrastructure/di";
+import { ColorOptionEntity } from "@/domain/models";
 
 export function useColorSelector() {
-  const colors = ColorService.getAllColors();
-  const [selectedColor, setSelectedColor] = useState<ColorOption>(
-    ColorService.getDefaultColor()
+  const colorService = ServiceContainer.getInstance().getColorService();
+  const colors = colorService.getAllColors();
+  const [selectedColor, setSelectedColor] = useState<ColorOptionEntity>(
+    colorService.getDefaultColor()
   );
 
-  const selectColor = (color: ColorOption) => {
+  const selectColor = (color: ColorOptionEntity) => {
     setSelectedColor(color);
   };
 

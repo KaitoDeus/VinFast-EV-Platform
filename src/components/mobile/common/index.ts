@@ -1,2 +1,2 @@
-export * from "./MobileHeader";
-export * from "./MobileFooter";
+export * from "./Header";
+export * from "./Footer";
