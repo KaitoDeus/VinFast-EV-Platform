@@ -2,11 +2,13 @@
 
 import React, { useState } from "react";
 import { Search, ChevronDown, Check, Minus, Plus, ArrowRightLeft, User, Car, Calendar, CreditCard } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 import { ServiceContainer } from "@/infrastructure/di";
 import { BookingModel } from "@/domain/models";
 import { AddBookingModal } from "./AddBookingModal";
 
 export function FullBookingsTable() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("All");
@@ -32,7 +34,7 @@ export function FullBookingsTable() {
       {/* Table Action Controls Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
         <div className="flex items-center justify-between w-full sm:w-auto">
-          <h3 className="text-base sm:text-xl font-bold text-white tracking-tight">Car Bookings</h3>
+          <h3 className="text-base sm:text-xl font-bold text-white tracking-tight">{t("bookings.title")}</h3>
 
           {/* Mobile View Mode Switcher (Cards / Table) */}
           <div className="flex items-center bg-[#2a2a2a] p-1 rounded-xl border border-[#3a3a3a] sm:hidden">
@@ -42,7 +44,7 @@ export function FullBookingsTable() {
                 viewMode === "cards" ? "bg-[#1464f4] text-white" : "text-slate-400 hover:text-white"
               }`}
             >
-              Cards
+              {t("common.cards")}
             </button>
             <button
               onClick={() => setViewMode("table")}
@@ -50,7 +52,7 @@ export function FullBookingsTable() {
                 viewMode === "table" ? "bg-[#1464f4] text-white" : "text-slate-400 hover:text-white"
               }`}
             >
-              Table
+              {t("common.table")}
             </button>
           </div>
         </div>
@@ -61,7 +63,7 @@ export function FullBookingsTable() {
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search client, car..."
+              placeholder={t("common.search")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-[#2a2a2a] border border-[#3a3a3a] text-white placeholder:text-slate-400 outline-none focus:ring-2 focus:ring-[#38bdf8]"
@@ -75,7 +77,7 @@ export function FullBookingsTable() {
               onChange={(e) => setSelectedType(e.target.value)}
               className="pl-3 pr-7 py-2 text-xs font-semibold rounded-xl bg-[#2a2a2a] border border-[#3a3a3a] text-white outline-none focus:ring-2 focus:ring-[#38bdf8] appearance-none cursor-pointer"
             >
-              <option value="All">Car Type</option>
+              <option value="All">{t("bookings.carType")}: {t("common.all")}</option>
               <option value="SUV">SUV</option>
               <option value="Crossover">Crossover</option>
               <option value="E-Scooter">E-Scooter</option>
@@ -91,7 +93,7 @@ export function FullBookingsTable() {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="pl-3 pr-7 py-2 text-xs font-semibold rounded-xl bg-[#2a2a2a] border border-[#3a3a3a] text-white outline-none focus:ring-2 focus:ring-[#38bdf8] appearance-none cursor-pointer"
             >
-              <option value="All">Status</option>
+              <option value="All">{t("common.status")}: {t("common.all")}</option>
               <option value="Returned">Returned</option>
               <option value="Ongoing">Ongoing</option>
               <option value="Cancelled">Cancelled</option>
@@ -105,7 +107,7 @@ export function FullBookingsTable() {
             className="inline-flex items-center gap-1.5 bg-[#ff3366] hover:bg-[#e02654] text-white font-extrabold text-xs px-3.5 py-2 rounded-xl shadow-md transition-all active:scale-95 cursor-pointer shrink-0"
           >
             <Plus className="w-4 h-4" />
-            <span>Add Booking</span>
+            <span>{t("bookings.add")}</span>
           </button>
         </div>
       </div>
@@ -145,13 +147,13 @@ export function FullBookingsTable() {
               <div className="grid grid-cols-2 gap-2 pt-1 border-t border-[#333333]">
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                    <User className="w-3 h-3" /> Client
+                    <User className="w-3 h-3" /> {t("bookings.client")}
                   </span>
                   <p className="text-xs font-bold text-white truncate">{item.clientName}</p>
                 </div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                    <Car className="w-3 h-3" /> Vehicle
+                    <Car className="w-3 h-3" /> {t("bookings.car")}
                   </span>
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <p className="text-xs font-bold text-white truncate">{item.carModel}</p>
@@ -166,27 +168,27 @@ export function FullBookingsTable() {
               <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#333333] text-[11px]">
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                    <Calendar className="w-3 h-3" /> Rental ({item.planDays})
+                    <Calendar className="w-3 h-3" /> {t("bookings.period")} ({item.planDays})
                   </span>
                   <p className="text-slate-300 text-[11px] font-medium leading-tight">
                     {item.startDate} ➔ {item.endDate}
                   </p>
                   <div className="flex items-center gap-1 pt-1 text-[10px] text-slate-400">
-                    <span>Driver:</span>
+                    <span>{t("bookings.driver")}:</span>
                     {item.driverAssigned ? (
                       <span className="text-sky-400 font-bold flex items-center gap-0.5">
-                        <Check className="w-3 h-3" /> Assigned
+                        <Check className="w-3 h-3" /> {t("bookings.assigned")}
                       </span>
                     ) : (
                       <span className="text-slate-500 flex items-center gap-0.5">
-                        <Minus className="w-3 h-3" /> None
+                        <Minus className="w-3 h-3" /> {t("bookings.none")}
                       </span>
                     )}
                   </div>
                 </div>
                 <div className="space-y-0.5 text-right">
                   <span className="text-[10px] text-slate-400 flex items-center justify-end gap-1">
-                    <CreditCard className="w-3 h-3" /> Amount
+                    <CreditCard className="w-3 h-3" /> {t("bookings.payment")}
                   </span>
                   <p className="text-xs font-black text-white">{item.amount}</p>
                   <span
@@ -209,10 +211,10 @@ export function FullBookingsTable() {
         <div className="sm:hidden flex items-center justify-between pb-2 text-[11px] text-slate-400">
           <span className="flex items-center gap-1">
             <ArrowRightLeft className="w-3 h-3 text-[#38bdf8]" />
-            Vuốt ngang để xem đủ 9 cột
+            {t("common.swipeHint")}
           </span>
           <span className="text-[10px] bg-[#2a2a2a] px-2 py-0.5 rounded text-slate-300">
-            {filteredBookings.length} Bookings
+            {filteredBookings.length} {t("sidebar.bookings")}
           </span>
         </div>
 
@@ -220,15 +222,15 @@ export function FullBookingsTable() {
           <table className="w-full text-left text-xs min-w-[700px] border-collapse bg-[#1f1f1f]">
             <thead>
               <tr className="border-b border-[#333333] bg-[#262626] text-slate-400 font-semibold tracking-wider text-[11px]">
-                <th className="py-3 px-4">Booking ID</th>
-                <th className="py-3 px-3">Booking Date</th>
-                <th className="py-3 px-3">Client Name</th>
-                <th className="py-3 px-3">Car Model</th>
-                <th className="py-3 px-3">Plan</th>
-                <th className="py-3 px-3">Date</th>
-                <th className="py-3 px-3 text-center">Driver</th>
-                <th className="py-3 px-3">Payment</th>
-                <th className="py-3 px-4 text-center">Status</th>
+                <th className="py-3 px-4">{t("bookings.id")}</th>
+                <th className="py-3 px-3">{t("bookings.date")}</th>
+                <th className="py-3 px-3">{t("bookings.client")}</th>
+                <th className="py-3 px-3">{t("bookings.car")}</th>
+                <th className="py-3 px-3">{t("bookings.plan")}</th>
+                <th className="py-3 px-3">{t("bookings.period")}</th>
+                <th className="py-3 px-3 text-center">{t("bookings.driver")}</th>
+                <th className="py-3 px-3">{t("bookings.payment")}</th>
+                <th className="py-3 px-4 text-center">{t("bookings.status")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2a2a2a] font-medium text-slate-200">
@@ -295,7 +297,7 @@ export function FullBookingsTable() {
       {/* Pagination Footer */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-[#333333] text-xs">
         <div className="flex items-center gap-2 text-slate-400">
-          <span>Results per page</span>
+          <span>{t("common.resultsPerPage")}</span>
           <div className="relative">
             <select className="pl-3 pr-7 py-1 text-xs font-semibold rounded-lg bg-[#2a2a2a] border border-[#3a3a3a] text-white outline-none appearance-none cursor-pointer">
               <option value="10">10</option>
@@ -309,7 +311,7 @@ export function FullBookingsTable() {
         {/* Page Buttons */}
         <div className="flex items-center gap-1.5 font-semibold">
           <button className="px-3 py-1.5 rounded-xl border border-[#333333] bg-[#2a2a2a] text-slate-300 hover:bg-[#333333] hover:text-white transition-all text-xs cursor-pointer">
-            &lt; Prev
+            &lt; {t("common.prev")}
           </button>
           <button className="w-8 h-8 rounded-xl bg-[#ff3366] text-white font-extrabold flex items-center justify-center shadow-md text-xs">
             1
@@ -325,7 +327,7 @@ export function FullBookingsTable() {
             18
           </button>
           <button className="px-3 py-1.5 rounded-xl border border-[#333333] bg-[#2a2a2a] text-slate-300 hover:bg-[#333333] hover:text-white transition-all text-xs cursor-pointer">
-            Next &gt;
+            {t("common.next")} &gt;
           </button>
         </div>
       </div>
@@ -335,7 +337,7 @@ export function FullBookingsTable() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSuccess={() => {
-          alert("New VinFast EV booking created successfully!");
+          alert(t("bookings.addSuccess") || "New VinFast EV booking created successfully!");
         }}
       />
     </div>

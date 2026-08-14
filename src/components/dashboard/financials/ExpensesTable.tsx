@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { ArrowUpDown, ArrowRightLeft, Tag, Calendar, DollarSign, Package } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 import { ExpenseItem } from "@/types";
 
 interface ExpensesTableProps {
@@ -15,6 +16,7 @@ export function ExpensesTable({
   onEditExpense,
   onDeleteExpense,
 }: ExpensesTableProps) {
+  const { t, lang } = useLanguage();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
 
@@ -66,7 +68,7 @@ export function ExpensesTable({
     <div className="bg-[#1f1f1f] rounded-2xl border border-[#333333] shadow-sm overflow-hidden p-4 sm:p-0">
       {/* Mobile Switcher header */}
       <div className="flex items-center justify-between pb-3 sm:hidden border-b border-[#333333]">
-        <span className="text-xs font-bold text-white">Expenses ({expenses.length})</span>
+        <span className="text-xs font-bold text-white">{t("financials.expensesList")} ({expenses.length})</span>
         <div className="flex items-center bg-[#2a2a2a] p-1 rounded-xl border border-[#3a3a3a]">
           <button
             onClick={() => setViewMode("cards")}
@@ -74,7 +76,7 @@ export function ExpensesTable({
               viewMode === "cards" ? "bg-[#1464f4] text-white" : "text-slate-400 hover:text-white"
             }`}
           >
-            Cards
+            {t("common.cards")}
           </button>
           <button
             onClick={() => setViewMode("table")}
@@ -82,7 +84,7 @@ export function ExpensesTable({
               viewMode === "table" ? "bg-[#1464f4] text-white" : "text-slate-400 hover:text-white"
             }`}
           >
-            Table
+            {t("common.table")}
           </button>
         </div>
       </div>
@@ -123,7 +125,7 @@ export function ExpensesTable({
                   <span>{expense.category}</span>
                 </div>
                 <span className="text-slate-400 text-[10px] flex items-center gap-1">
-                  <Package className="w-3 h-3" /> Qty: {expense.quantity}
+                  <Package className="w-3 h-3" /> {t("financials.quantity")}: {expense.quantity}
                 </span>
               </div>
             </div>
@@ -131,13 +133,13 @@ export function ExpensesTable({
             <div className="flex items-center justify-between pt-2 border-t border-[#333333] text-xs">
               <div>
                 <span className="text-slate-400 text-[10px] flex items-center gap-1">
-                  <Calendar className="w-3 h-3" /> Date
+                  <Calendar className="w-3 h-3" /> {t("bookings.date")}
                 </span>
                 <p className="text-slate-300 font-medium">{expense.date}</p>
               </div>
               <div className="text-right">
                 <span className="text-slate-400 text-[10px] flex items-center justify-end gap-1">
-                  <DollarSign className="w-3 h-3" /> Amount
+                  <DollarSign className="w-3 h-3" /> {t("financials.amount")}
                 </span>
                 <p className="font-black text-white text-sm">${expense.amount.toLocaleString()}</p>
               </div>
@@ -148,13 +150,13 @@ export function ExpensesTable({
                 onClick={() => onEditExpense(expense)}
                 className="px-3 py-1.5 rounded-lg bg-[#333333] text-white text-xs font-semibold hover:bg-slate-700 transition-colors"
               >
-                Edit
+                {t("common.edit")}
               </button>
               <button
                 onClick={() => onDeleteExpense(expense.id)}
                 className="px-3 py-1.5 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-900/40 text-xs font-semibold hover:bg-rose-900/60 transition-colors"
               >
-                Delete
+                {t("common.delete")}
               </button>
             </div>
           </div>
@@ -167,7 +169,7 @@ export function ExpensesTable({
         <div className="sm:hidden flex items-center justify-between py-2 text-[11px] text-slate-400">
           <span className="flex items-center gap-1">
             <ArrowRightLeft className="w-3 h-3 text-[#38bdf8]" />
-            Vuốt ngang để xem đủ cột
+            {t("common.swipeHint")}
           </span>
         </div>
 
@@ -191,36 +193,36 @@ export function ExpensesTable({
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Item Name</span>
+                    <span>{lang === "vi" ? "Tên khoản chi" : "Item Name"}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Category</span>
+                    <span>{t("financials.category")}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Quantity</span>
+                    <span>{t("financials.quantity")}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Amount</span>
+                    <span>{t("financials.amount")}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Date</span>
+                    <span>{t("bookings.date")}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
-                <th className="py-3.5 px-4 text-center">Status</th>
-                <th className="py-3.5 px-4 text-center">Action</th>
+                <th className="py-3.5 px-4 text-center">{t("common.status")}</th>
+                <th className="py-3.5 px-4 text-center">{t("common.action")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2a2a2a] font-medium text-slate-200">
@@ -281,13 +283,13 @@ export function ExpensesTable({
                           onClick={() => onEditExpense(expense)}
                           className="px-3 py-1 rounded-lg bg-[#2a2a2a] text-white font-bold text-[11px] hover:bg-slate-700 transition-all shadow-sm cursor-pointer"
                         >
-                          Edit
+                          {t("common.edit")}
                         </button>
                         <button
                           onClick={() => onDeleteExpense(expense.id)}
                           className="px-3 py-1 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-900/40 font-bold text-[11px] hover:bg-rose-900/60 transition-all shadow-sm cursor-pointer"
                         >
-                          Delete
+                          {t("common.delete")}
                         </button>
                       </div>
                     </td>

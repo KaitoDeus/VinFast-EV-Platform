@@ -8,7 +8,7 @@ import { useSidebar } from "@/components/dashboard/SidebarContext";
 import { Search, Settings, Bell, Menu, LogOut, User, Shield, ChevronDown } from "lucide-react";
 
 export function TopHeader() {
-  const { lang, setLanguage } = useLanguage();
+  const { lang, setLanguage, t } = useLanguage();
   const { toggleMobileSidebar } = useSidebar();
   const pathname = usePathname();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -31,36 +31,39 @@ export function TopHeader() {
 
   // Dynamic Page Title mapping with responsive short titles on mobile
   const renderPageTitle = () => {
-    if (pathname === "/dashboard/tracking") return "Tracking";
-    if (pathname === "/dashboard/messages") return "Messages";
-    if (pathname === "/dashboard/bookings") return "Bookings";
-    if (pathname === "/dashboard/units") return "Units";
+    if (pathname === "/dashboard/tracking") return t("header.tracking");
+    if (pathname === "/dashboard/messages") return t("header.messages");
+    if (pathname === "/dashboard/bookings") return t("header.bookings");
+    if (pathname === "/dashboard/units") return t("header.units");
     if (pathname.startsWith("/dashboard/units/")) {
       return (
         <>
-          <span className="hidden sm:inline">Unit </span>Details
+          <span className="hidden sm:inline">{lang === "vi" ? "Chi tiết " : "Unit "}</span>
+          {lang === "vi" ? "xe" : "Details"}
         </>
       );
     }
-    if (pathname === "/dashboard/calendar") return "Calendar";
-    if (pathname === "/dashboard/clients") return "Clients";
-    if (pathname === "/dashboard/drivers") return "Drivers";
+    if (pathname === "/dashboard/calendar") return t("header.calendar");
+    if (pathname === "/dashboard/clients") return t("header.clients");
+    if (pathname === "/dashboard/drivers") return t("header.drivers");
     if (pathname.startsWith("/dashboard/financials/payments")) {
       return (
         <>
-          <span className="hidden sm:inline">Financials - </span>Payments
+          <span className="hidden sm:inline">{lang === "vi" ? "Tài chính - " : "Financials - "}</span>
+          {lang === "vi" ? "Khoản thu" : "Payments"}
         </>
       );
     }
     if (pathname.startsWith("/dashboard/financials/expenses")) {
       return (
         <>
-          <span className="hidden sm:inline">Financials - </span>Expenses
+          <span className="hidden sm:inline">{lang === "vi" ? "Tài chính - " : "Financials - "}</span>
+          {lang === "vi" ? "Khoản chi" : "Expenses"}
         </>
       );
     }
-    if (pathname.startsWith("/dashboard/financials")) return "Financials";
-    return "Dashboard";
+    if (pathname.startsWith("/dashboard/financials")) return t("header.financials");
+    return t("header.dashboard");
   };
 
   return (
@@ -88,7 +91,7 @@ export function TopHeader() {
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search..."
+            placeholder={t("header.search")}
             className="pl-9 pr-3 py-1.5 sm:py-2 text-xs sm:text-sm rounded-xl bg-[#2a2a2a] border border-[#3a3a3a] text-white placeholder:text-slate-400 outline-none focus:ring-2 focus:ring-[#38bdf8] w-[140px] sm:w-[180px] lg:w-[240px] transition-all"
           />
         </div>
@@ -114,6 +117,7 @@ export function TopHeader() {
         <button
           onClick={() => setLanguage(lang === "vi" ? "en" : "vi")}
           className="px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl border border-[#333333] bg-[#2a2a2a] text-slate-200 hover:text-white hover:bg-[#333333] transition-colors text-xs font-bold uppercase cursor-pointer shrink-0"
+          title={lang === "vi" ? "Switch to English" : "Chuyển sang Tiếng Việt"}
         >
           {lang}
         </button>
@@ -152,7 +156,7 @@ export function TopHeader() {
                 </div>
                 <div className="flex items-center gap-1 text-[10px] text-emerald-400 font-semibold pt-1">
                   <Shield className="w-3 h-3" />
-                  <span>Super Admin Account</span>
+                  <span>{t("profile.adminRole")}</span>
                 </div>
               </div>
 
@@ -164,7 +168,7 @@ export function TopHeader() {
                   className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#333333] rounded-xl transition-colors"
                 >
                   <User className="w-4 h-4 text-slate-400" />
-                  <span>Dashboard Overview</span>
+                  <span>{t("profile.overview")}</span>
                 </Link>
 
                 <button
@@ -175,7 +179,7 @@ export function TopHeader() {
                   className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#333333] rounded-xl transition-colors cursor-pointer text-left"
                 >
                   <Settings className="w-4 h-4 text-slate-400" />
-                  <span>Cài đặt tài khoản (Settings)</span>
+                  <span>{t("profile.settings")}</span>
                 </button>
 
                 {/* Divider */}
@@ -188,7 +192,7 @@ export function TopHeader() {
                   className="flex items-center gap-2.5 px-3 py-2.5 text-xs font-bold text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 rounded-xl transition-colors"
                 >
                   <LogOut className="w-4 h-4 text-rose-400" />
-                  <span>Đăng xuất (Logout)</span>
+                  <span>{t("profile.logout")}</span>
                 </Link>
               </div>
             </div>

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 import { useSidebar } from "@/components/dashboard/SidebarContext";
 import {
   LayoutGrid,
@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 
 export function Sidebar() {
-  const { theme } = useTheme();
+  const { t } = useLanguage();
   const pathname = usePathname();
   const { isMobileOpen, closeMobileSidebar } = useSidebar();
   const [financialsOpen, setFinancialsOpen] = useState(
@@ -31,23 +31,23 @@ export function Sidebar() {
   );
 
   const navItems = [
-    { name: "Dashboard", icon: LayoutGrid, href: "/dashboard" },
-    { name: "Bookings", icon: CheckSquare, href: "/dashboard/bookings" },
-    { name: "Units", icon: Car, href: "/dashboard/units" },
-    { name: "Calendar", icon: CalendarDays, href: "/dashboard/calendar" },
-    { name: "Clients", icon: UserCircle, href: "/dashboard/clients" },
-    { name: "Drivers", icon: IdCard, href: "/dashboard/drivers" },
+    { name: t("sidebar.dashboard"), icon: LayoutGrid, href: "/dashboard" },
+    { name: t("sidebar.bookings"), icon: CheckSquare, href: "/dashboard/bookings" },
+    { name: t("sidebar.units"), icon: Car, href: "/dashboard/units" },
+    { name: t("sidebar.calendar"), icon: CalendarDays, href: "/dashboard/calendar" },
+    { name: t("sidebar.clients"), icon: UserCircle, href: "/dashboard/clients" },
+    { name: t("sidebar.drivers"), icon: IdCard, href: "/dashboard/drivers" },
     {
-      name: "Financials",
+      name: t("sidebar.financials"),
       icon: PieChart,
       href: "/dashboard/financials/payments",
       subItems: [
-        { name: "Payments", href: "/dashboard/financials/payments" },
-        { name: "Expenses", href: "/dashboard/financials/expenses" },
+        { name: t("sidebar.payments"), href: "/dashboard/financials/payments" },
+        { name: t("sidebar.expenses"), href: "/dashboard/financials/expenses" },
       ],
     },
-    { name: "Tracking", icon: Activity, href: "/dashboard/tracking" },
-    { name: "Messages", icon: MessageCircle, href: "/dashboard/messages", badge: "5" },
+    { name: t("sidebar.tracking"), icon: Activity, href: "/dashboard/tracking" },
+    { name: t("sidebar.messages"), icon: MessageCircle, href: "/dashboard/messages", badge: "5" },
   ];
 
   return (
@@ -208,10 +208,10 @@ export function Sidebar() {
                 <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
               </div>
               <p className="text-[12px] font-medium text-slate-300 leading-snug">
-                Optimize EV fleet operations & satisfaction with VinFast Platform
+                {t("sidebar.promoText")}
               </p>
               <button className="bg-white text-slate-900 font-bold text-xs px-3.5 py-1.5 rounded-lg hover:bg-slate-100 transition-colors shadow-sm cursor-pointer">
-                Update Now
+                {t("sidebar.updateNow")}
               </button>
             </div>
           </div>
@@ -223,7 +223,7 @@ export function Sidebar() {
             className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:bg-rose-950/30 hover:text-rose-400 transition-colors"
           >
             <LogOut className="w-4 h-4 text-slate-400 group-hover:text-rose-400" />
-            <span>Logout</span>
+            <span>{t("sidebar.logout")}</span>
           </Link>
         </div>
       </aside>

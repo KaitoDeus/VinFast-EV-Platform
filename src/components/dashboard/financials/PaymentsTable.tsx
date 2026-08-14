@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { ArrowUpDown, ArrowRightLeft, User, Car, Calendar, DollarSign } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 import { PaymentItem } from "@/types";
 
 interface PaymentsTableProps {
@@ -15,6 +16,7 @@ export function PaymentsTable({
   onEditPayment,
   onDeletePayment,
 }: PaymentsTableProps) {
+  const { t } = useLanguage();
   const [selectedIds, setSelectedIds] = useState<string[]>(["INV-WZ1004"]);
   const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
 
@@ -47,7 +49,7 @@ export function PaymentsTable({
     <div className="bg-[#1f1f1f] rounded-2xl border border-[#333333] shadow-sm overflow-hidden p-4 sm:p-0">
       {/* Mobile Switcher header */}
       <div className="flex items-center justify-between pb-3 sm:hidden border-b border-[#333333]">
-        <span className="text-xs font-bold text-white">Invoices ({payments.length})</span>
+        <span className="text-xs font-bold text-white">{t("financials.invoices")} ({payments.length})</span>
         <div className="flex items-center bg-[#2a2a2a] p-1 rounded-xl border border-[#3a3a3a]">
           <button
             onClick={() => setViewMode("cards")}
@@ -55,7 +57,7 @@ export function PaymentsTable({
               viewMode === "cards" ? "bg-[#1464f4] text-white" : "text-slate-400 hover:text-white"
             }`}
           >
-            Cards
+            {t("common.cards")}
           </button>
           <button
             onClick={() => setViewMode("table")}
@@ -63,7 +65,7 @@ export function PaymentsTable({
               viewMode === "table" ? "bg-[#1464f4] text-white" : "text-slate-400 hover:text-white"
             }`}
           >
-            Table
+            {t("common.table")}
           </button>
         </div>
       </div>
@@ -101,13 +103,13 @@ export function PaymentsTable({
             <div className="grid grid-cols-2 gap-2 text-[11px] pt-1 border-t border-[#333333]">
               <div>
                 <span className="text-slate-400 text-[10px] flex items-center gap-1">
-                  <User className="w-3 h-3" /> Client
+                  <User className="w-3 h-3" /> {t("bookings.client")}
                 </span>
                 <p className="font-bold text-white truncate">{payment.clientName}</p>
               </div>
               <div>
                 <span className="text-slate-400 text-[10px] flex items-center gap-1">
-                  <Car className="w-3 h-3" /> Model
+                  <Car className="w-3 h-3" /> {t("bookings.car")}
                 </span>
                 <p className="font-bold text-white truncate">{payment.carModel}</p>
               </div>
@@ -116,13 +118,13 @@ export function PaymentsTable({
             <div className="flex items-center justify-between pt-2 border-t border-[#333333] text-xs">
               <div>
                 <span className="text-slate-400 text-[10px] flex items-center gap-1">
-                  <Calendar className="w-3 h-3" /> Due Date
+                  <Calendar className="w-3 h-3" /> {t("financials.dueDate")}
                 </span>
                 <p className="text-slate-300 font-medium">{payment.dueDate}</p>
               </div>
               <div className="text-right">
                 <span className="text-slate-400 text-[10px] flex items-center justify-end gap-1">
-                  <DollarSign className="w-3 h-3" /> Amount
+                  <DollarSign className="w-3 h-3" /> {t("financials.amount")}
                 </span>
                 <p className="font-black text-white text-sm">${payment.amount}</p>
               </div>
@@ -133,13 +135,13 @@ export function PaymentsTable({
                 onClick={() => onEditPayment(payment)}
                 className="px-3 py-1.5 rounded-lg bg-[#333333] text-white text-xs font-semibold hover:bg-slate-700 transition-colors"
               >
-                {payment.id === "INV-WZ1004" ? "View" : "Edit"}
+                {payment.id === "INV-WZ1004" ? t("common.view") : t("common.edit")}
               </button>
               <button
                 onClick={() => onDeletePayment(payment.id)}
                 className="px-3 py-1.5 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-900/40 text-xs font-semibold hover:bg-rose-900/60 transition-colors"
               >
-                Delete
+                {t("common.delete")}
               </button>
             </div>
           </div>
@@ -152,7 +154,7 @@ export function PaymentsTable({
         <div className="sm:hidden flex items-center justify-between py-2 text-[11px] text-slate-400">
           <span className="flex items-center gap-1">
             <ArrowRightLeft className="w-3 h-3 text-[#38bdf8]" />
-            Vuốt ngang để xem đủ cột
+            {t("common.swipeHint")}
           </span>
         </div>
 
@@ -176,42 +178,42 @@ export function PaymentsTable({
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Client Name</span>
+                    <span>{t("bookings.client")}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Car Model</span>
+                    <span>{t("bookings.car")}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Rate / Day</span>
+                    <span>{t("financials.ratePerDay")}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Rental Period</span>
+                    <span>{t("bookings.period")}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Amount</span>
+                    <span>{t("financials.amount")}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
                 <th className="py-3.5 px-4">
                   <div className="flex items-center gap-1.5 cursor-pointer">
-                    <span>Due Date</span>
+                    <span>{t("financials.dueDate")}</span>
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
                   </div>
                 </th>
-                <th className="py-3.5 px-4 text-center">Status</th>
-                <th className="py-3.5 px-4 text-center">Action</th>
+                <th className="py-3.5 px-4 text-center">{t("common.status")}</th>
+                <th className="py-3.5 px-4 text-center">{t("common.action")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2a2a2a] font-medium text-slate-200">
@@ -277,13 +279,13 @@ export function PaymentsTable({
                           onClick={() => onEditPayment(payment)}
                           className="px-3 py-1 rounded-lg bg-[#2a2a2a] text-white font-bold text-[11px] hover:bg-slate-700 transition-all shadow-sm cursor-pointer"
                         >
-                          {payment.id === "INV-WZ1004" ? "View" : "Edit"}
+                          {payment.id === "INV-WZ1004" ? t("common.view") : t("common.edit")}
                         </button>
                         <button
                           onClick={() => onDeletePayment(payment.id)}
                           className="px-3 py-1 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-900/40 font-bold text-[11px] hover:bg-rose-900/60 transition-all shadow-sm cursor-pointer"
                         >
-                          Delete
+                          {t("common.delete")}
                         </button>
                       </div>
                     </td>

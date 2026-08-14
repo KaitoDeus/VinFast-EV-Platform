@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import { Search, Filter, Calendar, CreditCard, Car, User, ArrowRightLeft } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 import { ServiceContainer } from "@/infrastructure/di";
 import { BookingModel } from "@/domain/models";
 
 export function BookingsTable() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState<"cards" | "table">("cards"); // Default to friendly cards on mobile
+  const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
 
   const bookingService = ServiceContainer.getInstance().getBookingService();
   const bookings: BookingModel[] = bookingService.searchBookings(searchQuery);
@@ -17,7 +19,7 @@ export function BookingsTable() {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
         <div className="flex items-center justify-between w-full sm:w-auto">
-          <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">Car Bookings</h3>
+          <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">{t("bookings.title")}</h3>
 
           {/* Mobile View Mode Switcher (Cards / Table) */}
           <div className="flex items-center bg-[#2a2a2a] p-1 rounded-xl border border-[#3a3a3a] sm:hidden">
@@ -29,7 +31,7 @@ export function BookingsTable() {
                   : "text-slate-400 hover:text-white"
               }`}
             >
-              Cards
+              {t("common.cards")}
             </button>
             <button
               onClick={() => setViewMode("table")}
@@ -39,7 +41,7 @@ export function BookingsTable() {
                   : "text-slate-400 hover:text-white"
               }`}
             >
-              Table
+              {t("common.table")}
             </button>
           </div>
         </div>
@@ -50,7 +52,7 @@ export function BookingsTable() {
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search client, car..."
+              placeholder={t("common.search")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-[#2a2a2a] border border-[#3a3a3a] text-white placeholder:text-slate-400 outline-none focus:ring-2 focus:ring-[#38bdf8]"
@@ -60,7 +62,7 @@ export function BookingsTable() {
           {/* Filter Button */}
           <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl border border-[#333333] bg-[#2a2a2a] text-slate-200 hover:text-white hover:bg-[#333333] transition-colors shrink-0 cursor-pointer">
             <Filter className="w-3.5 h-3.5" />
-            <span>Filter</span>
+            <span>{t("common.filter")}</span>
           </button>
         </div>
       </div>
@@ -100,13 +102,13 @@ export function BookingsTable() {
               <div className="grid grid-cols-2 gap-2 pt-1 border-t border-[#333333]">
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                    <User className="w-3 h-3" /> Client
+                    <User className="w-3 h-3" /> {t("bookings.client")}
                   </span>
                   <p className="text-xs font-bold text-white truncate">{item.clientName}</p>
                 </div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                    <Car className="w-3 h-3" /> Vehicle
+                    <Car className="w-3 h-3" /> {t("bookings.car")}
                   </span>
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <p className="text-xs font-bold text-white truncate">{item.carModel}</p>
@@ -121,7 +123,7 @@ export function BookingsTable() {
               <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#333333] text-[11px]">
                 <div className="space-y-0.5">
                   <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                    <Calendar className="w-3 h-3" /> Rental Period ({item.planDays})
+                    <Calendar className="w-3 h-3" /> {t("bookings.period")} ({item.planDays})
                   </span>
                   <p className="text-slate-300 text-[11px] font-medium leading-tight">
                     {item.startDate} ➔ {item.endDate}
@@ -129,7 +131,7 @@ export function BookingsTable() {
                 </div>
                 <div className="space-y-0.5 text-right">
                   <span className="text-[10px] text-slate-400 flex items-center justify-end gap-1">
-                    <CreditCard className="w-3 h-3" /> Total
+                    <CreditCard className="w-3 h-3" /> {t("bookings.payment")}
                   </span>
                   <p className="text-xs font-bold text-white">{item.amount}</p>
                   <span
@@ -146,16 +148,16 @@ export function BookingsTable() {
         )}
       </div>
 
-      {/* ─── 2. FULL HORIZONTAL SCROLL TABLE (On Tablet/Desktop OR Mobile if viewMode === "table") ─── */}
+      {/* ─── 2. FULL HORIZONTAL SCROLL TABLE (Desktop & Mobile if viewMode === "table") ─── */}
       <div className={`${viewMode === "table" ? "block" : "hidden sm:block"}`}>
         {/* Swipe hint on mobile */}
         <div className="sm:hidden flex items-center justify-between pb-2 text-[11px] text-slate-400">
           <span className="flex items-center gap-1">
             <ArrowRightLeft className="w-3 h-3 text-[#38bdf8]" />
-            Vuốt ngang để xem đủ 8 cột
+            {t("common.swipeHint")}
           </span>
           <span className="text-[10px] bg-[#2a2a2a] px-2 py-0.5 rounded text-slate-300">
-            {bookings.length} Bookings
+            {bookings.length} {t("sidebar.bookings")}
           </span>
         </div>
 
@@ -163,14 +165,14 @@ export function BookingsTable() {
           <table className="w-full text-left text-xs min-w-[700px] border-collapse bg-[#1f1f1f]">
             <thead>
               <tr className="border-b border-[#333333] bg-[#262626] text-slate-400 font-semibold uppercase tracking-wider text-[11px]">
-                <th className="py-3 px-4">Booking ID</th>
-                <th className="py-3 px-3">Booking Date</th>
-                <th className="py-3 px-3">Client Name</th>
-                <th className="py-3 px-3">Car Model</th>
-                <th className="py-3 px-3">Plan</th>
-                <th className="py-3 px-3">Date</th>
-                <th className="py-3 px-3">Payment</th>
-                <th className="py-3 px-4 text-center">Status</th>
+                <th className="py-3 px-4">{t("bookings.id")}</th>
+                <th className="py-3 px-3">{t("bookings.date")}</th>
+                <th className="py-3 px-3">{t("bookings.client")}</th>
+                <th className="py-3 px-3">{t("bookings.car")}</th>
+                <th className="py-3 px-3">{t("bookings.plan")}</th>
+                <th className="py-3 px-3">{t("bookings.period")}</th>
+                <th className="py-3 px-3">{t("bookings.payment")}</th>
+                <th className="py-3 px-4 text-center">{t("bookings.status")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2a2a2a] font-medium text-slate-200">

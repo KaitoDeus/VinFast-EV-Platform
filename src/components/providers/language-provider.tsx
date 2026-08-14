@@ -13,7 +13,7 @@ interface LanguageContextType {
 
 const translations: Record<Language, Record<string, string>> = {
   vi: {
-    // Header Nav
+    // ─── Header Nav (Landing Page) ───
     "nav.about": "Giới thiệu",
     "nav.features": "Lý do lựa chọn",
     "nav.specs": "Thông số kỹ thuật",
@@ -21,12 +21,12 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.faq": "Câu hỏi thường gặp",
     "nav.preorder": "Đặt trước",
 
-    // Hero Section
+    // ─── Hero Section ───
     "hero.title1": "BỀN ĐẸP",
     "hero.title2": "THÔNG MINH",
     "hero.title3": "SINH THÁI",
 
-    // Features Section
+    // ─── Features Section ───
     "features.title": "Mẫu xe máy điện thông minh đầu tiên",
     "features.subtitle": "Đây là dòng xe được tích hợp nhiều công nghệ hiện đại bên trong thiết kế điệu đà nhưng giá bán lại phù hợp với đại đa số người Việt",
     "features.banner": "LÀ SẢN PHẨM TỰ VINFAST SẢN XUẤT, KHÔNG PHẢI LẮP RÁP",
@@ -35,7 +35,7 @@ const translations: Record<Language, Record<string, string>> = {
     "features.f3": "Kiểm soát bằng smartphone",
     "features.f4": "Màn hình LED, 4,5 inch hiển thị thông tin trực quan",
 
-    // Tech Specs Section
+    // ─── Tech Specs Section ───
     "specs.card1.title": "Di chuyển được khoảng 80 km",
     "specs.card1.desc": "Xe có thể di chuyển được khoảng 80 km sau một lần sạc đầy.",
     "specs.card2.title": "Tốc độ trung bình 30 km/h",
@@ -45,7 +45,7 @@ const translations: Record<Language, Record<string, string>> = {
     "specs.card4.title": 'Klara "bất tử" khi lội nước',
     "specs.card4.desc": "Với tiêu chuẩn IP57, về nguyên lý, động cơ điện của VinFast có thể ngâm nước 0,5m trong 30 phút mà không ảnh hưởng.",
 
-    // Color Selector Section
+    // ─── Color Selector Section ───
     "colors.headline": "6 MÀU SƠN",
     "colors.subtitle": "Phù hợp với mọi lứa tuổi, giới tính",
     "colors.prop1.title": "Kỹ thuật Đức",
@@ -57,7 +57,7 @@ const translations: Record<Language, Record<string, string>> = {
     "colors.prop4.title": "Bản sắc Việt",
     "colors.prop4.desc": "Nội, ngoại thất sang chảnh nhưng vẫn mang đậm bản sắc của Việt Nam.",
 
-    // FAQ Section
+    // ─── FAQ Section ───
     "faq.title": "Mẫu xe máy điện thông minh đầu tiên",
     "faq.q1": "Xe sạc đầy đi được bao lâu?",
     "faq.a1": "Trong điều kiện tiêu chuẩn, VinFast Klara có thể di chuyển khoảng 80 km sau mỗi lần sạc đầy.",
@@ -72,7 +72,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.q6": "Xe cần sạc thường xuyên khi chưa hết điện không?",
     "faq.a6": "Pin Lithium-ion cao cấp không bị hiện tượng chai pin khi sạc nhồi, bạn có thể sạc bất cứ lúc nào thuận tiện.",
 
-    // Contact Section & Colors
+    // ─── Contact Section ───
     "contact.title": "Đặt mua xe ngay hôm nay để nhận những ưu đãi tốt nhất",
     "contact.phone": "Số điện thoại",
     "contact.name": "Họ Tên",
@@ -88,7 +88,7 @@ const translations: Record<Language, Record<string, string>> = {
     "color.white": "Trắng",
     "color.grey": "Xám",
 
-    // Blog Section
+    // ─── Blog Section ───
     "blog.header": "Blog thông tin",
     "blog.viewall": "Xem tất cả",
     "blog.item1.day": "05",
@@ -97,15 +97,124 @@ const translations: Record<Language, Record<string, string>> = {
     "blog.item1.meta": "14 Nov 2024 | VinFast Press",
     "blog.item1.excerpt": "VinFast vừa chính thức công bố giá bán cho các phiên bản xe Klara ra mắt hôm 3/11 của hãng. Theo đó, trong lô hàng đầu tiên đến tay người tiêu dùng, Klara có giá bán hấp dẫn...",
 
-    // Footer
+    // ─── Footer (Landing) ───
     "footer.headline": "VINFAST - WEBSITE CHÍNH THỨC",
     "footer.address": "Số 39A Nguyễn Trãi, Thượng Đình, Thanh Xuân, TP Hà Nội",
     "footer.copyright": "Trang web được tạo bởi © KaitoDeus",
     "footer.lang_vi": "Việt Nam (Tiếng Việt)",
     "footer.lang_en": "International (English)",
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // ─── DASHBOARD I18N DICTIONARY (VIETNAMESE) ───
+    // ═══════════════════════════════════════════════════════════════════════
+
+    // Sidebar
+    "sidebar.dashboard": "Tổng quan",
+    "sidebar.bookings": "Đơn đặt xe",
+    "sidebar.units": "Kho xe điện",
+    "sidebar.calendar": "Lịch trình",
+    "sidebar.clients": "Khách hàng",
+    "sidebar.drivers": "Tài xế",
+    "sidebar.financials": "Tài chính",
+    "sidebar.payments": "Khoản thu (Hóa đơn)",
+    "sidebar.expenses": "Khoản chi",
+    "sidebar.tracking": "Định vị GPS",
+    "sidebar.messages": "Tin nhắn",
+    "sidebar.logout": "Đăng xuất",
+    "sidebar.promoText": "Tối ưu vận hành đội xe điện & khách hàng cùng VinFast Platform",
+    "sidebar.updateNow": "Nâng cấp ngay",
+
+    // TopHeader & Page Titles
+    "header.search": "Tìm kiếm...",
+    "header.dashboard": "Tổng quan",
+    "header.tracking": "Định vị GPS",
+    "header.messages": "Tin nhắn",
+    "header.bookings": "Đơn đặt xe",
+    "header.units": "Kho xe điện",
+    "header.unitDetails": "Chi tiết xe",
+    "header.calendar": "Lịch trình",
+    "header.clients": "Khách hàng",
+    "header.drivers": "Tài xế",
+    "header.payments": "Khoản thu & Hóa đơn",
+    "header.expenses": "Khoản chi & Chi phí",
+    "header.financials": "Tài chính",
+    "profile.adminRole": "Tài khoản Super Admin",
+    "profile.overview": "Tổng quan Dashboard",
+    "profile.settings": "Cài đặt tài khoản",
+    "profile.logout": "Đăng xuất (Logout)",
+
+    // Common Actions
+    "common.cards": "Thẻ",
+    "common.table": "Bảng",
+    "common.filter": "Bộ lọc",
+    "common.search": "Tìm kiếm...",
+    "common.all": "Tất cả",
+    "common.status": "Trạng thái",
+    "common.action": "Thao tác",
+    "common.edit": "Sửa",
+    "common.view": "Xem",
+    "common.delete": "Xóa",
+    "common.prev": "Trước",
+    "common.next": "Sau",
+    "common.resultsPerPage": "Hiển thị mỗi trang",
+    "common.swipeHint": "Vuốt ngang để xem đủ cột",
+
+    // Metric Cards (Overview)
+    "metrics.revenue": "Tổng doanh thu",
+    "metrics.bookings": "Đơn đặt mới",
+    "metrics.rented": "Xe đang cho thuê",
+    "metrics.available": "Xe sẵn sàng",
+    "metrics.fromLastWeek": "so với tuần trước",
+    "metrics.units": "Xe",
+
+    // Bookings Module
+    "bookings.title": "Đơn Đặt Xe",
+    "bookings.id": "Mã đơn",
+    "bookings.date": "Ngày đặt",
+    "bookings.client": "Khách hàng",
+    "bookings.car": "Dòng xe",
+    "bookings.plan": "Gói thuê",
+    "bookings.period": "Thời gian thuê",
+    "bookings.driver": "Tài xế",
+    "bookings.payment": "Thanh toán",
+    "bookings.status": "Trạng thái",
+    "bookings.add": "Thêm đơn đặt",
+    "bookings.carType": "Loại xe",
+    "bookings.assigned": "Đã có",
+    "bookings.none": "Không",
+
+    // Financials Module
+    "financials.invoices": "Danh sách hóa đơn",
+    "financials.expensesList": "Danh mục chi phí",
+    "financials.createInvoice": "Tạo hóa đơn",
+    "financials.ratePerDay": "Giá / Ngày",
+    "financials.dueDate": "Hạn thanh toán",
+    "financials.amount": "Số tiền",
+    "financials.category": "Danh mục",
+    "financials.quantity": "Số lượng",
+    "financials.balance": "Số dư hiện tại",
+    "financials.income": "Tổng thu nhập",
+    "financials.expenses": "Tổng chi phí",
+
+    // Tracking Module
+    "tracking.searchPlaceholder": "Tìm xe, biển số, khách hàng...",
+    "tracking.battery": "Dung lượng pin",
+    "tracking.speed": "Tốc độ",
+    "tracking.range": "Quãng đường còn lại",
+    "tracking.temp": "Nhiệt độ động cơ",
+    "tracking.addVehicle": "Thêm xe theo dõi",
+
+    // Messages Module
+    "messages.searchPlaceholder": "Tìm kiếm cuộc trò chuyện...",
+    "messages.online": "Trực tuyến",
+    "messages.offline": "Ngoại tuyến",
+    "messages.typePlaceholder": "Nhập nội dung tin nhắn...",
+    "messages.send": "Gửi tin nhắn",
+    "messages.today": "Hôm nay",
+    "messages.yesterday": "Hôm qua",
   },
   en: {
-    // Header Nav
+    // ─── Header Nav (Landing Page) ───
     "nav.about": "About Us",
     "nav.features": "Why Choose",
     "nav.specs": "Tech Specs",
@@ -113,12 +222,12 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.faq": "FAQ",
     "nav.preorder": "Pre-Order",
 
-    // Hero Section
+    // ─── Hero Section ───
     "hero.title1": "DURABLE",
     "hero.title2": "SMART",
     "hero.title3": "ECO EV",
 
-    // Features Section
+    // ─── Features Section ───
     "features.title": "The First Smart Electric Scooter Platform",
     "features.subtitle": "Integrated with cutting-edge smart technology inside an elegant design tailored for global eco-friendly mobility.",
     "features.banner": "MANUFACTURED IN-HOUSE BY VINFAST, NOT ASSEMBLED",
@@ -127,7 +236,7 @@ const translations: Record<Language, Record<string, string>> = {
     "features.f3": "Smartphone App Remote Control & Diagnostics",
     "features.f4": "4.5-inch intuitive HD LED digital display dashboard",
 
-    // Tech Specs Section
+    // ─── Tech Specs Section ───
     "specs.card1.title": "Range Up to 80 km Per Charge",
     "specs.card1.desc": "Provides a range of up to 80 km on a single full battery charge.",
     "specs.card2.title": "Average Speed 30 km/h",
@@ -137,7 +246,7 @@ const translations: Record<Language, Record<string, string>> = {
     "specs.card4.title": "IP57 Waterproof Flood Protection",
     "specs.card4.desc": "Built to IP57 waterproof standards, withstanding 0.5m water submersion for 30 minutes seamlessly.",
 
-    // Color Selector Section
+    // ─── Color Selector Section ───
     "colors.headline": "6 EXTERIOR COLORS",
     "colors.subtitle": "Tailored for all ages, lifestyles and preferences",
     "colors.prop1.title": "German Engineering",
@@ -149,7 +258,7 @@ const translations: Record<Language, Record<string, string>> = {
     "colors.prop4.title": "Vietnamese Heritage",
     "colors.prop4.desc": "Sleek contemporary aesthetics fused with rich Vietnamese heritage.",
 
-    // FAQ Section
+    // ─── FAQ Section ───
     "faq.title": "Frequently Asked Questions",
     "faq.q1": "How far can the vehicle travel on a full charge?",
     "faq.a1": "Under standard driving conditions, VinFast Klara can travel approximately 80 km on a single full charge.",
@@ -164,7 +273,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.q6": "Does the battery require frequent charging before running out?",
     "faq.a6": "Advanced Lithium-ion cell chemistry prevents memory degradation, allowing convenient charging at any battery level.",
 
-    // Contact Section & Colors
+    // ─── Contact Section ───
     "contact.title": "Pre-order your VinFast EV today for exclusive launch offers",
     "contact.phone": "Phone Number",
     "contact.name": "Full Name",
@@ -180,7 +289,7 @@ const translations: Record<Language, Record<string, string>> = {
     "color.white": "White",
     "color.grey": "Grey",
 
-    // Blog Section
+    // ─── Blog Section ───
     "blog.header": "Latest News & Blog",
     "blog.viewall": "View All",
     "blog.item1.day": "05",
@@ -189,12 +298,121 @@ const translations: Record<Language, Record<string, string>> = {
     "blog.item1.meta": "14 Nov 2024 | VinFast Press",
     "blog.item1.excerpt": "VinFast officially announces the pricing and launch specifications for Klara smart electric scooter models, delivering eco-friendly mobility and connected features...",
 
-    // Footer
+    // ─── Footer (Landing) ───
     "footer.headline": "VINFAST - OFFICIAL WEBSITE",
     "footer.address": "39A Nguyen Trai, Thuong Dinh, Thanh Xuan, Hanoi, Vietnam",
     "footer.copyright": "Website created by © KaitoDeus",
     "footer.lang_vi": "Vietnam (Vietnamese)",
     "footer.lang_en": "International (English)",
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // ─── DASHBOARD I18N DICTIONARY (ENGLISH) ───
+    // ═══════════════════════════════════════════════════════════════════════
+
+    // Sidebar
+    "sidebar.dashboard": "Dashboard",
+    "sidebar.bookings": "Bookings",
+    "sidebar.units": "Units",
+    "sidebar.calendar": "Calendar",
+    "sidebar.clients": "Clients",
+    "sidebar.drivers": "Drivers",
+    "sidebar.financials": "Financials",
+    "sidebar.payments": "Payments",
+    "sidebar.expenses": "Expenses",
+    "sidebar.tracking": "Tracking",
+    "sidebar.messages": "Messages",
+    "sidebar.logout": "Logout",
+    "sidebar.promoText": "Optimize EV fleet operations & satisfaction with VinFast Platform",
+    "sidebar.updateNow": "Update Now",
+
+    // TopHeader & Page Titles
+    "header.search": "Search...",
+    "header.dashboard": "Dashboard",
+    "header.tracking": "Tracking",
+    "header.messages": "Messages",
+    "header.bookings": "Bookings",
+    "header.units": "Units",
+    "header.unitDetails": "Unit Details",
+    "header.calendar": "Calendar",
+    "header.clients": "Clients",
+    "header.drivers": "Drivers",
+    "header.payments": "Financials - Payments",
+    "header.expenses": "Financials - Expenses",
+    "header.financials": "Financials",
+    "profile.adminRole": "Super Admin Account",
+    "profile.overview": "Dashboard Overview",
+    "profile.settings": "Account Settings",
+    "profile.logout": "Logout",
+
+    // Common Actions
+    "common.cards": "Cards",
+    "common.table": "Table",
+    "common.filter": "Filter",
+    "common.search": "Search...",
+    "common.all": "All",
+    "common.status": "Status",
+    "common.action": "Action",
+    "common.edit": "Edit",
+    "common.view": "View",
+    "common.delete": "Delete",
+    "common.prev": "Prev",
+    "common.next": "Next",
+    "common.resultsPerPage": "Results per page",
+    "common.swipeHint": "Swipe horizontally to see all columns",
+
+    // Metric Cards (Overview)
+    "metrics.revenue": "Total Revenue",
+    "metrics.bookings": "New Bookings",
+    "metrics.rented": "Rented Cars",
+    "metrics.available": "Available Cars",
+    "metrics.fromLastWeek": "from last week",
+    "metrics.units": "Unit",
+
+    // Bookings Module
+    "bookings.title": "Car Bookings",
+    "bookings.id": "Booking ID",
+    "bookings.date": "Booking Date",
+    "bookings.client": "Client Name",
+    "bookings.car": "Car Model",
+    "bookings.plan": "Plan",
+    "bookings.period": "Rental Period",
+    "bookings.driver": "Driver",
+    "bookings.payment": "Payment",
+    "bookings.status": "Status",
+    "bookings.add": "Add Booking",
+    "bookings.carType": "Car Type",
+    "bookings.assigned": "Assigned",
+    "bookings.none": "None",
+
+    // Financials Module
+    "financials.invoices": "Invoices",
+    "financials.expensesList": "Expenses",
+    "financials.createInvoice": "Create Invoice",
+    "financials.ratePerDay": "Rate / Day",
+    "financials.dueDate": "Due Date",
+    "financials.amount": "Amount",
+    "financials.category": "Category",
+    "financials.quantity": "Quantity",
+    "financials.balance": "Total Balance",
+    "financials.income": "Total Income",
+    "financials.expenses": "Total Expenses",
+
+    // Tracking Module
+    "tracking.searchPlaceholder": "Search vehicle, plate, client...",
+    "tracking.battery": "Battery Capacity",
+    "tracking.speed": "Speed",
+    "tracking.range": "Remaining Range",
+    "tracking.temp": "Motor Temperature",
+    "tracking.addVehicle": "Add to Tracking",
+
+    // Messages Module
+    "messages.searchPlaceholder": "Search conversations...",
+    "messages.online": "Online",
+    "messages.offline": "Offline",
+    "messages.typePlaceholder": "Type a message...",
+    "messages.send": "Send Message",
+    "messages.today": "Today",
+    "messages.yesterday": "Yesterday",
   },
 };
 

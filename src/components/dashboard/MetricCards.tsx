@@ -2,44 +2,47 @@
 
 import React from "react";
 import { CircleDollarSign, Calendar, Car, ShieldCheck } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 
 export function MetricCards() {
+  const { t } = useLanguage();
+
   const cards = [
     {
-      title: "Total Revenue",
+      title: t("metrics.revenue"),
       value: "$8,450",
-      subtext: "from last week",
+      subtext: t("metrics.fromLastWeek"),
       trend: "+2.85%",
       isPositive: true,
       icon: CircleDollarSign,
-      iconBg: "bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-slate-800 dark:text-emerald-400 dark:border-slate-700",
+      iconBg: "bg-emerald-950/60 text-emerald-400 border border-emerald-800/40",
     },
     {
-      title: "New Bookings",
+      title: t("metrics.bookings"),
       value: "386",
-      subtext: "from last week",
+      subtext: t("metrics.fromLastWeek"),
       trend: "+1.73%",
       isPositive: true,
       icon: Calendar,
-      iconBg: "bg-sky-50 text-sky-600 border border-sky-100 dark:bg-slate-800 dark:text-sky-400 dark:border-slate-700",
+      iconBg: "bg-sky-950/60 text-sky-400 border border-sky-800/40",
     },
     {
-      title: "Rented Cars",
-      value: "214 Unit",
-      subtext: "from last week",
+      title: t("metrics.rented"),
+      value: `214 ${t("metrics.units")}`,
+      subtext: t("metrics.fromLastWeek"),
       trend: "-2.85%",
       isPositive: false,
       icon: Car,
-      iconBg: "bg-rose-50 text-rose-600 border border-rose-100 dark:bg-slate-800 dark:text-rose-400 dark:border-slate-700",
+      iconBg: "bg-rose-950/60 text-rose-400 border border-rose-800/40",
     },
     {
-      title: "Available Cars",
-      value: "89 Unit",
-      subtext: "from last week",
+      title: t("metrics.available"),
+      value: `89 ${t("metrics.units")}`,
+      subtext: t("metrics.fromLastWeek"),
       trend: "+3.45%",
       isPositive: true,
       icon: ShieldCheck,
-      iconBg: "bg-indigo-50 text-indigo-600 border border-indigo-100 dark:bg-slate-800 dark:text-indigo-400 dark:border-slate-700",
+      iconBg: "bg-indigo-950/60 text-indigo-400 border border-indigo-800/40",
     },
   ];
 
@@ -48,15 +51,15 @@ export function MetricCards() {
       {cards.map((card, index) => (
         <div
           key={index}
-          className="theme-card p-5 rounded-2xl border shadow-sm flex items-center justify-between transition-all hover:shadow-md"
+          className="bg-[#1f1f1f] p-5 rounded-2xl border border-[#333333] shadow-sm flex items-center justify-between transition-all hover:border-[#444444]"
         >
           <div className="flex items-center gap-4">
             <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${card.iconBg}`}>
               <card.icon className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-xs theme-muted font-medium">{card.title}</p>
-              <h3 className="text-2xl font-bold theme-text tracking-tight">{card.value}</h3>
+              <p className="text-xs text-slate-400 font-medium">{card.title}</p>
+              <h3 className="text-2xl font-bold text-white tracking-tight">{card.value}</h3>
             </div>
           </div>
 
@@ -64,13 +67,13 @@ export function MetricCards() {
             <span
               className={`inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-md ${
                 card.isPositive
-                  ? "bg-cyan-100 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-400"
-                  : "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400"
+                  ? "bg-cyan-950/60 text-cyan-400 border border-cyan-800/40"
+                  : "bg-rose-950/60 text-rose-400 border border-rose-800/40"
               }`}
             >
               {card.isPositive ? "↑" : "↓"} {card.trend}
             </span>
-            <p className="text-[11px] theme-muted mt-1">{card.subtext}</p>
+            <p className="text-[11px] text-slate-400 mt-1">{card.subtext}</p>
           </div>
         </div>
       ))}
