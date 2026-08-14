@@ -1,4 +1,5 @@
 export * from "./Sidebar";
+export * from "./SidebarContext";
 export * from "./TopHeader";
 export * from "./MetricCards";
 export * from "./EarningsChart";

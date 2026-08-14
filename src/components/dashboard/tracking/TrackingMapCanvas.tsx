@@ -7,7 +7,7 @@ export function TrackingMapCanvas() {
     "https://www.openstreetmap.org/export/embed.html?bbox=-118.2650%2C34.0380%2C-118.2350%2C34.0580&layer=mapnik&marker=34.0480%2C-118.2500";
 
   return (
-    <div className="relative w-full h-[480px] rounded-2xl overflow-hidden border border-[#333333] bg-[#1f1f1f]">
+    <div className="relative w-full h-[320px] sm:h-[400px] lg:h-[480px] rounded-2xl overflow-hidden border border-[#333333] bg-[#1f1f1f]">
       {/* ─── Real OpenStreetMap with Dark Mode CSS Filter ─── */}
       <iframe
         src={embedUrl}

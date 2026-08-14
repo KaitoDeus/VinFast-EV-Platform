@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { LanguageProvider } from "@/components/providers";
-import { Sidebar, TopHeader, DashboardFooter } from "@/components/dashboard";
+import { SidebarProvider, Sidebar, TopHeader, DashboardFooter } from "@/components/dashboard";
 
 export default function DashboardLayout({
   children,
@@ -17,22 +17,24 @@ export default function DashboardLayout({
 
   return (
     <LanguageProvider>
-      <div className="dark min-h-screen bg-[#1f1f1f] text-white flex font-sans transition-colors duration-300 selection:bg-primary selection:text-white">
-        {/* Left Navigation Sidebar */}
-        <Sidebar />
+      <SidebarProvider>
+        <div className="dark min-h-screen bg-[#1f1f1f] text-white flex font-sans transition-colors duration-300 selection:bg-primary selection:text-white relative overflow-x-hidden">
+          {/* Left Navigation Sidebar (Desktop fixed & Mobile drawer) */}
+          <Sidebar />
 
-        {/* Main Dashboard Layout Content */}
-        <div className="flex-1 flex flex-col min-w-0 min-h-screen bg-[#1f1f1f]">
-          {/* Top Bar Header */}
-          <TopHeader />
+          {/* Main Dashboard Layout Content */}
+          <div className="flex-1 flex flex-col min-w-0 min-h-screen bg-[#1f1f1f]">
+            {/* Top Bar Header with Hamburger toggle on mobile */}
+            <TopHeader />
 
-          {/* Main Dynamic Content Area */}
-          <main className="flex-1 p-6 lg:p-8 space-y-6 overflow-y-auto flex flex-col justify-between bg-[#1f1f1f]">
-            <div className="space-y-6">{children}</div>
-            <DashboardFooter />
-          </main>
+            {/* Main Dynamic Content Area */}
+            <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 overflow-y-auto flex flex-col justify-between bg-[#1f1f1f]">
+              <div className="space-y-6">{children}</div>
+              <DashboardFooter />
+            </main>
+          </div>
         </div>
-      </div>
+      </SidebarProvider>
     </LanguageProvider>
   );
 }

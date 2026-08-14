@@ -14,6 +14,7 @@ export default function MessagesPage() {
   const [threads, setThreads] = useState<ConversationThread[]>(MOCK_MESSAGE_THREADS);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedThreadId, setSelectedThreadId] = useState("MSG-003");
+  const [showMobileChat, setShowMobileChat] = useState(false);
 
   const filteredThreads = threads.filter((t) =>
     t.clientName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -23,6 +24,11 @@ export default function MessagesPage() {
     filteredThreads.find((t) => t.id === selectedThreadId) ||
     threads.find((t) => t.id === "MSG-003") ||
     threads[0];
+
+  const handleSelectThread = (thread: ConversationThread) => {
+    setSelectedThreadId(thread.id);
+    setShowMobileChat(true);
+  };
 
   const handleSendMessage = (text: string) => {
     if (!selectedThread) return;
@@ -50,24 +56,35 @@ export default function MessagesPage() {
 
   return (
     <div className="space-y-6">
-      {/* Main 2-Column Chat Layout matching Wheelzie mockup */}
+      {/* Main 2-Column Chat Layout matching Wheelzie mockup with Mobile Responsive toggling */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Conversations Sidebar (~4 cols) */}
-        <div className="lg:col-span-4">
+        {/* Left Conversations Sidebar (~4 cols) - Hidden on mobile when chat is active */}
+        <div
+          className={`lg:col-span-4 ${
+            showMobileChat ? "hidden lg:block" : "block"
+          }`}
+        >
           <ChatSidebarList
             threads={filteredThreads}
             selectedThreadId={selectedThread?.id || "MSG-003"}
-            onSelectThread={(t) => setSelectedThreadId(t.id)}
+            onSelectThread={handleSelectThread}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
           />
         </div>
 
-        {/* Right Active Chat Window Card (~8 cols) seamlessly matching dashboard background #1f1f1f */}
-        <div className="lg:col-span-8 bg-[#1f1f1f] rounded-2xl border border-[#333333] shadow-xs flex flex-col h-[700px] justify-between overflow-hidden">
+        {/* Right Active Chat Window Card (~8 cols) - Full width on mobile when active */}
+        <div
+          className={`lg:col-span-8 bg-[#1f1f1f] rounded-2xl border border-[#333333] shadow-xs flex flex-col h-[640px] sm:h-[700px] justify-between overflow-hidden ${
+            showMobileChat ? "block" : "hidden lg:flex"
+          }`}
+        >
           {selectedThread ? (
             <>
-              <ChatWindowHeader thread={selectedThread} />
+              <ChatWindowHeader
+                thread={selectedThread}
+                onBack={() => setShowMobileChat(false)}
+              />
               <ChatMessagesList thread={selectedThread} />
               <ChatInputBar onSendMessage={handleSendMessage} />
             </>

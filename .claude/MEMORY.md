@@ -23,6 +23,7 @@ timeline
     Phase 4 : Tái cấu trúc Lean Next.js : Xoá OOP/DDD boilerplate : src/types/ & src/data/ : Tối ưu hiệu năng Turbopack
     Phase 5 : Khóa Dark Mode #1f1f1f cho Dashboard : Xoá Light mode trong Dashboard : Giữ theme switcher tại Landing Page : Đồng bộ màu khung Chat
     Phase 6 : Thiết lập Hệ thống AI Prompting : .claude/ & Skills chuyên biệt : .cursorrules & Copilot Instructions : PROJECT MEMORY
+    Phase 7 : Tự động hóa Responsive Mobile : Drawer Sidebar & Hamburger Header : Chat Master-Detail Mobile : Bảng dữ liệu chống tràn ngang min-w
 ```
 
 ### Chi tiết các giai đoạn:

@@ -66,7 +66,7 @@ export function ExpensesTable({
   return (
     <div className="theme-card rounded-2xl border shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full text-left text-xs border-collapse">
+        <table className="w-full text-left text-xs border-collapse min-w-[700px]">
           {/* Header Row (Pale Ice Blue & Pure Black Extra-Bold Text in Light Mode) */}
           <thead>
             <tr
