@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { Phone, Video, Sidebar, MoreHorizontal, ArrowLeft } from "lucide-react";
 import { ConversationThread } from "@/types";
+import { useLanguage } from "@/components/language-provider";
 
 interface ChatWindowHeaderProps {
   thread: ConversationThread;
@@ -11,6 +12,8 @@ interface ChatWindowHeaderProps {
 }
 
 export function ChatWindowHeader({ thread, onBack }: ChatWindowHeaderProps) {
+  const { t } = useLanguage();
+
   return (
     <div className="flex items-center justify-between p-3.5 sm:p-4 border-b border-[#333333] bg-[#1f1f1f]">
       {/* Client Profile Info & Mobile Back Button */}
@@ -43,7 +46,7 @@ export function ChatWindowHeader({ thread, onBack }: ChatWindowHeaderProps) {
             {thread.clientName}
           </h4>
           <span className="text-[10px] sm:text-[11px] font-normal text-slate-400 block leading-none">
-            {thread.isOnline ? "Online" : "Offline"}
+            {thread.isOnline ? t("messages.online") : t("messages.offline")}
           </span>
         </div>
       </div>

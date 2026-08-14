@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Search, Plus, ChevronDown } from "lucide-react";
-import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 
 interface DriversHeaderControlsProps {
   searchQuery: string;
@@ -19,7 +19,7 @@ export function DriversHeaderControls({
   onStatusFilterChange,
   onAddDriverClick,
 }: DriversHeaderControlsProps) {
-  const { theme } = useTheme();
+  const { t } = useLanguage();
 
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -29,10 +29,10 @@ export function DriversHeaderControls({
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search for driver"
+            placeholder={t("drivers.searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl contact-input border border-slate-200 dark:border-slate-800 outline-none focus:ring-2 focus:ring-[#00a8ff]"
+            className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl bg-[#2a2a2a] border border-[#3a3a3a] text-white placeholder:text-slate-400 outline-none focus:ring-2 focus:ring-[#38bdf8]"
           />
         </div>
 
@@ -41,29 +41,24 @@ export function DriversHeaderControls({
           <select
             value={statusFilter}
             onChange={(e) => onStatusFilterChange(e.target.value)}
-            style={{
-              backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-              color: theme === "dark" ? "#ffffff" : "#0f172a",
-              borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-            }}
-            className="pl-3.5 pr-8 py-2.5 text-xs font-bold rounded-xl border outline-none appearance-none cursor-pointer shadow-2xs"
+            className="pl-3.5 pr-8 py-2.5 text-xs font-bold rounded-xl border border-[#3a3a3a] bg-[#2a2a2a] text-white outline-none appearance-none cursor-pointer shadow-2xs"
           >
-            <option value="">Status: All</option>
+            <option value="">{t("common.status")}: {t("common.all")}</option>
             <option value="On Duty">On Duty</option>
             <option value="Sick Leave">Sick Leave</option>
             <option value="Half-Day Leave">Half-Day Leave</option>
           </select>
-          <ChevronDown className="w-3.5 h-3.5 text-[#00a8ff] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <ChevronDown className="w-3.5 h-3.5 text-[#38bdf8] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
         </div>
       </div>
 
       {/* Add Driver Red CTA Button */}
       <button
         onClick={onAddDriverClick}
-        className="inline-flex items-center gap-1.5 bg-[#ff3366] hover:bg-[#e02654] text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-md transition-all active:scale-95 shrink-0"
+        className="inline-flex items-center gap-1.5 bg-[#ff3366] hover:bg-[#e02654] text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-md transition-all active:scale-95 shrink-0 cursor-pointer"
       >
         <Plus className="w-4 h-4" />
-        <span>Add Driver</span>
+        <span>{t("drivers.addDriver")}</span>
       </button>
     </div>
   );

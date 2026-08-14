@@ -147,6 +147,8 @@ const translations: Record<Language, Record<string, string>> = {
     // Common Actions
     "common.cards": "Thẻ",
     "common.table": "Bảng",
+    "common.grid": "Lưới",
+    "common.list": "Danh sách",
     "common.filter": "Bộ lọc",
     "common.search": "Tìm kiếm...",
     "common.all": "Tất cả",
@@ -155,11 +157,22 @@ const translations: Record<Language, Record<string, string>> = {
     "common.edit": "Sửa",
     "common.view": "Xem",
     "common.delete": "Xóa",
+    "common.select": "Chọn xe",
     "common.prev": "Trước",
     "common.next": "Sau",
     "common.resultsPerPage": "Hiển thị mỗi trang",
     "common.swipeHint": "Vuốt ngang để xem đủ cột",
     "common.check": "Kiểm tra",
+    "common.price": "Giá thuê",
+    "common.perDay": "/ngày",
+    "common.seats": "chỗ",
+    "common.available": "Sẵn sàng",
+    "common.automatic": "Tự động",
+    "common.transmission": "Hộp số",
+    "common.capacity": "Sức chứa",
+    "common.today": "Hôm nay",
+    "common.pickup": "Nhận xe",
+    "common.return": "Trả xe",
 
     // Overview Charts & Widgets
     "overview.earningsSummary": "Thống kê doanh thu",
@@ -188,6 +201,14 @@ const translations: Record<Language, Record<string, string>> = {
     "metrics.fromLastWeek": "so với tuần trước",
     "metrics.units": "Xe",
 
+    // Bookings Page KPI Cards & Diverging Chart
+    "bookings.upcoming": "Đơn sắp tới",
+    "bookings.pending": "Đơn chờ xử lý",
+    "bookings.canceled": "Đơn đã hủy",
+    "bookings.completed": "Đơn hoàn thành",
+    "bookings.done": "Đã xong",
+    "bookings.doneBookings": "Đơn hoàn thành",
+
     // Bookings Module
     "bookings.title": "Đơn Đặt Xe",
     "bookings.id": "Mã đơn",
@@ -204,6 +225,40 @@ const translations: Record<Language, Record<string, string>> = {
     "bookings.assigned": "Đã có",
     "bookings.none": "Không",
 
+    // Units Module
+    "units.search": "Tìm kiếm tên xe, loại xe...",
+    "units.addUnit": "Thêm Xe Mới",
+    "units.allTypes": "Loại xe: Tất cả",
+    "units.availableCount": "Sẵn sàng",
+    "units.specs": "Thông số kỹ thuật",
+    "units.range": "Quãng đường",
+    "units.battery": "Dung lượng pin",
+    "units.licensePlate": "Biển số",
+
+    // Calendar Module
+    "calendar.scheduleDetail": "Chi tiết lịch trình",
+    "calendar.agenda": "Nội dung",
+    "calendar.clientInfo": "THÔNG TIN KHÁCH HÀNG",
+    "calendar.carInfo": "THÔNG TIN XE",
+    "calendar.notes": "Ghi chú",
+    "calendar.startDate": "Ngày bắt đầu",
+    "calendar.endDate": "Ngày kết thúc",
+
+    // Clients Module
+    "clients.addClient": "Thêm Khách Hàng",
+    "clients.searchPlaceholder": "Tìm tên khách, email, sđt...",
+    "clients.totalBookings": "Tổng số chuyến",
+    "clients.totalSpent": "Tổng chi tiêu",
+
+    // Drivers Module
+    "drivers.addDriver": "Thêm Tài Xế",
+    "drivers.searchPlaceholder": "Tìm tên tài xế, sđt...",
+    "drivers.experience": "Kinh nghiệm",
+    "drivers.rating": "Đánh giá",
+    "drivers.assignedCar": "Xe được giao",
+    "drivers.licenseNumber": "Số GPLX",
+    "drivers.driverDetails": "Chi tiết tài xế",
+
     // Financials Module
     "financials.invoices": "Danh sách hóa đơn",
     "financials.expensesList": "Danh mục chi phí",
@@ -218,6 +273,8 @@ const translations: Record<Language, Record<string, string>> = {
     "financials.expenses": "Tổng chi phí",
     "financials.searchInvoice": "Tìm hóa đơn, khách hàng...",
     "financials.searchExpense": "Tìm kiếm khoản chi...",
+    "financials.cashflow": "Dòng tiền thu chi",
+    "financials.expenseBreakdown": "Phân bổ chi phí",
 
     // Tracking Module
     "tracking.searchPlaceholder": "Tìm xe, biển số, khách hàng...",
@@ -378,6 +435,8 @@ const translations: Record<Language, Record<string, string>> = {
     // Common Actions
     "common.cards": "Cards",
     "common.table": "Table",
+    "common.grid": "Grid",
+    "common.list": "List",
     "common.filter": "Filter",
     "common.search": "Search...",
     "common.all": "All",
@@ -386,11 +445,22 @@ const translations: Record<Language, Record<string, string>> = {
     "common.edit": "Edit",
     "common.view": "View",
     "common.delete": "Delete",
+    "common.select": "Select",
     "common.prev": "Prev",
     "common.next": "Next",
     "common.resultsPerPage": "Results per page",
     "common.swipeHint": "Swipe horizontally to see all columns",
     "common.check": "Check",
+    "common.price": "Price",
+    "common.perDay": "/days",
+    "common.seats": "seats",
+    "common.available": "Available",
+    "common.automatic": "Automatic",
+    "common.transmission": "Transmission",
+    "common.capacity": "Capacity",
+    "common.today": "Today",
+    "common.pickup": "Pickup",
+    "common.return": "Return",
 
     // Overview Charts & Widgets
     "overview.earningsSummary": "Earnings Summary",
@@ -419,6 +489,14 @@ const translations: Record<Language, Record<string, string>> = {
     "metrics.fromLastWeek": "from last week",
     "metrics.units": "Unit",
 
+    // Bookings Page KPI Cards & Diverging Chart
+    "bookings.upcoming": "Upcoming Bookings",
+    "bookings.pending": "Pending Bookings",
+    "bookings.canceled": "Canceled Bookings",
+    "bookings.completed": "Completed Bookings",
+    "bookings.done": "Done",
+    "bookings.doneBookings": "Done Bookings",
+
     // Bookings Module
     "bookings.title": "Car Bookings",
     "bookings.id": "Booking ID",
@@ -435,6 +513,40 @@ const translations: Record<Language, Record<string, string>> = {
     "bookings.assigned": "Assigned",
     "bookings.none": "None",
 
+    // Units Module
+    "units.search": "Search car name, model...",
+    "units.addUnit": "Add New Unit",
+    "units.allTypes": "Car Type: All",
+    "units.availableCount": "Available",
+    "units.specs": "Technical Specs",
+    "units.range": "Range",
+    "units.battery": "Battery",
+    "units.licensePlate": "Plate Number",
+
+    // Calendar Module
+    "calendar.scheduleDetail": "Schedule Detail",
+    "calendar.agenda": "Agenda",
+    "calendar.clientInfo": "CLIENT INFO",
+    "calendar.carInfo": "CAR INFO",
+    "calendar.notes": "Notes",
+    "calendar.startDate": "Start Date",
+    "calendar.endDate": "End Date",
+
+    // Clients Module
+    "clients.addClient": "Add Client",
+    "clients.searchPlaceholder": "Search client name, email, phone...",
+    "clients.totalBookings": "Total Bookings",
+    "clients.totalSpent": "Total Spent",
+
+    // Drivers Module
+    "drivers.addDriver": "Add Driver",
+    "drivers.searchPlaceholder": "Search driver, phone...",
+    "drivers.experience": "Experience",
+    "drivers.rating": "Rating",
+    "drivers.assignedCar": "Assigned Car",
+    "drivers.licenseNumber": "License Number",
+    "drivers.driverDetails": "Driver Details",
+
     // Financials Module
     "financials.invoices": "Invoices",
     "financials.expensesList": "Expenses",
@@ -449,6 +561,8 @@ const translations: Record<Language, Record<string, string>> = {
     "financials.expenses": "Total Expenses",
     "financials.searchInvoice": "Search Invoice, client name, etc",
     "financials.searchExpense": "Search expense, item name...",
+    "financials.cashflow": "Cashflow Overview",
+    "financials.expenseBreakdown": "Expense Breakdown",
 
     // Tracking Module
     "tracking.searchPlaceholder": "Search vehicle, plate, client...",

@@ -3,35 +3,30 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 
 export function UnitDetailsHeader() {
-  const { theme } = useTheme();
+  const { lang, t } = useLanguage();
 
   return (
     <div className="flex items-center gap-4">
-      {/* Back Arrow Button (Pale Ice Blue Background in Light Mode) */}
+      {/* Back Arrow Button */}
       <Link
         href="/dashboard/units"
-        style={{
-          backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-          color: theme === "dark" ? "#ffffff" : "#0f172a",
-          borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-        }}
-        className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all shadow-2xs hover:opacity-90 shrink-0"
+        className="w-10 h-10 rounded-xl border border-[#3a3a3a] bg-[#2a2a2a] text-[#38bdf8] flex items-center justify-center transition-all shadow-2xs hover:bg-[#333333] shrink-0"
       >
-        <ArrowLeft className="w-5 h-5 text-[#00a8ff]" />
+        <ArrowLeft className="w-5 h-5" />
       </Link>
 
       <div className="space-y-0.5">
-        <div className="flex items-center gap-1.5 text-xs theme-muted font-medium">
-          <Link href="/dashboard/units" className="hover:text-[#00a8ff] transition-colors">
-            Units
+        <div className="flex items-center gap-1.5 text-xs text-slate-400 font-medium">
+          <Link href="/dashboard/units" className="hover:text-[#38bdf8] transition-colors">
+            {t("header.units")}
           </Link>
           <span>/</span>
-          <span className="theme-text font-bold">Unit Details</span>
+          <span className="text-white font-bold">{t("header.unitDetails")}</span>
         </div>
-        <h2 className="text-2xl font-extrabold theme-text tracking-tight">Unit Details</h2>
+        <h2 className="text-2xl font-extrabold text-white tracking-tight">{t("header.unitDetails")}</h2>
       </div>
     </div>
   );

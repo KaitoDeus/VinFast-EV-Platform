@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { MessageSquare, Mail, Phone, MapPin, Clock, Briefcase, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { MessageSquare, Mail, Phone, MapPin, Clock, Briefcase, ChevronLeft, ChevronRight, MoreHorizontal, Award } from "lucide-react";
 import { DriverModel } from "@/domain/models";
-import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 
 interface DriverDetailsPanelProps {
   driver: DriverModel;
@@ -12,13 +12,12 @@ interface DriverDetailsPanelProps {
 }
 
 export function DriverDetailsPanel({ driver, onEditClick }: DriverDetailsPanelProps) {
-  const { theme } = useTheme();
+  const { lang, t } = useLanguage();
   const [currentMonth] = useState("August 2028");
 
-  // Highlighted active duty dates matching Wheelzie mockup calendar
+  // Highlighted active duty dates
   const activeDutyDays = [1, 7, 10, 14, 18, 22, 26, 29];
 
-  // Calendar dates layout for August 2028 (Starts on Tuesday = index 2)
   const calendarDays = [
     { day: 30, prevMonth: true },
     { day: 31, prevMonth: true },
@@ -58,215 +57,134 @@ export function DriverDetailsPanel({ driver, onEditClick }: DriverDetailsPanelPr
   ];
 
   return (
-    <div className="space-y-6">
-      {/* 1. Driver Profile Summary Card */}
-      <div className="theme-card rounded-2xl border shadow-sm p-5 space-y-5">
-        {/* Top Header Row: Profile Avatar, Name, Status Pill & Action Buttons */}
-        <div className="flex items-start justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
-          <div className="flex items-center gap-3">
-            <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-white dark:border-slate-800 shadow-md">
-              <Image
-                src={driver.avatar}
-                alt={driver.name}
-                fill
-                sizes="48px"
-                className="object-cover"
-              />
-            </div>
-            <div className="space-y-1">
-              <h4 className="text-base font-extrabold theme-text tracking-tight leading-none">
-                {driver.name}
-              </h4>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#edf7fc] text-[#00a8ff] border border-sky-200 dark:bg-sky-950/60 dark:text-sky-400 inline-flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00a8ff]" />
-                <span>{driver.status}</span>
-              </span>
-            </div>
-          </div>
+    <div className="bg-[#1f1f1f] rounded-2xl border border-[#333333] shadow-sm p-6 space-y-6">
+      {/* Panel Top Action Bar */}
+      <div className="flex items-center justify-between border-b border-[#333333] pb-4">
+        <h3 className="text-lg font-extrabold text-white tracking-tight">{t("drivers.driverDetails")}</h3>
+        <button
+          onClick={() => onEditClick(driver)}
+          className="text-slate-400 hover:text-white transition-colors cursor-pointer"
+        >
+          <MoreHorizontal className="w-5 h-5" />
+        </button>
+      </div>
 
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              title="Message Driver"
-              className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:text-[#00a8ff] hover:bg-sky-50 dark:hover:bg-slate-800 transition-colors shadow-2xs"
-            >
-              <MessageSquare className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => onEditClick(driver)}
-              className="px-3.5 py-1.5 rounded-xl bg-[#0f172a] text-white font-extrabold text-xs shadow-sm hover:bg-slate-800 transition-colors"
-            >
-              Edit
-            </button>
-          </div>
+      {/* Driver Identity Card */}
+      <div className="flex flex-col items-center text-center space-y-3">
+        <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-[#444444] shadow-lg">
+          <Image
+            src={driver.avatar}
+            alt={driver.name}
+            fill
+            sizes="80px"
+            className="object-cover"
+          />
         </div>
-
-        {/* Contact Details List */}
-        <div className="space-y-2 text-xs">
-          <div className="flex items-center justify-between py-1">
-            <div className="flex items-center gap-2 text-slate-500 font-semibold">
-              <Mail className="w-3.5 h-3.5 text-slate-400" />
-              <span>Email</span>
-            </div>
-            <span className="theme-text font-extrabold truncate max-w-[200px]">{driver.email}</span>
-          </div>
-
-          <div className="flex items-center justify-between py-1">
-            <div className="flex items-center gap-2 text-slate-500 font-semibold">
-              <Phone className="w-3.5 h-3.5 text-slate-400" />
-              <span>Phone</span>
-            </div>
-            <span className="theme-text font-extrabold">{driver.phone}</span>
-          </div>
-
-          <div className="flex items-center justify-between py-1">
-            <div className="flex items-center gap-2 text-slate-500 font-semibold">
-              <MapPin className="w-3.5 h-3.5 text-slate-400" />
-              <span>Address</span>
-            </div>
-            <span className="theme-text font-bold">{driver.address}</span>
-          </div>
+        <div>
+          <h4 className="text-lg font-extrabold text-white">{driver.name}</h4>
+          <p className="text-xs text-slate-400 font-mono font-semibold">{driver.id}</p>
         </div>
+        <span
+          className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
+            driver.status === "On Duty"
+              ? "bg-emerald-950 text-emerald-300 border border-emerald-800/40"
+              : driver.status === "Sick Leave"
+              ? "bg-rose-950 text-rose-300 border border-rose-800/40"
+              : "bg-amber-950 text-amber-300 border border-amber-800/40"
+          }`}
+        >
+          {driver.status}
+        </span>
+      </div>
 
-        {/* Metric Stats Cards (Work Hours & Work Performance) */}
-        <div className="grid grid-cols-2 gap-3 pt-1">
-          <div
-            style={{
-              backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-              borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-            }}
-            className="p-3.5 rounded-xl border space-y-1.5 shadow-2xs"
-          >
-            <div className="flex items-center gap-2 text-slate-500 text-[11px] font-semibold">
-              <Clock className="w-3.5 h-3.5 text-[#00a8ff]" />
-              <span>Work Hours</span>
-            </div>
-            <p className="text-sm font-black theme-text tracking-tight">{driver.workHours} hours</p>
-          </div>
-
-          <div
-            style={{
-              backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-              borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-            }}
-            className="p-3.5 rounded-xl border space-y-1.5 shadow-2xs"
-          >
-            <div className="flex items-center gap-2 text-slate-500 text-[11px] font-semibold">
-              <Briefcase className="w-3.5 h-3.5 text-[#00a8ff]" />
-              <span>Work Performance</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-sm font-black theme-text">{driver.rating}</span>
-              <span className="px-2 py-0.5 text-[10px] font-extrabold bg-[#00a8ff] text-white rounded-md">
-                {driver.performanceBadge}
-              </span>
-            </div>
-          </div>
+      {/* Contact & Professional Details */}
+      <div className="space-y-3 pt-2 border-t border-[#333333] text-xs">
+        <div className="flex items-center justify-between">
+          <span className="text-slate-400 flex items-center gap-2">
+            <Mail className="w-3.5 h-3.5" /> Email
+          </span>
+          <span className="text-white font-medium truncate max-w-[180px]">{driver.email}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-slate-400 flex items-center gap-2">
+            <Phone className="w-3.5 h-3.5" /> {lang === "vi" ? "Số điện thoại" : "Phone"}
+          </span>
+          <span className="text-white font-medium">{driver.phone}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-slate-400 flex items-center gap-2">
+            <Clock className="w-3.5 h-3.5" /> {lang === "vi" ? "Giờ làm việc" : "Work Hours"}
+          </span>
+          <span className="text-white font-bold">{driver.workHours} {lang === "vi" ? "Giờ" : "Hours"}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-slate-400 flex items-center gap-2">
+            <Award className="w-3.5 h-3.5" /> {t("drivers.rating")}
+          </span>
+          <span className="text-white font-bold">{driver.rating} ★ ({driver.performanceBadge})</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-slate-400 flex items-center gap-2">
+            <MapPin className="w-3.5 h-3.5" /> {lang === "vi" ? "Địa chỉ" : "Address"}
+          </span>
+          <span className="text-white font-medium">{driver.address}</span>
         </div>
       </div>
 
-      {/* 2. Mini August 2028 Calendar Picker Widget */}
-      <div className="theme-card rounded-2xl border shadow-sm p-5 space-y-4">
+      {/* Mini Attendance Calendar */}
+      <div className="space-y-3 pt-4 border-t border-[#333333]">
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-extrabold theme-text">{currentMonth}</h4>
-          {/* High-Contrast Arrow Navigation Buttons */}
-          <div className="flex items-center gap-1.5">
-            <button
-              style={{
-                backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-                borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-              }}
-              className="p-1.5 rounded-xl border text-[#00a8ff] transition-all shadow-2xs hover:bg-[#00a8ff] hover:text-white dark:hover:bg-[#00a8ff] dark:hover:text-white cursor-pointer"
-              title="Previous Month"
-            >
-              <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+          <h5 className="text-xs font-bold text-white uppercase tracking-wider">{lang === "vi" ? "Lịch làm việc" : "Duty Calendar"}</h5>
+          <div className="flex items-center gap-1">
+            <button className="p-1 rounded-lg hover:bg-[#2a2a2a] text-slate-400 hover:text-white transition-colors cursor-pointer">
+              <ChevronLeft className="w-4 h-4" />
             </button>
-            <button
-              style={{
-                backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-                borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-              }}
-              className="p-1.5 rounded-xl border text-[#00a8ff] transition-all shadow-2xs hover:bg-[#00a8ff] hover:text-white dark:hover:bg-[#00a8ff] dark:hover:text-white cursor-pointer"
-              title="Next Month"
-            >
-              <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+            <span className="text-xs font-bold text-slate-300">{lang === "vi" ? "Tháng 8, 2028" : currentMonth}</span>
+            <button className="p-1 rounded-lg hover:bg-[#2a2a2a] text-slate-400 hover:text-white transition-colors cursor-pointer">
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* 7-Column Day Header */}
-        <div className="grid grid-cols-7 text-center text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-          <span>Sun</span>
-          <span>Mon</span>
-          <span>Tue</span>
-          <span>Wed</span>
-          <span>Thu</span>
-          <span>Fri</span>
-          <span>Sat</span>
+        <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-slate-400">
+          <span>{lang === "vi" ? "CN" : "Su"}</span>
+          <span>{lang === "vi" ? "T2" : "Mo"}</span>
+          <span>{lang === "vi" ? "T3" : "Tu"}</span>
+          <span>{lang === "vi" ? "T4" : "We"}</span>
+          <span>{lang === "vi" ? "T5" : "Th"}</span>
+          <span>{lang === "vi" ? "T6" : "Fr"}</span>
+          <span>{lang === "vi" ? "T7" : "Sa"}</span>
         </div>
 
-        {/* Calendar Dates Grid (Clear Soft Blue Hover + Cyan Text) */}
         <div className="grid grid-cols-7 gap-1 text-center text-xs">
-          {calendarDays.map((item, idx) => {
-            const isHighlighted = item.current && activeDutyDays.includes(item.day);
-
+          {calendarDays.map((d, i) => {
+            const isActive = d.current && activeDutyDays.includes(d.day);
             return (
               <div
-                key={idx}
-                className="h-8 flex items-center justify-center relative select-none"
+                key={i}
+                className={`py-1.5 rounded-lg font-medium transition-all ${
+                  isActive
+                    ? "bg-[#ff3366] text-white font-bold shadow-xs"
+                    : d.current
+                    ? "text-slate-200 hover:bg-[#2a2a2a]"
+                    : "text-slate-600"
+                }`}
               >
-                <span
-                  className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
-                    isHighlighted
-                      ? "bg-[#0f172a] text-white shadow-md hover:bg-slate-800"
-                      : item.current
-                      ? "theme-text hover:bg-[#edf7fc] hover:text-[#00a8ff] dark:hover:bg-slate-800 dark:hover:text-[#38bdf8]"
-                      : "text-slate-300 dark:text-slate-700"
-                  }`}
-                >
-                  {item.day}
-                </span>
+                {d.day}
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* 3. Schedule Agenda List */}
-      <div className="theme-card rounded-2xl border shadow-sm p-5 space-y-4">
-        <div className="flex items-center justify-between">
-          <h4 className="text-sm font-extrabold theme-text">Schedule</h4>
-          <button className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-            <MoreHorizontal className="w-4 h-4" />
-          </button>
-        </div>
-
-        <div className="space-y-2.5">
-          {driver.scheduleItems.map((sch) => (
-            <div
-              key={sch.id}
-              style={{
-                backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-                borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-              }}
-              className="p-3.5 rounded-xl border flex items-center justify-between text-xs transition-all shadow-2xs"
-            >
-              <div className="space-y-1">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
-                  {sch.dayLabel}
-                </span>
-                <p className="font-black theme-text">{sch.clientName}</p>
-                <div className="flex items-center gap-3 text-[11px] theme-muted font-medium pt-0.5">
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-[#00a8ff]" />
-                    {sch.timeSlot}
-                  </span>
-                  <span>{sch.carModel}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Direct Message CTA */}
+      <button
+        onClick={() => alert(`Direct messaging with ${driver.name}`)}
+        className="w-full py-3 rounded-xl bg-[#2a2a2a] border border-[#3a3a3a] text-white text-xs font-bold hover:bg-[#333333] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+      >
+        <MessageSquare className="w-4 h-4 text-[#38bdf8]" />
+        <span>{t("tracking.sendMsg")}</span>
+      </button>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { FileText, ArrowUpDown } from "lucide-react";
 import { ClientModel } from "@/domain/models";
-import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 
 interface ClientsTableProps {
   clients: ClientModel[];
@@ -17,8 +17,8 @@ export function ClientsTable({
   onEditClient,
   onDeleteClient,
 }: ClientsTableProps) {
-  const { theme } = useTheme();
-  const [selectedIds, setSelectedIds] = useState<string[]>(["CLT-003", "CLT-004"]); // Charlie Davis & Diana White checked by default matching mockup
+  const { lang, t } = useLanguage();
+  const [selectedIds, setSelectedIds] = useState<string[]>(["CLT-003", "CLT-004"]);
 
   const toggleSelectAll = () => {
     if (selectedIds.length === clients.length) {
@@ -38,162 +38,144 @@ export function ClientsTable({
 
   if (clients.length === 0) {
     return (
-      <div className="theme-card p-12 rounded-2xl border text-center space-y-2">
-        <p className="text-sm font-bold theme-text">No clients found</p>
-        <p className="text-xs theme-muted">Try adjusting your search query.</p>
+      <div className="bg-[#1f1f1f] p-12 rounded-2xl border border-[#333333] text-center space-y-2">
+        <p className="text-sm font-bold text-white">No clients found</p>
+        <p className="text-xs text-slate-400">Try adjusting your search query.</p>
       </div>
     );
   }
 
   return (
-    <div className="theme-card rounded-2xl border shadow-sm overflow-hidden">
+    <div className="bg-[#1f1f1f] rounded-2xl border border-[#333333] shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs border-collapse min-w-[700px]">
-          {/* Header Row (Pale Ice Blue & Pure Black Extra-Bold Text in Light Mode) */}
           <thead>
             <tr
-              style={{
-                backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-                color: theme === "dark" ? "#ffffff" : "#000000",
-                borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-              }}
-              className="border-b font-black uppercase tracking-wider text-[11px]"
+              className="border-b border-[#333333] bg-[#262626] text-white font-black uppercase tracking-wider text-[11px]"
             >
               <th className="py-3.5 px-4 w-10 text-center">
                 <input
                   type="checkbox"
                   checked={selectedIds.length === clients.length && clients.length > 0}
                   onChange={toggleSelectAll}
-                  className="w-4 h-4 rounded border-slate-300 text-[#00a8ff] focus:ring-[#00a8ff] cursor-pointer"
+                  className="rounded border-[#3a3a3a] accent-[#1464f4] w-4 h-4 cursor-pointer"
                 />
               </th>
               <th className="py-3.5 px-4">
                 <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Client</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  <span>{lang === "vi" ? "Mã KH" : "Client ID"}</span>
+                  <ArrowUpDown className="w-3.5 h-3.5 text-[#38bdf8]" />
                 </div>
               </th>
               <th className="py-3.5 px-4">
                 <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Phone</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  <span>{t("bookings.client")}</span>
+                  <ArrowUpDown className="w-3.5 h-3.5 text-[#38bdf8]" />
                 </div>
               </th>
               <th className="py-3.5 px-4">
                 <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Address</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  <span>Email</span>
+                  <ArrowUpDown className="w-3.5 h-3.5 text-[#38bdf8]" />
                 </div>
               </th>
               <th className="py-3.5 px-4">
                 <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Documents</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  <span>{lang === "vi" ? "Số điện thoại" : "Phone"}</span>
+                  <ArrowUpDown className="w-3.5 h-3.5 text-[#38bdf8]" />
                 </div>
               </th>
               <th className="py-3.5 px-4">
                 <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Points</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  <span>{lang === "vi" ? "Căn cước / Hộ chiếu" : "Residence Card"}</span>
+                  <ArrowUpDown className="w-3.5 h-3.5 text-[#38bdf8]" />
                 </div>
               </th>
-              <th className="py-3.5 px-4 text-center">
-                <div className="flex items-center justify-center gap-1.5 cursor-pointer">
-                  <span>Action</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+              <th className="py-3.5 px-4">
+                <div className="flex items-center gap-1.5 cursor-pointer">
+                  <span>{lang === "vi" ? "Giấy phép lái xe" : "Driver License"}</span>
+                  <ArrowUpDown className="w-3.5 h-3.5 text-[#38bdf8]" />
                 </div>
               </th>
+              <th className="py-3.5 px-4">
+                <div className="flex items-center gap-1.5 cursor-pointer">
+                  <span>{lang === "vi" ? "Điểm tích lũy" : "Points"}</span>
+                  <ArrowUpDown className="w-3.5 h-3.5 text-[#38bdf8]" />
+                </div>
+              </th>
+              <th className="py-3.5 px-4 text-center">{t("common.action")}</th>
             </tr>
           </thead>
-
-          {/* Table Body Rows with Ultra-Thin Separator Lines */}
-          <tbody className="divide-y divide-slate-100/40 dark:divide-slate-800/30 font-medium">
+          <tbody className="divide-y divide-[#2a2a2a] font-medium text-slate-200">
             {clients.map((client) => {
-              const isChecked = selectedIds.includes(client.id);
+              const isSelected = selectedIds.includes(client.id);
 
               return (
                 <tr
                   key={client.id}
-                  className={`transition-colors ${
-                    isChecked
-                      ? "bg-slate-50/90 dark:bg-slate-800/50"
-                      : "hover:bg-slate-50/50 dark:hover:bg-slate-800/30"
+                  className={`hover:bg-[#262626] transition-colors ${
+                    isSelected ? "bg-[#262626]/80" : ""
                   }`}
                 >
-                  {/* Checkbox Cell */}
                   <td className="py-3.5 px-4 text-center">
                     <input
                       type="checkbox"
-                      checked={isChecked}
+                      checked={isSelected}
                       onChange={() => toggleSelectRow(client.id)}
-                      className="w-4 h-4 rounded border-slate-300 text-[#00a8ff] focus:ring-[#00a8ff] cursor-pointer"
+                      className="rounded border-[#3a3a3a] accent-[#1464f4] w-4 h-4 cursor-pointer"
                     />
                   </td>
-
-                  {/* Client Info Cell (Avatar + Name + Email) */}
-                  <td className="py-3.5 px-4">
+                  <td className="py-3.5 px-4 font-bold text-white whitespace-nowrap">
+                    {client.id}
+                  </td>
+                  <td className="py-3.5 px-4 whitespace-nowrap">
                     <div className="flex items-center gap-3">
-                      <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-200 dark:border-slate-700">
+                      <div className="w-7 h-7 rounded-full overflow-hidden relative border border-[#3a3a3a]">
                         <Image
                           src={client.avatar}
                           alt={client.name}
                           fill
-                          sizes="32px"
+                          sizes="28px"
                           className="object-cover"
                         />
                       </div>
-                      <div className="space-y-0.5 min-w-0">
-                        <p className="font-extrabold theme-text text-xs leading-snug">{client.name}</p>
-                        <p className="text-[10px] theme-muted font-semibold leading-tight truncate">
-                          {client.email}
-                        </p>
-                      </div>
+                      <span className="font-semibold text-white">{client.name}</span>
                     </div>
                   </td>
-
-                  {/* Phone Cell */}
-                  <td className="py-3.5 px-4 theme-text font-bold whitespace-nowrap">
+                  <td className="py-3.5 px-4 text-slate-300 font-medium whitespace-nowrap">
+                    {client.email}
+                  </td>
+                  <td className="py-3.5 px-4 text-slate-300 font-medium whitespace-nowrap">
                     {client.phone}
                   </td>
-
-                  {/* Address Cell */}
-                  <td className="py-3.5 px-4 theme-text font-semibold whitespace-nowrap">
-                    {client.address}
+                  <td className="py-3.5 px-4 whitespace-nowrap">
+                    <button className="flex items-center gap-1.5 text-xs text-sky-400 font-semibold hover:underline">
+                      <FileText className="w-3.5 h-3.5" />
+                      <span>{client.residenceCard}</span>
+                    </button>
                   </td>
-
-                  {/* Documents Cell (Bold Cyan File Text Icons + High-Contrast Bold Text) */}
-                  <td className="py-3.5 px-4">
-                    <div className="space-y-1 text-[11px]">
-                      <div className="flex items-center gap-1.5 theme-text font-bold">
-                        <FileText className="w-3.5 h-3.5 text-[#00a8ff] shrink-0 stroke-[2.5]" />
-                        <span className="truncate">{client.residenceCard}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 theme-text font-bold">
-                        <FileText className="w-3.5 h-3.5 text-[#00a8ff] shrink-0 stroke-[2.5]" />
-                        <span className="truncate">{client.driverLicense}</span>
-                      </div>
-                    </div>
+                  <td className="py-3.5 px-4 whitespace-nowrap">
+                    <button className="flex items-center gap-1.5 text-xs text-sky-400 font-semibold hover:underline">
+                      <FileText className="w-3.5 h-3.5" />
+                      <span>{client.driverLicense}</span>
+                    </button>
                   </td>
-
-                  {/* Points Cell */}
-                  <td className="py-3.5 px-4 theme-text font-black text-center sm:text-left">
-                    {client.points}
+                  <td className="py-3.5 px-4 font-extrabold text-white whitespace-nowrap">
+                    {client.points.toLocaleString()} pts
                   </td>
-
-                  {/* Action Cell (Dark Navy Edit with White text & Delete with Red text) */}
-                  <td className="py-3.5 px-4 text-center">
+                  <td className="py-3.5 px-4 text-center whitespace-nowrap">
                     <div className="flex items-center justify-center gap-2">
                       <button
                         onClick={() => onEditClient(client)}
-                        className="px-3.5 py-1.5 rounded-xl bg-[#0f172a] text-white font-bold text-[11px] hover:bg-slate-800 transition-all shadow-sm text-center"
+                        className="px-3 py-1 rounded-lg bg-[#2a2a2a] text-white font-bold text-[11px] hover:bg-[#333333] transition-all shadow-sm cursor-pointer"
                       >
-                        Edit
+                        {t("common.edit")}
                       </button>
                       <button
                         onClick={() => onDeleteClient(client.id)}
-                        className="px-3.5 py-1.5 rounded-xl bg-[#0f172a] text-[#ff3366] font-bold text-[11px] hover:bg-rose-950/40 hover:text-rose-400 transition-all shadow-sm text-center"
+                        className="px-3 py-1 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-900/40 font-bold text-[11px] hover:bg-rose-900/60 transition-all shadow-sm cursor-pointer"
                       >
-                        Delete
+                        {t("common.delete")}
                       </button>
                     </div>
                   </td>

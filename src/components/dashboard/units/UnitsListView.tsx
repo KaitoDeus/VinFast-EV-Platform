@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { SlidersHorizontal, User } from "lucide-react";
 import { UnitModel } from "@/domain/models";
-import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 
 interface UnitsListViewProps {
   units: UnitModel[];
@@ -19,13 +19,13 @@ export function UnitsListView({
   onEditUnit,
   onDeleteUnit,
 }: UnitsListViewProps) {
-  const { theme } = useTheme();
+  const { lang, t } = useLanguage();
 
   if (units.length === 0) {
     return (
-      <div className="theme-card p-12 rounded-2xl border text-center space-y-2">
-        <p className="text-sm font-bold theme-text">No fleet units found</p>
-        <p className="text-xs theme-muted">Try adjusting your search or category filters.</p>
+      <div className="bg-[#1f1f1f] p-12 rounded-2xl border border-[#333333] text-center space-y-2">
+        <p className="text-sm font-bold text-white">No fleet units found</p>
+        <p className="text-xs text-slate-400">Try adjusting your search or category filters.</p>
       </div>
     );
   }
@@ -35,7 +35,7 @@ export function UnitsListView({
       {units.map((unit) => (
         <div
           key={unit.id}
-          className="theme-card rounded-2xl border shadow-sm flex flex-col md:flex-row items-stretch overflow-hidden transition-all hover:shadow-md"
+          className="bg-[#1f1f1f] rounded-2xl border border-[#333333] shadow-sm flex flex-col md:flex-row items-stretch overflow-hidden transition-all hover:border-[#444444]"
         >
           {/* Main Content Area */}
           <div className="flex-1 p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
@@ -52,90 +52,74 @@ export function UnitsListView({
 
             {/* Title & Status Badge Column */}
             <div className="space-y-1 min-w-[150px]">
-              <span className="text-[11px] font-medium theme-muted block">{unit.brand}</span>
-              <h4 className="text-xl font-extrabold theme-text tracking-tight">{unit.modelName}</h4>
+              <span className="text-[11px] font-medium text-slate-400 block">{unit.brand}</span>
+              <h4 className="text-xl font-extrabold text-white tracking-tight">{unit.modelName}</h4>
               <div>
                 <span
-                  className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold shadow-sm ${
-                    unit.status === "Available"
-                      ? "bg-sky-100 text-sky-800 border border-sky-200 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700"
-                      : unit.status === "Maintenance"
-                      ? "bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300"
-                      : "bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
-                  }`}
+                  className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-extrabold shadow-sm bg-sky-950 text-sky-300 border border-sky-800/40"
                 >
-                  {unit.status} {unit.unitsCount > 0 ? `${unit.unitsCount} Unit` : ""}
+                  {unit.status === "Available" ? t("common.available") : unit.status} {unit.unitsCount > 0 ? `${unit.unitsCount} ${t("metrics.units")}` : ""}
                 </span>
               </div>
             </div>
 
-            {/* Specs 1: Transmission (Pale Ice Blue Icon Badge in Light Mode) */}
+            {/* Specs 1: Transmission */}
             <div className="flex items-center gap-3">
               <div
-                style={{
-                  backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-                  color: theme === "dark" ? "#38bdf8" : "#00a8ff",
-                  borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-                }}
-                className="w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 shadow-2xs"
+                className="w-8 h-8 rounded-lg border border-[#3a3a3a] bg-[#2a2a2a] text-[#38bdf8] flex items-center justify-center shrink-0 shadow-2xs"
               >
                 <SlidersHorizontal className="w-4 h-4" />
               </div>
               <div className="space-y-0.5">
-                <p className="text-[10px] theme-muted font-medium">Transmission</p>
-                <p className="text-xs font-bold theme-text">{unit.transmission}</p>
+                <p className="text-[10px] text-slate-400 font-medium">{t("common.transmission")}</p>
+                <p className="text-xs font-bold text-white">{unit.transmission === "Automatic" ? t("common.automatic") : unit.transmission}</p>
               </div>
             </div>
 
-            {/* Specs 2: Capacity (Pale Ice Blue Icon Badge in Light Mode) */}
+            {/* Specs 2: Capacity */}
             <div className="flex items-center gap-3">
               <div
-                style={{
-                  backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-                  color: theme === "dark" ? "#38bdf8" : "#00a8ff",
-                  borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-                }}
-                className="w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 shadow-2xs"
+                className="w-8 h-8 rounded-lg border border-[#3a3a3a] bg-[#2a2a2a] text-[#38bdf8] flex items-center justify-center shrink-0 shadow-2xs"
               >
                 <User className="w-4 h-4" />
               </div>
               <div className="space-y-0.5">
-                <p className="text-[10px] theme-muted font-medium">Capacity</p>
-                <p className="text-xs font-bold theme-text">{unit.capacity}</p>
+                <p className="text-[10px] text-slate-400 font-medium">{t("common.capacity")}</p>
+                <p className="text-xs font-bold text-white">{unit.capacity.replace("seats", t("common.seats"))}</p>
               </div>
             </div>
 
             {/* Price & Select CTA */}
             <div className="flex items-center gap-5">
               <div className="space-y-0.5">
-                <p className="text-[10px] theme-muted font-medium">Price</p>
-                <p className="text-base font-extrabold theme-text">
-                  {unit.dailyPrice} <span className="text-[11px] font-normal theme-muted">/days</span>
+                <p className="text-[10px] text-slate-400 font-medium">{t("common.price")}</p>
+                <p className="text-base font-extrabold text-white">
+                  {unit.dailyPrice} <span className="text-[11px] font-normal text-slate-400">{t("common.perDay")}</span>
                 </p>
               </div>
 
               <button
                 onClick={() => onSelectUnit(unit)}
-                className="bg-[#ff3366] hover:bg-[#e02654] text-white font-extrabold text-xs px-6 py-2.5 rounded-xl shadow-md transition-all active:scale-95 shrink-0"
+                className="bg-[#ff3366] hover:bg-[#e02654] text-white font-extrabold text-xs px-6 py-2.5 rounded-xl shadow-md transition-all active:scale-95 shrink-0 cursor-pointer"
               >
-                Select
+                {t("common.select")}
               </button>
             </div>
           </div>
 
-          {/* Right Action Side Box (Horizontal Edit & Delete with dark navy background & white text) */}
-          <div className="bg-[#475569]/20 dark:bg-slate-800/80 p-5 flex items-center justify-center gap-3 shrink-0 min-w-[170px]">
+          {/* Right Action Side Box */}
+          <div className="bg-[#262626] p-5 flex items-center justify-center gap-3 shrink-0 min-w-[170px] border-t md:border-t-0 md:border-l border-[#333333]">
             <button
               onClick={() => onEditUnit(unit)}
-              className="px-4.5 py-2 rounded-xl bg-[#0f172a] text-white font-bold text-xs hover:bg-slate-800 transition-all shadow-md text-center"
+              className="px-4.5 py-2 rounded-xl bg-[#1f1f1f] text-white border border-[#3a3a3a] font-bold text-xs hover:bg-[#333333] transition-all shadow-md text-center cursor-pointer"
             >
-              Edit
+              {t("common.edit")}
             </button>
             <button
               onClick={() => onDeleteUnit(unit.id)}
-              className="px-4.5 py-2 rounded-xl bg-[#0f172a] text-[#ff3366] font-bold text-xs hover:bg-rose-950/40 hover:text-rose-400 transition-all shadow-md text-center"
+              className="px-4.5 py-2 rounded-xl bg-rose-950/40 text-rose-400 border border-rose-900/40 font-bold text-xs hover:bg-rose-900/60 transition-all shadow-md text-center cursor-pointer"
             >
-              Delete
+              {t("common.delete")}
             </button>
           </div>
         </div>

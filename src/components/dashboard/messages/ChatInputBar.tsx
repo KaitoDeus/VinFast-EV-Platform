@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import { Smile, Paperclip, Send } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 
 interface ChatInputBarProps {
   onSendMessage: (text: string) => void;
 }
 
 export function ChatInputBar({ onSendMessage }: ChatInputBarProps) {
+  const { t } = useLanguage();
   const [inputText, setInputText] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -35,7 +37,7 @@ export function ChatInputBar({ onSendMessage }: ChatInputBarProps) {
         {/* Input Field */}
         <input
           type="text"
-          placeholder="Type a message.."
+          placeholder={t("messages.typePlaceholder")}
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           className="flex-1 py-2 text-xs bg-transparent outline-none text-white placeholder:text-slate-400 font-normal"
@@ -54,7 +56,7 @@ export function ChatInputBar({ onSendMessage }: ChatInputBarProps) {
         <button
           type="submit"
           className="w-9 h-9 rounded-xl bg-[#ff3366] hover:bg-[#e02654] text-white flex items-center justify-center shadow-md transition-all active:scale-95 shrink-0 cursor-pointer"
-          title="Send Message"
+          title={t("messages.send")}
         >
           <Send className="w-4 h-4" />
         </button>
