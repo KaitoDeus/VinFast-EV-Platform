@@ -25,22 +25,23 @@ export function SignInForm() {
 
   return (
     <div className="bg-[#1f1f1f] border border-[#333333] rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
-      {/* Official VinFast Logo at the top center of the form */}
-      <div className="flex flex-col items-center text-center space-y-2 pb-1">
+      {/* Official VinFast Logo at the top center of the form (Prominent & High) */}
+      <div className="flex flex-col items-center text-center space-y-2 pt-1 pb-1">
         <Link href="/" className="group block">
-          <div className="relative w-36 sm:w-40 h-10 transition-transform group-hover:scale-105">
+          <div className="relative w-44 sm:w-48 h-12 transition-transform group-hover:scale-105">
             <Image
               src="/VinFast-logo-2026.webp"
               alt="VinFast"
               fill
               priority
-              sizes="160px"
+              sizes="192px"
               className="object-contain filter brightness-0 invert"
             />
           </div>
         </Link>
 
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight pt-1">
+        {/* Scaled-down elegant title */}
+        <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight pt-1">
           {t("auth.signInTitle")}
         </h1>
       </div>
