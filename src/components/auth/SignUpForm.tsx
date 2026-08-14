@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { User, Mail, Lock, Eye, EyeOff, LogIn, ArrowRight } from "lucide-react";
+import { User, Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import { PasswordStrengthMeter } from "./PasswordStrengthMeter";
 import { useLanguage } from "@/components/language-provider";
 
@@ -39,24 +39,23 @@ export function SignUpForm() {
 
   return (
     <div className="bg-[#1f1f1f] border border-[#333333] rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
-      {/* Brand Icon / Logo Top Emblem */}
-      <div className="flex flex-col items-center text-center space-y-3">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1464f4] to-[#00a8ff] flex items-center justify-center shadow-lg shadow-[#1464f4]/20 p-2.5">
-          <svg viewBox="0 0 40 40" fill="none" className="w-full h-full text-white">
-            <path
-              d="M20 34L7 12H13.5L20 23.5L26.5 12H33L20 34Z"
-              fill="currentColor"
+      {/* Official VinFast Logo at the top center of the form */}
+      <div className="flex flex-col items-center text-center space-y-2 pb-1">
+        <Link href="/" className="group block">
+          <div className="relative w-36 sm:w-40 h-10 transition-transform group-hover:scale-105">
+            <Image
+              src="/VinFast-logo-2026.webp"
+              alt="VinFast"
+              fill
+              priority
+              sizes="160px"
+              className="object-contain filter brightness-0 invert"
             />
-            <path
-              d="M20 28.5L11.5 14H16L20 21.5L24 14H28.5L20 28.5Z"
-              fill="white"
-              fillOpacity="0.8"
-            />
-          </svg>
-        </div>
+          </div>
+        </Link>
 
         {/* Clean Headline (No 'For Free', No Subtitle) */}
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight pt-1">
           {t("auth.signUpTitle")}
         </h1>
       </div>
@@ -181,7 +180,6 @@ export function SignUpForm() {
         }}
         className="w-full py-3 px-4 rounded-2xl bg-[#262626] hover:bg-[#2e2e2e] border border-[#3a3a3a] text-white font-bold text-xs flex items-center justify-center gap-3 transition-all active:scale-[0.98] cursor-pointer shadow-xs"
       >
-        {/* Google G Logo SVG */}
         <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
           <path
             fill="#4285F4"
