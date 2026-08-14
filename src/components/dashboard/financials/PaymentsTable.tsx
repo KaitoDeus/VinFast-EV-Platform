@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, ArrowRightLeft, User, Car, Calendar, DollarSign } from "lucide-react";
 import { PaymentItem } from "@/types";
-import { useTheme } from "@/components/theme-provider";
 
 interface PaymentsTableProps {
   payments: PaymentItem[];
@@ -16,8 +15,8 @@ export function PaymentsTable({
   onEditPayment,
   onDeletePayment,
 }: PaymentsTableProps) {
-  const { theme } = useTheme();
-  const [selectedIds, setSelectedIds] = useState<string[]>(["INV-WZ1004"]); // INV-WZ1004 checked matching mockup
+  const [selectedIds, setSelectedIds] = useState<string[]>(["INV-WZ1004"]);
+  const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
 
   const toggleSelectAll = () => {
     if (selectedIds.length === payments.length) {
@@ -37,192 +36,263 @@ export function PaymentsTable({
 
   if (payments.length === 0) {
     return (
-      <div className="theme-card p-12 rounded-2xl border text-center space-y-2">
-        <p className="text-sm font-bold theme-text">No invoices found</p>
-        <p className="text-xs theme-muted">Try adjusting your search query or status filter.</p>
+      <div className="bg-[#1f1f1f] p-12 rounded-2xl border border-[#333333] text-center space-y-2">
+        <p className="text-sm font-bold text-white">No invoices found</p>
+        <p className="text-xs text-slate-400">Try adjusting your search query or status filter.</p>
       </div>
     );
   }
 
   return (
-    <div className="theme-card rounded-2xl border shadow-sm overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-xs border-collapse min-w-[700px]">
-          {/* Header Row (Pale Ice Blue & Pure Black Extra-Bold Text in Light Mode) */}
-          <thead>
-            <tr
-              style={{
-                backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-                color: theme === "dark" ? "#ffffff" : "#000000",
-                borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-              }}
-              className="border-b font-black uppercase tracking-wider text-[11px]"
-            >
-              <th className="py-3.5 px-4 w-10 text-center">
+    <div className="bg-[#1f1f1f] rounded-2xl border border-[#333333] shadow-sm overflow-hidden p-4 sm:p-0">
+      {/* Mobile Switcher header */}
+      <div className="flex items-center justify-between pb-3 sm:hidden border-b border-[#333333]">
+        <span className="text-xs font-bold text-white">Invoices ({payments.length})</span>
+        <div className="flex items-center bg-[#2a2a2a] p-1 rounded-xl border border-[#3a3a3a]">
+          <button
+            onClick={() => setViewMode("cards")}
+            className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-colors ${
+              viewMode === "cards" ? "bg-[#1464f4] text-white" : "text-slate-400 hover:text-white"
+            }`}
+          >
+            Cards
+          </button>
+          <button
+            onClick={() => setViewMode("table")}
+            className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-colors ${
+              viewMode === "table" ? "bg-[#1464f4] text-white" : "text-slate-400 hover:text-white"
+            }`}
+          >
+            Table
+          </button>
+        </div>
+      </div>
+
+      {/* ─── 1. MOBILE CARD VIEW (< 640px) ─── */}
+      <div className={`${viewMode === "cards" ? "block sm:hidden" : "hidden"} space-y-3 pt-3`}>
+        {payments.map((payment) => (
+          <div
+            key={payment.id}
+            className="bg-[#262626] p-4 rounded-xl border border-[#333333] space-y-3 shadow-xs"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  checked={selectedIds.length === payments.length && payments.length > 0}
-                  onChange={toggleSelectAll}
-                  className="w-4 h-4 rounded border-slate-300 text-[#00a8ff] focus:ring-[#00a8ff] cursor-pointer"
+                  checked={selectedIds.includes(payment.id)}
+                  onChange={() => toggleSelectRow(payment.id)}
+                  className="rounded border-[#3a3a3a] accent-[#1464f4] w-4 h-4 cursor-pointer"
                 />
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Invoice ID</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Client Name</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Car Model</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Rate per Day</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Rental Period</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Amount</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Due Date</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4 text-center">
-                <div className="flex items-center justify-center gap-1.5 cursor-pointer">
-                  <span>Status</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4 text-center">
-                <div className="flex items-center justify-center gap-1.5 cursor-pointer">
-                  <span>Action</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-            </tr>
-          </thead>
+                <span className="text-xs font-bold text-white">{payment.id}</span>
+              </div>
+              <span
+                className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                  payment.status === "Completed"
+                    ? "bg-emerald-950 text-emerald-300 border border-emerald-800/40"
+                    : payment.status === "Awaiting"
+                    ? "bg-sky-950 text-sky-300 border border-sky-800/40"
+                    : "bg-rose-950 text-rose-300 border border-rose-800/40"
+                }`}
+              >
+                {payment.status}
+              </span>
+            </div>
 
-          {/* Table Body Rows with Ultra-Thin Separator Lines */}
-          <tbody className="divide-y divide-slate-100/40 dark:divide-slate-800/30 font-medium">
-            {payments.map((payment) => {
-              const isChecked = selectedIds.includes(payment.id);
+            <div className="grid grid-cols-2 gap-2 text-[11px] pt-1 border-t border-[#333333]">
+              <div>
+                <span className="text-slate-400 text-[10px] flex items-center gap-1">
+                  <User className="w-3 h-3" /> Client
+                </span>
+                <p className="font-bold text-white truncate">{payment.clientName}</p>
+              </div>
+              <div>
+                <span className="text-slate-400 text-[10px] flex items-center gap-1">
+                  <Car className="w-3 h-3" /> Model
+                </span>
+                <p className="font-bold text-white truncate">{payment.carModel}</p>
+              </div>
+            </div>
 
-              return (
-                <tr
-                  key={payment.id}
-                  className={`transition-colors ${
-                    isChecked
-                      ? "bg-slate-50/90 dark:bg-slate-800/50"
-                      : "hover:bg-slate-50/50 dark:hover:bg-slate-800/30"
-                  }`}
-                >
-                  {/* Checkbox Cell */}
-                  <td className="py-3.5 px-4 text-center">
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => toggleSelectRow(payment.id)}
-                      className="w-4 h-4 rounded border-slate-300 text-[#00a8ff] focus:ring-[#00a8ff] cursor-pointer"
-                    />
-                  </td>
+            <div className="flex items-center justify-between pt-2 border-t border-[#333333] text-xs">
+              <div>
+                <span className="text-slate-400 text-[10px] flex items-center gap-1">
+                  <Calendar className="w-3 h-3" /> Due Date
+                </span>
+                <p className="text-slate-300 font-medium">{payment.dueDate}</p>
+              </div>
+              <div className="text-right">
+                <span className="text-slate-400 text-[10px] flex items-center justify-end gap-1">
+                  <DollarSign className="w-3 h-3" /> Amount
+                </span>
+                <p className="font-black text-white text-sm">${payment.amount}</p>
+              </div>
+            </div>
 
-                  {/* Invoice ID Cell */}
-                  <td className="py-3.5 px-4 theme-text font-black text-xs whitespace-nowrap">
-                    {payment.id}
-                  </td>
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#333333]">
+              <button
+                onClick={() => onEditPayment(payment)}
+                className="px-3 py-1.5 rounded-lg bg-[#333333] text-white text-xs font-semibold hover:bg-slate-700 transition-colors"
+              >
+                {payment.id === "INV-WZ1004" ? "View" : "Edit"}
+              </button>
+              <button
+                onClick={() => onDeletePayment(payment.id)}
+                className="px-3 py-1.5 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-900/40 text-xs font-semibold hover:bg-rose-900/60 transition-colors"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
-                  {/* Client Name Cell */}
-                  <td className="py-3.5 px-4 theme-text font-extrabold whitespace-nowrap">
-                    {payment.clientName}
-                  </td>
+      {/* ─── 2. FULL HORIZONTAL SCROLL TABLE (Desktop & Mobile if viewMode === "table") ─── */}
+      <div className={`${viewMode === "table" ? "block" : "hidden sm:block"}`}>
+        {/* Swipe hint on mobile */}
+        <div className="sm:hidden flex items-center justify-between py-2 text-[11px] text-slate-400">
+          <span className="flex items-center gap-1">
+            <ArrowRightLeft className="w-3 h-3 text-[#38bdf8]" />
+            Vuốt ngang để xem đủ cột
+          </span>
+        </div>
 
-                  {/* Car Model Cell */}
-                  <td className="py-3.5 px-4 theme-text font-bold whitespace-nowrap">
-                    {payment.carModel}
-                  </td>
+        <div className="overflow-x-auto scrollbar-thin">
+          <table className="w-full text-left text-xs border-collapse min-w-[700px]">
+            <thead>
+              <tr className="border-b border-[#333333] bg-[#262626] text-slate-300 font-black uppercase tracking-wider text-[11px]">
+                <th className="py-3.5 px-4 w-10 text-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedIds.length === payments.length && payments.length > 0}
+                    onChange={toggleSelectAll}
+                    className="rounded border-[#3a3a3a] accent-[#1464f4] w-4 h-4 cursor-pointer"
+                  />
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Invoice</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Client Name</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Car Model</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Rate / Day</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Rental Period</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Amount</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Due Date</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4 text-center">Status</th>
+                <th className="py-3.5 px-4 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#2a2a2a] font-medium text-slate-200">
+              {payments.map((payment) => {
+                const isSelected = selectedIds.includes(payment.id);
 
-                  {/* Rate per Day Cell */}
-                  <td className="py-3.5 px-4 theme-text font-semibold whitespace-nowrap">
-                    ${payment.ratePerDay}
-                  </td>
-
-                  {/* Rental Period Cell */}
-                  <td className="py-3.5 px-4 theme-text font-semibold whitespace-nowrap">
-                    {payment.rentalPeriodDays} {payment.rentalPeriodDays === 1 ? "Day" : "Days"}
-                  </td>
-
-                  {/* Amount Cell */}
-                  <td className="py-3.5 px-4 theme-text font-black text-xs whitespace-nowrap">
-                    ${payment.amount}
-                  </td>
-
-                  {/* Due Date Cell */}
-                  <td className="py-3.5 px-4 theme-text font-medium whitespace-nowrap text-slate-600 dark:text-slate-300">
-                    {payment.dueDate}
-                  </td>
-
-                  {/* Status Badge Cell */}
-                  <td className="py-3.5 px-4 text-center whitespace-nowrap">
-                    {payment.status === "Completed" && (
-                      <span className="px-3.5 py-1 rounded-full text-[11px] font-extrabold bg-[#0f172a] text-white shadow-2xs">
-                        Completed
-                      </span>
-                    )}
-                    {payment.status === "Awaiting" && (
-                      <span className="px-3.5 py-1 rounded-full text-[11px] font-extrabold bg-[#edf7fc] text-[#00a8ff] border border-sky-200 dark:bg-sky-950/60 dark:text-sky-400 shadow-2xs">
-                        Awaiting
-                      </span>
-                    )}
-                    {payment.status === "Overdue" && (
-                      <span className="px-3.5 py-1 rounded-full text-[11px] font-extrabold bg-rose-50 text-rose-500 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-400 shadow-2xs">
-                        Overdue
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Action Cell (Dark Navy Edit/View with White text & Delete with Red text) */}
-                  <td className="py-3.5 px-4 text-center whitespace-nowrap">
-                    <div className="flex items-center justify-center gap-2">
-                      <button
-                        onClick={() => onEditPayment(payment)}
-                        className="px-3.5 py-1.5 rounded-xl bg-[#0f172a] text-white font-bold text-[11px] hover:bg-slate-800 transition-all shadow-sm text-center"
-                      >
-                        {payment.id === "INV-WZ1004" ? "View" : "Edit"}
-                      </button>
-                      <button
-                        onClick={() => onDeletePayment(payment.id)}
-                        className="px-3.5 py-1.5 rounded-xl bg-[#0f172a] text-[#ff3366] font-bold text-[11px] hover:bg-rose-950/40 hover:text-rose-400 transition-all shadow-sm text-center"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                return (
+                  <tr
+                    key={payment.id}
+                    className={`hover:bg-[#262626] transition-colors ${
+                      isSelected ? "bg-[#262626]/80" : ""
+                    }`}
+                  >
+                    <td className="py-3.5 px-4 text-center">
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => toggleSelectRow(payment.id)}
+                        className="rounded border-[#3a3a3a] accent-[#1464f4] w-4 h-4 cursor-pointer"
+                      />
+                    </td>
+                    <td className="py-3.5 px-4 font-bold text-white whitespace-nowrap">
+                      {payment.id}
+                    </td>
+                    <td className="py-3.5 px-4 font-semibold text-white whitespace-nowrap">
+                      {payment.clientName}
+                    </td>
+                    <td className="py-3.5 px-4 font-semibold text-white whitespace-nowrap">
+                      {payment.carModel}
+                    </td>
+                    <td className="py-3.5 px-4 text-slate-300 font-bold whitespace-nowrap">
+                      ${payment.ratePerDay}
+                    </td>
+                    <td className="py-3.5 px-4 text-slate-300 font-medium whitespace-nowrap">
+                      {payment.rentalPeriodDays} {payment.rentalPeriodDays > 1 ? "Days" : "Day"}
+                    </td>
+                    <td className="py-3.5 px-4 text-white font-bold whitespace-nowrap">
+                      ${payment.amount}
+                    </td>
+                    <td className="py-3.5 px-4 text-slate-300 font-medium whitespace-nowrap">
+                      {payment.dueDate}
+                    </td>
+                    <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                      {payment.status === "Completed" && (
+                        <span className="px-3 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-950 text-emerald-300 border border-emerald-800/40">
+                          Completed
+                        </span>
+                      )}
+                      {payment.status === "Awaiting" && (
+                        <span className="px-3 py-0.5 rounded-full text-[10px] font-extrabold bg-sky-950 text-sky-300 border border-sky-800/40">
+                          Awaiting
+                        </span>
+                      )}
+                      {payment.status === "Overdue" && (
+                        <span className="px-3 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-950 text-rose-300 border border-rose-800/40">
+                          Overdue
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                      <div className="flex items-center justify-center gap-2">
+                        <button
+                          onClick={() => onEditPayment(payment)}
+                          className="px-3 py-1 rounded-lg bg-[#2a2a2a] text-white font-bold text-[11px] hover:bg-slate-700 transition-all shadow-sm cursor-pointer"
+                        >
+                          {payment.id === "INV-WZ1004" ? "View" : "Edit"}
+                        </button>
+                        <button
+                          onClick={() => onDeletePayment(payment.id)}
+                          className="px-3 py-1 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-900/40 font-bold text-[11px] hover:bg-rose-900/60 transition-all shadow-sm cursor-pointer"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

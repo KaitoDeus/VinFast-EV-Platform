@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, ArrowRightLeft, Tag, Calendar, DollarSign, Package } from "lucide-react";
 import { ExpenseItem } from "@/types";
-import { useTheme } from "@/components/theme-provider";
 
 interface ExpensesTableProps {
   expenses: ExpenseItem[];
@@ -16,8 +15,8 @@ export function ExpensesTable({
   onEditExpense,
   onDeleteExpense,
 }: ExpensesTableProps) {
-  const { theme } = useTheme();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
 
   const toggleSelectAll = () => {
     if (selectedIds.length === expenses.length) {
@@ -38,7 +37,7 @@ export function ExpensesTable({
   const getCategoryDotColor = (cat: string) => {
     switch (cat) {
       case "Vehicle Maintenance":
-        return "bg-[#0f172a] dark:bg-slate-200";
+        return "bg-[#38bdf8]";
       case "Fuel":
         return "bg-[#00a8ff]";
       case "Insurance":
@@ -48,7 +47,7 @@ export function ExpensesTable({
       case "Staff Salaries":
         return "bg-amber-500";
       case "Marketing":
-        return "bg-rose-400";
+        return "bg-purple-400";
       default:
         return "bg-slate-400";
     }
@@ -56,168 +55,248 @@ export function ExpensesTable({
 
   if (expenses.length === 0) {
     return (
-      <div className="theme-card p-12 rounded-2xl border text-center space-y-2">
-        <p className="text-sm font-bold theme-text">No expense transactions found</p>
-        <p className="text-xs theme-muted">Try adjusting your search query or status filter.</p>
+      <div className="bg-[#1f1f1f] p-12 rounded-2xl border border-[#333333] text-center space-y-2">
+        <p className="text-sm font-bold text-white">No expense transactions found</p>
+        <p className="text-xs text-slate-400">Try adjusting your search query or status filter.</p>
       </div>
     );
   }
 
   return (
-    <div className="theme-card rounded-2xl border shadow-sm overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-xs border-collapse min-w-[700px]">
-          {/* Header Row (Pale Ice Blue & Pure Black Extra-Bold Text in Light Mode) */}
-          <thead>
-            <tr
-              style={{
-                backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-                color: theme === "dark" ? "#ffffff" : "#000000",
-                borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-              }}
-              className="border-b font-black uppercase tracking-wider text-[11px]"
-            >
-              <th className="py-3.5 px-4 w-10 text-center">
+    <div className="bg-[#1f1f1f] rounded-2xl border border-[#333333] shadow-sm overflow-hidden p-4 sm:p-0">
+      {/* Mobile Switcher header */}
+      <div className="flex items-center justify-between pb-3 sm:hidden border-b border-[#333333]">
+        <span className="text-xs font-bold text-white">Expenses ({expenses.length})</span>
+        <div className="flex items-center bg-[#2a2a2a] p-1 rounded-xl border border-[#3a3a3a]">
+          <button
+            onClick={() => setViewMode("cards")}
+            className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-colors ${
+              viewMode === "cards" ? "bg-[#1464f4] text-white" : "text-slate-400 hover:text-white"
+            }`}
+          >
+            Cards
+          </button>
+          <button
+            onClick={() => setViewMode("table")}
+            className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-colors ${
+              viewMode === "table" ? "bg-[#1464f4] text-white" : "text-slate-400 hover:text-white"
+            }`}
+          >
+            Table
+          </button>
+        </div>
+      </div>
+
+      {/* ─── 1. MOBILE CARD VIEW (< 640px) ─── */}
+      <div className={`${viewMode === "cards" ? "block sm:hidden" : "hidden"} space-y-3 pt-3`}>
+        {expenses.map((expense) => (
+          <div
+            key={expense.id}
+            className="bg-[#262626] p-4 rounded-xl border border-[#333333] space-y-3 shadow-xs"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  checked={selectedIds.length === expenses.length && expenses.length > 0}
-                  onChange={toggleSelectAll}
-                  className="w-4 h-4 rounded border-slate-300 text-[#00a8ff] focus:ring-[#00a8ff] cursor-pointer"
+                  checked={selectedIds.includes(expense.id)}
+                  onChange={() => toggleSelectRow(expense.id)}
+                  className="rounded border-[#3a3a3a] accent-[#1464f4] w-4 h-4 cursor-pointer"
                 />
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Expenses</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                <span className="text-xs font-bold text-white">{expense.id}</span>
+              </div>
+              <span
+                className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                  expense.status === "Completed"
+                    ? "bg-emerald-950 text-emerald-300 border border-emerald-800/40"
+                    : "bg-amber-950 text-amber-300 border border-amber-800/40"
+                }`}
+              >
+                {expense.status}
+              </span>
+            </div>
+
+            <div className="space-y-1 pt-1 border-t border-[#333333]">
+              <p className="text-xs font-bold text-white leading-snug">{expense.name}</p>
+              <div className="flex items-center justify-between text-[11px]">
+                <div className="flex items-center gap-1.5 font-semibold text-slate-200">
+                  <span className={`w-2 h-2 rounded-full ${getCategoryDotColor(expense.category)}`} />
+                  <span>{expense.category}</span>
                 </div>
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Category</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Quantity</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Amount</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer">
-                  <span>Date</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4 text-center">
-                <div className="flex items-center justify-center gap-1.5 cursor-pointer">
-                  <span>Status</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-              <th className="py-3.5 px-4 text-center">
-                <div className="flex items-center justify-center gap-1.5 cursor-pointer">
-                  <span>Action</span>
-                  <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
-                </div>
-              </th>
-            </tr>
-          </thead>
+                <span className="text-slate-400 text-[10px] flex items-center gap-1">
+                  <Package className="w-3 h-3" /> Qty: {expense.quantity}
+                </span>
+              </div>
+            </div>
 
-          {/* Table Body Rows with Ultra-Thin Separator Lines */}
-          <tbody className="divide-y divide-slate-100/40 dark:divide-slate-800/30 font-medium">
-            {expenses.map((exp) => {
-              const isChecked = selectedIds.includes(exp.id);
+            <div className="flex items-center justify-between pt-2 border-t border-[#333333] text-xs">
+              <div>
+                <span className="text-slate-400 text-[10px] flex items-center gap-1">
+                  <Calendar className="w-3 h-3" /> Date
+                </span>
+                <p className="text-slate-300 font-medium">{expense.date}</p>
+              </div>
+              <div className="text-right">
+                <span className="text-slate-400 text-[10px] flex items-center justify-end gap-1">
+                  <DollarSign className="w-3 h-3" /> Amount
+                </span>
+                <p className="font-black text-white text-sm">${expense.amount.toLocaleString()}</p>
+              </div>
+            </div>
 
-              return (
-                <tr
-                  key={exp.id}
-                  className={`transition-colors ${
-                    isChecked
-                      ? "bg-slate-50/90 dark:bg-slate-800/50"
-                      : "hover:bg-slate-50/50 dark:hover:bg-slate-800/30"
-                  }`}
-                >
-                  {/* Checkbox Cell */}
-                  <td className="py-3.5 px-4 text-center">
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => toggleSelectRow(exp.id)}
-                      className="w-4 h-4 rounded border-slate-300 text-[#00a8ff] focus:ring-[#00a8ff] cursor-pointer"
-                    />
-                  </td>
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#333333]">
+              <button
+                onClick={() => onEditExpense(expense)}
+                className="px-3 py-1.5 rounded-lg bg-[#333333] text-white text-xs font-semibold hover:bg-slate-700 transition-colors"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => onDeleteExpense(expense.id)}
+                className="px-3 py-1.5 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-900/40 text-xs font-semibold hover:bg-rose-900/60 transition-colors"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
-                  {/* Expense Name Cell */}
-                  <td className="py-3.5 px-4 theme-text font-black text-xs whitespace-nowrap">
-                    {exp.name}
-                  </td>
+      {/* ─── 2. FULL HORIZONTAL SCROLL TABLE (Desktop & Mobile if viewMode === "table") ─── */}
+      <div className={`${viewMode === "table" ? "block" : "hidden sm:block"}`}>
+        {/* Swipe hint on mobile */}
+        <div className="sm:hidden flex items-center justify-between py-2 text-[11px] text-slate-400">
+          <span className="flex items-center gap-1">
+            <ArrowRightLeft className="w-3 h-3 text-[#38bdf8]" />
+            Vuốt ngang để xem đủ cột
+          </span>
+        </div>
 
-                  {/* Category Pill Cell */}
-                  <td className="py-3.5 px-4 whitespace-nowrap">
-                    <span className="px-3 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 inline-flex items-center gap-2 shadow-2xs">
-                      <span className={`w-2 h-2 rounded-sm ${getCategoryDotColor(exp.category)}`} />
-                      <span>{exp.category}</span>
-                    </span>
-                  </td>
+        <div className="overflow-x-auto scrollbar-thin">
+          <table className="w-full text-left text-xs border-collapse min-w-[700px]">
+            <thead>
+              <tr className="border-b border-[#333333] bg-[#262626] text-slate-300 font-black uppercase tracking-wider text-[11px]">
+                <th className="py-3.5 px-4 w-10 text-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedIds.length === expenses.length && expenses.length > 0}
+                    onChange={toggleSelectAll}
+                    className="rounded border-[#3a3a3a] accent-[#1464f4] w-4 h-4 cursor-pointer"
+                  />
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Expense ID</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Item Name</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Category</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Quantity</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Amount</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4">
+                  <div className="flex items-center gap-1.5 cursor-pointer">
+                    <span>Date</span>
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+                  </div>
+                </th>
+                <th className="py-3.5 px-4 text-center">Status</th>
+                <th className="py-3.5 px-4 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#2a2a2a] font-medium text-slate-200">
+              {expenses.map((expense) => {
+                const isSelected = selectedIds.includes(expense.id);
 
-                  {/* Quantity Cell */}
-                  <td className="py-3.5 px-4 theme-text font-bold whitespace-nowrap">
-                    {exp.quantity}
-                  </td>
-
-                  {/* Amount Cell */}
-                  <td className="py-3.5 px-4 theme-text font-black text-xs whitespace-nowrap">
-                    ${exp.amount}
-                  </td>
-
-                  {/* Date Cell */}
-                  <td className="py-3.5 px-4 theme-text font-semibold whitespace-nowrap text-slate-600 dark:text-slate-300">
-                    {exp.date}
-                  </td>
-
-                  {/* Status Cell */}
-                  <td className="py-3.5 px-4 text-center whitespace-nowrap">
-                    {exp.status === "Completed" && (
-                      <span className="px-3.5 py-1 rounded-full text-[11px] font-extrabold bg-[#edf7fc] text-[#00a8ff] border border-sky-200 dark:bg-sky-950/60 dark:text-sky-400 shadow-2xs">
-                        Completed
-                      </span>
-                    )}
-                    {exp.status === "Pending" && (
-                      <span className="px-3.5 py-1 rounded-full text-[11px] font-extrabold bg-rose-50 text-rose-500 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-400 shadow-2xs">
-                        Pending
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Action Cell (Dark Navy Edit with White text & Delete with Red text) */}
-                  <td className="py-3.5 px-4 text-center whitespace-nowrap">
-                    <div className="flex items-center justify-center gap-2">
-                      <button
-                        onClick={() => onEditExpense(exp)}
-                        className="px-3.5 py-1.5 rounded-xl bg-[#0f172a] text-white font-bold text-[11px] hover:bg-slate-800 transition-all shadow-sm text-center"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => onDeleteExpense(exp.id)}
-                        className="px-3.5 py-1.5 rounded-xl bg-[#0f172a] text-[#ff3366] font-bold text-[11px] hover:bg-rose-950/40 hover:text-rose-400 transition-all shadow-sm text-center"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                return (
+                  <tr
+                    key={expense.id}
+                    className={`hover:bg-[#262626] transition-colors ${
+                      isSelected ? "bg-[#262626]/80" : ""
+                    }`}
+                  >
+                    <td className="py-3.5 px-4 text-center">
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => toggleSelectRow(expense.id)}
+                        className="rounded border-[#3a3a3a] accent-[#1464f4] w-4 h-4 cursor-pointer"
+                      />
+                    </td>
+                    <td className="py-3.5 px-4 font-bold text-white whitespace-nowrap">
+                      {expense.id}
+                    </td>
+                    <td className="py-3.5 px-4 font-semibold text-white whitespace-nowrap">
+                      {expense.name}
+                    </td>
+                    <td className="py-3.5 px-4 font-semibold text-white whitespace-nowrap">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-2.5 h-2.5 rounded-full ${getCategoryDotColor(expense.category)}`} />
+                        <span>{expense.category}</span>
+                      </div>
+                    </td>
+                    <td className="py-3.5 px-4 text-slate-300 font-medium whitespace-nowrap">
+                      {expense.quantity}
+                    </td>
+                    <td className="py-3.5 px-4 font-black text-white whitespace-nowrap">
+                      ${expense.amount.toLocaleString()}
+                    </td>
+                    <td className="py-3.5 px-4 text-slate-300 font-medium whitespace-nowrap">
+                      {expense.date}
+                    </td>
+                    <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                      {expense.status === "Completed" && (
+                        <span className="px-3 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-950 text-emerald-300 border border-emerald-800/40">
+                          Completed
+                        </span>
+                      )}
+                      {expense.status === "Pending" && (
+                        <span className="px-3 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-950 text-amber-300 border border-amber-800/40">
+                          Pending
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                      <div className="flex items-center justify-center gap-2">
+                        <button
+                          onClick={() => onEditExpense(expense)}
+                          className="px-3 py-1 rounded-lg bg-[#2a2a2a] text-white font-bold text-[11px] hover:bg-slate-700 transition-all shadow-sm cursor-pointer"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => onDeleteExpense(expense.id)}
+                          className="px-3 py-1 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-900/40 font-bold text-[11px] hover:bg-rose-900/60 transition-all shadow-sm cursor-pointer"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
