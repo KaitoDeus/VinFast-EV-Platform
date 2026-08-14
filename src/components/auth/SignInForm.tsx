@@ -74,16 +74,12 @@ export function SignInForm() {
             <label className="text-xs font-bold text-slate-300 block">
               {t("auth.password")}
             </label>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                alert(lang === "vi" ? "Chức năng đặt lại mật khẩu đang được kích hoạt." : "Password reset feature enabled.");
-              }}
+            <Link
+              href="/forgot-password"
               className="text-[11px] text-[#38bdf8] font-bold hover:underline"
             >
               {t("auth.forgotPassword")}
-            </a>
+            </Link>
           </div>
           <div className="relative">
             <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">

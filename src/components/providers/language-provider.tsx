@@ -298,14 +298,14 @@ const translations: Record<Language, Record<string, string>> = {
     "messages.yesterday": "Hôm qua",
 
     // ═══════════════════════════════════════════════════════════════════════
-    // ─── AUTHENTICATION MODULE (SIGN UP & SIGN IN) ───
+    // ─── AUTHENTICATION MODULE (SIGN UP, SIGN IN & RESET PASSWORD) ───
     // ═══════════════════════════════════════════════════════════════════════
     "auth.signUpTitle": "Đăng ký",
     "auth.signInTitle": "Đăng nhập",
     "auth.fullName": "Họ và tên",
     "auth.fullNamePlaceholder": "Nguyễn Văn A",
     "auth.email": "Địa chỉ Email",
-    "auth.emailPlaceholder": "example@domain.com",
+    "auth.emailPlaceholder": "elementary221b@gmail.com",
     "auth.password": "Mật khẩu",
     "auth.passwordPlaceholder": "••••••••••••",
     "auth.passwordStrength": "Độ mạnh mật khẩu",
@@ -316,9 +316,9 @@ const translations: Record<Language, Record<string, string>> = {
     "auth.signUpButton": "Đăng ký",
     "auth.signInButton": "Đăng nhập",
     "auth.alreadyHaveAccount": "Đã có tài khoản?",
-    "auth.signInLink": "Đăng nhập",
+    "auth.signInLink": "Đăng nhập.",
     "auth.dontHaveAccount": "Chưa có tài khoản?",
-    "auth.signUpLink": "Đăng ký",
+    "auth.signUpLink": "Đăng ký.",
     "auth.signUpWithGoogle": "Đăng ký với Google",
     "auth.signInWithGoogle": "Đăng nhập với Google",
     "auth.privacyPolicy": "Chính sách bảo mật",
@@ -326,6 +326,24 @@ const translations: Record<Language, Record<string, string>> = {
     "auth.copyright": "Bản quyền 2026 VinFast Platform ©",
     "auth.rememberMe": "Ghi nhớ đăng nhập",
     "auth.forgotPassword": "Quên mật khẩu?",
+
+    // Reset Password & OTP
+    "auth.resetPasswordTitle": "Đặt lại mật khẩu",
+    "auth.resetPasswordSubtitle": "Quên mật khẩu? Đừng lo lắng, hãy nhập địa chỉ email của bạn để nhận mã xác thực đặt lại mật khẩu.",
+    "auth.resetPasswordBtn": "Đặt lại mật khẩu",
+    "auth.backToLogin": "Quay lại màn hình đăng nhập",
+    "auth.otpTitle": "Nhập mã xác thực OTP",
+    "auth.otpSubtitle": "Nhập mã OTP gồm 6 chữ số được gửi tới email của bạn để tiếp tục.",
+    "auth.verifyOtpBtn": "Xác nhận mã OTP",
+    "auth.didntReceiveCode": "Chưa nhận được mã?",
+    "auth.resendOtpIn": "Gửi lại mã OTP sau",
+    "auth.resendOtpNow": "Gửi lại mã ngay",
+    "auth.newPassword": "Mật khẩu mới",
+    "auth.confirmNewPassword": "Xác nhận mật khẩu mới",
+    "auth.confirmPasswordPlaceholder": "Nhập lại mật khẩu mới",
+    "auth.setNewPasswordBtn": "Cập nhật mật khẩu mới",
+    "auth.passwordResetSuccess": "Đặt lại mật khẩu thành công!",
+    "auth.passwordResetSuccessDesc": "Mật khẩu của bạn đã được cập nhật. Đang chuyển hướng về trang đăng nhập...",
 
     // Footer
     "footer.dashboardCopyright": "Nền tảng Quản trị & Vận hành Đội xe VinFast EV © 2026",
@@ -616,7 +634,7 @@ const translations: Record<Language, Record<string, string>> = {
     "messages.yesterday": "Yesterday",
 
     // ═══════════════════════════════════════════════════════════════════════
-    // ─── AUTHENTICATION MODULE (SIGN UP & SIGN IN) ───
+    // ─── AUTHENTICATION MODULE (SIGN UP, SIGN IN & RESET PASSWORD) ───
     // ═══════════════════════════════════════════════════════════════════════
     "auth.signUpTitle": "Sign Up",
     "auth.signInTitle": "Sign In",
@@ -644,6 +662,24 @@ const translations: Record<Language, Record<string, string>> = {
     "auth.copyright": "Copyright 2026 VinFast Platform ©",
     "auth.rememberMe": "Remember me",
     "auth.forgotPassword": "Forgot password?",
+
+    // Reset Password & OTP
+    "auth.resetPasswordTitle": "Reset Your Password",
+    "auth.resetPasswordSubtitle": "Forgot your password? No worries, then let's submit password reset. It will be sent to your email.",
+    "auth.resetPasswordBtn": "Reset Password",
+    "auth.backToLogin": "Back to login screen",
+    "auth.otpTitle": "Reset Your Password.",
+    "auth.otpSubtitle": "Enter your 6 digit OTP code in order to reset.",
+    "auth.verifyOtpBtn": "Reset Password",
+    "auth.didntReceiveCode": "Didn't receive the code?",
+    "auth.resendOtpIn": "Re-send OTP Code in",
+    "auth.resendOtpNow": "Re-send OTP Code now",
+    "auth.newPassword": "New Password",
+    "auth.confirmNewPassword": "Confirm New Password",
+    "auth.confirmPasswordPlaceholder": "Re-enter your new password",
+    "auth.setNewPasswordBtn": "Set New Password",
+    "auth.passwordResetSuccess": "Password Reset Successful!",
+    "auth.passwordResetSuccessDesc": "Your password has been securely updated. Redirecting to login...",
 
     // Footer
     "footer.dashboardCopyright": "VinFast EV Fleet Management Platform © 2026",
