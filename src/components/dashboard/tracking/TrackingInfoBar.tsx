@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { MessageSquare, User, Calendar, Clock, MapPin } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 import { TrackingItem } from "@/types";
 import { useRouter } from "next/navigation";
 
@@ -12,6 +13,7 @@ interface TrackingInfoBarProps {
 
 export function TrackingInfoBar({ vehicle }: TrackingInfoBarProps) {
   const router = useRouter();
+  const { lang, t } = useLanguage();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -42,7 +44,7 @@ export function TrackingInfoBar({ vehicle }: TrackingInfoBarProps) {
             flex items-center justify-center gap-2"
         >
           <MessageSquare className="w-3.5 h-3.5" />
-          Send a Message
+          {t("tracking.sendMsg")}
         </button>
       </div>
 
@@ -54,11 +56,11 @@ export function TrackingInfoBar({ vehicle }: TrackingInfoBarProps) {
         <h4 className="text-[15px] font-bold text-white">{vehicle.carModel}</h4>
         <div className="w-full space-y-2 pt-1 border-t border-[#333333]">
           <div className="flex justify-between text-[12px] pt-2">
-            <span className="text-slate-400">Car Type</span>
+            <span className="text-slate-400">{t("tracking.carType")}</span>
             <span className="font-semibold text-white uppercase">{vehicle.carType}</span>
           </div>
           <div className="flex justify-between text-[12px]">
-            <span className="text-slate-400">Car Number</span>
+            <span className="text-slate-400">{t("tracking.carNumber")}</span>
             <span className="font-bold text-white">{vehicle.carNumber}</span>
           </div>
         </div>
@@ -66,12 +68,12 @@ export function TrackingInfoBar({ vehicle }: TrackingInfoBarProps) {
 
       {/* ── Card 3: Rent info ── */}
       <div className="bg-[#1f1f1f] rounded-2xl border border-[#333333] p-5 flex flex-col gap-2.5">
-        <h4 className="text-[14px] font-bold text-white mb-0.5">Rent Info</h4>
-        <InfoRow icon={<User className="w-3.5 h-3.5" />} label="Driver" value={vehicle.driverName} />
-        <InfoRow icon={<Calendar className="w-3.5 h-3.5" />} label="Start Date" value={vehicle.startDate} />
-        <InfoRow icon={<Calendar className="w-3.5 h-3.5" />} label="End Date" value={vehicle.endDate} />
-        <InfoRow icon={<Clock className="w-3.5 h-3.5" />} label="Trip Time" value={vehicle.tripTime} />
-        <InfoRow icon={<MapPin className="w-3.5 h-3.5" />} label="Total Distance" value={vehicle.totalDistance} bold />
+        <h4 className="text-[14px] font-bold text-white mb-0.5">{t("tracking.rentInfo")}</h4>
+        <InfoRow icon={<User className="w-3.5 h-3.5" />} label={t("bookings.driver")} value={vehicle.driverName} />
+        <InfoRow icon={<Calendar className="w-3.5 h-3.5" />} label={lang === "vi" ? "Ngày bắt đầu" : "Start Date"} value={vehicle.startDate} />
+        <InfoRow icon={<Calendar className="w-3.5 h-3.5" />} label={lang === "vi" ? "Ngày kết thúc" : "End Date"} value={vehicle.endDate} />
+        <InfoRow icon={<Clock className="w-3.5 h-3.5" />} label={lang === "vi" ? "Thời gian chạy" : "Trip Time"} value={vehicle.tripTime} />
+        <InfoRow icon={<MapPin className="w-3.5 h-3.5" />} label={lang === "vi" ? "Tổng quãng đường" : "Total Distance"} value={vehicle.totalDistance} bold />
       </div>
     </div>
   );

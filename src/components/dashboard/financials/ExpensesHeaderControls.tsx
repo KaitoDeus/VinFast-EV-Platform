@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Search, Download, Calendar, ChevronDown } from "lucide-react";
-import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 
 interface ExpensesHeaderControlsProps {
   searchQuery: string;
@@ -19,11 +19,13 @@ export function ExpensesHeaderControls({
   onStatusFilterChange,
   onDownloadClick,
 }: ExpensesHeaderControlsProps) {
-  const { theme } = useTheme();
+  const { lang, t } = useLanguage();
 
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <h3 className="text-xl font-extrabold theme-text tracking-tight">Recent Transactions</h3>
+      <h3 className="text-xl font-extrabold text-white tracking-tight">
+        {lang === "vi" ? "Giao dịch chi phí gần đây" : "Recent Transactions"}
+      </h3>
 
       <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
         {/* Search Input */}
@@ -31,10 +33,10 @@ export function ExpensesHeaderControls({
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search invoice, client name, etc"
+            placeholder={t("financials.searchExpense")}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl contact-input border border-slate-200 dark:border-slate-800 outline-none focus:ring-2 focus:ring-[#00a8ff]"
+            className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl bg-[#2a2a2a] border border-[#3a3a3a] text-white placeholder:text-slate-400 outline-none focus:ring-2 focus:ring-[#38bdf8]"
           />
         </div>
 
@@ -43,41 +45,31 @@ export function ExpensesHeaderControls({
           <select
             value={statusFilter}
             onChange={(e) => onStatusFilterChange(e.target.value)}
-            style={{
-              backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-              color: theme === "dark" ? "#ffffff" : "#0f172a",
-              borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-            }}
-            className="pl-3.5 pr-8 py-2.5 text-xs font-extrabold rounded-xl border outline-none appearance-none cursor-pointer shadow-2xs"
+            className="pl-3.5 pr-8 py-2.5 text-xs font-extrabold rounded-xl border border-[#3a3a3a] bg-[#2a2a2a] text-white outline-none appearance-none cursor-pointer shadow-2xs"
           >
-            <option value="">Status: All</option>
+            <option value="">{t("common.status")}: {t("common.all")}</option>
             <option value="Completed">Completed</option>
             <option value="Pending">Pending</option>
           </select>
-          <ChevronDown className="w-3.5 h-3.5 text-[#00a8ff] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <ChevronDown className="w-3.5 h-3.5 text-[#38bdf8] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
         </div>
 
         {/* Date Selector Dropdown Pill */}
         <div
-          style={{
-            backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-            color: theme === "dark" ? "#ffffff" : "#0f172a",
-            borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-          }}
-          className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl border text-xs font-extrabold shadow-2xs cursor-pointer"
+          className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-[#3a3a3a] bg-[#2a2a2a] text-white text-xs font-extrabold shadow-2xs cursor-pointer"
         >
-          <Calendar className="w-3.5 h-3.5 text-[#00a8ff]" />
+          <Calendar className="w-3.5 h-3.5 text-[#38bdf8]" />
           <span>1 - 20 August 2028</span>
-          <ChevronDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+          <ChevronDown className="w-3.5 h-3.5 text-[#38bdf8]" />
         </div>
 
         {/* Download Red CTA Button */}
         <button
           onClick={onDownloadClick}
-          className="inline-flex items-center gap-1.5 bg-[#ff3366] hover:bg-[#e02654] text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-md transition-all active:scale-95 shrink-0"
+          className="inline-flex items-center gap-1.5 bg-[#ff3366] hover:bg-[#e02654] text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-md transition-all active:scale-95 shrink-0 cursor-pointer"
         >
           <Download className="w-4 h-4" />
-          <span>Download</span>
+          <span>{lang === "vi" ? "Tải xuống" : "Download"}</span>
         </button>
       </div>
     </div>

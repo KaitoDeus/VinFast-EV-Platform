@@ -135,7 +135,7 @@ export function TopHeader() {
             </div>
             <div className="hidden xl:block text-left">
               <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">Abram Schleifer</h4>
-              <p className="text-[11px] text-slate-400 leading-none">Admin VinFast</p>
+              <p className="text-[11px] text-slate-400 leading-none">{t("profile.adminRole")}</p>
             </div>
             <ChevronDown className="w-3.5 h-3.5 text-slate-400 hidden sm:block" />
           </button>
@@ -156,7 +156,7 @@ export function TopHeader() {
                 </div>
                 <div className="flex items-center gap-1 text-[10px] text-emerald-400 font-semibold pt-1">
                   <Shield className="w-3 h-3" />
-                  <span>{t("profile.adminRole")}</span>
+                  <span>{t("profile.superAdmin")}</span>
                 </div>
               </div>
 

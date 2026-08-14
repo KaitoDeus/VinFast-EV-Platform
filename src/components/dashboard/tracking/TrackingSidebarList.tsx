@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Search, SlidersHorizontal, Plus } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 import { TrackingItem } from "@/types";
 
 interface TrackingSidebarListProps {
@@ -22,6 +23,8 @@ export function TrackingSidebarList({
   onSearchChange,
   onAddCarClick,
 }: TrackingSidebarListProps) {
+  const { t } = useLanguage();
+
   return (
     <div className="space-y-3">
       {/* ─── Search bar ─── */}
@@ -30,13 +33,13 @@ export function TrackingSidebarList({
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder="Search for client or car"
+            placeholder={t("tracking.searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             className="w-full pl-9 pr-3 py-2.5 text-[13px] rounded-lg
               bg-[#2a2a2a] border border-[#3a3a3a]
               text-white placeholder:text-slate-400
-              outline-none focus:ring-2 focus:ring-slate-500
+              outline-none focus:ring-2 focus:ring-[#38bdf8]
               transition-all"
           />
         </div>
@@ -59,40 +62,36 @@ export function TrackingSidebarList({
               key={v.id}
               type="button"
               onClick={() => onSelectVehicle(v)}
-              className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer
+              className={`w-full text-left p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3
                 ${
                   isSelected
-                    ? "bg-[#2a2a2a] border border-slate-500 ring-1 ring-slate-500"
-                    : "bg-[#1f1f1f] border border-[#333333] hover:bg-[#262626]"
+                    ? "bg-[#2a2a2a] border-[#38bdf8]/60 shadow-md ring-1 ring-[#38bdf8]/30"
+                    : "bg-[#1f1f1f] border-[#333333] hover:bg-[#262626] hover:border-[#444444]"
                 }`}
             >
-              {/* Car thumbnail */}
-              <div className="relative w-[72px] h-[48px] shrink-0 rounded-lg overflow-hidden bg-neutral-800">
-                <Image src={v.carImage} alt={v.carModel} fill sizes="72px" className="object-cover" />
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="relative w-12 h-12 rounded-xl bg-[#2a2a2a] p-1 shrink-0 overflow-hidden border border-[#333333]">
+                  <Image src={v.carImage} alt={v.carModel} fill sizes="48px" className="object-contain" />
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-[13px] font-bold text-white truncate">{v.carModel}</h4>
+                  <p className="text-[11px] text-slate-400 truncate">{v.clientName}</p>
+                  <p className="text-[10px] text-slate-500 font-mono font-bold mt-0.5">{v.carNumber}</p>
+                </div>
               </div>
 
-              {/* Name & car */}
-              <div className="flex-1 min-w-0 space-y-0.5">
-                <p className="text-[13px] font-semibold text-white truncate leading-tight">
-                  {v.clientName}
-                </p>
-                <p className="text-[11px] text-slate-400 truncate leading-tight flex items-center gap-1">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2-5H8L6 10l-2.5 1.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-                  {v.carModel}
-                </p>
-              </div>
-
-              {/* Status badge */}
-              <span
-                className={`shrink-0 px-2.5 py-[3px] rounded-md text-[10px] font-bold leading-none
-                  ${
+              <div className="text-right shrink-0">
+                <span
+                  className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
                     v.status === "On Trip"
-                      ? "bg-sky-950/80 text-sky-300 border border-sky-800/40"
-                      : "bg-rose-950/80 text-rose-300 border border-rose-800/40"
+                      ? "bg-sky-950 text-sky-400 border border-sky-800/40"
+                      : "bg-rose-950 text-rose-400 border border-rose-800/40"
                   }`}
-              >
-                {v.status}
-              </span>
+                >
+                  {v.status}
+                </span>
+                <p className="text-[11px] font-bold text-slate-300 mt-1">{v.totalDistance}</p>
+              </div>
             </button>
           );
         })}
@@ -101,13 +100,10 @@ export function TrackingSidebarList({
       {/* ─── Add Car CTA ─── */}
       <button
         onClick={onAddCarClick}
-        className="w-full flex items-center justify-center gap-1.5
-          bg-[#ff3366] hover:bg-[#e02654] active:scale-[0.98]
-          text-white font-bold text-[13px] py-3 rounded-xl
-          shadow-md transition-all cursor-pointer"
+        className="w-full py-3 rounded-xl bg-[#ff3366] hover:bg-[#e02654] text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98"
       >
         <Plus className="w-4 h-4" />
-        Add Car
+        <span>{t("tracking.addVehicle")}</span>
       </button>
     </div>
   );

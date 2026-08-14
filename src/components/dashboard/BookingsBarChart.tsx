@@ -2,10 +2,10 @@
 
 import React from "react";
 import { ChevronDown } from "lucide-react";
-import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 
 export function BookingsBarChart() {
-  const { theme } = useTheme();
+  const { t } = useLanguage();
 
   const monthsData = [
     { month: "Jan", height: 60, isPeak: false },
@@ -23,26 +23,21 @@ export function BookingsBarChart() {
   ];
 
   return (
-    <div className="theme-card p-6 rounded-2xl border shadow-sm space-y-4">
+    <div className="bg-[#1f1f1f] p-6 rounded-2xl border border-[#333333] shadow-sm space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-bold theme-text tracking-tight">Bookings Overview</h3>
+        <h3 className="text-lg font-bold text-white tracking-tight">{t("overview.bookingsOverview")}</h3>
         <button
-          style={{
-            backgroundColor: theme === "dark" ? "#1e293b" : "#edf7fc",
-            color: theme === "dark" ? "#ffffff" : "#0f172a",
-            borderColor: theme === "dark" ? "#334155" : "#e0f2fe",
-          }}
-          className="flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all shadow-2xs hover:opacity-90"
+          className="flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full border border-[#3a3a3a] bg-[#2a2a2a] text-slate-200 transition-all shadow-2xs hover:bg-[#333333] cursor-pointer"
         >
-          <span>This Year</span>
-          <ChevronDown className="w-3.5 h-3.5 text-[#00a8ff]" />
+          <span>{t("overview.thisYear")}</span>
+          <ChevronDown className="w-3.5 h-3.5 text-[#38bdf8]" />
         </button>
       </div>
 
       {/* SVG Bar Chart Container */}
       <div className="relative w-full h-[200px] pt-4">
         {/* Y Axis Grid Values */}
-        <div className="absolute left-0 top-0 bottom-6 flex flex-col justify-between text-[11px] theme-muted font-medium">
+        <div className="absolute left-0 top-0 bottom-6 flex flex-col justify-between text-[11px] text-slate-400 font-medium">
           <span>1.2K</span>
           <span>900</span>
           <span>600</span>
@@ -51,11 +46,11 @@ export function BookingsBarChart() {
         </div>
 
         {/* Bars Container */}
-        <div className="ml-10 h-[170px] flex items-end justify-between px-2 gap-2 border-b border-slate-200 dark:border-slate-800 relative">
+        <div className="ml-10 h-[170px] flex items-end justify-between px-2 gap-2 border-b border-[#333333] relative">
           {monthsData.map((item) => (
             <div key={item.month} className="flex flex-col items-center flex-1 h-full justify-end relative group">
               {item.isPeak && (
-                <div className="absolute -top-7 bg-slate-900 text-white rounded-lg px-2 py-0.5 text-[10px] font-bold shadow-md z-10 animate-bounce">
+                <div className="absolute -top-7 bg-slate-900 text-white rounded-lg px-2 py-0.5 text-[10px] font-bold shadow-md z-10 animate-bounce border border-slate-700">
                   {item.value}
                 </div>
               )}
@@ -64,10 +59,10 @@ export function BookingsBarChart() {
                 className={`w-full max-w-[28px] rounded-t-lg transition-all duration-300 ${
                   item.isPeak
                     ? "bg-[#ff3366] shadow-md shadow-rose-500/30"
-                    : "bg-slate-900 dark:bg-slate-200 hover:bg-[#00a8ff] dark:hover:bg-[#00a8ff]"
+                    : "bg-[#2a2a2a] hover:bg-[#00a8ff]"
                 }`}
               />
-              <span className="text-[10px] theme-muted font-semibold mt-2 absolute -bottom-5">
+              <span className="text-[10px] text-slate-400 font-semibold mt-2 absolute -bottom-5">
                 {item.month}
               </span>
             </div>

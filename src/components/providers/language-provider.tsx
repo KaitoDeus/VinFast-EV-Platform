@@ -116,7 +116,7 @@ const translations: Record<Language, Record<string, string>> = {
     "sidebar.clients": "Khách hàng",
     "sidebar.drivers": "Tài xế",
     "sidebar.financials": "Tài chính",
-    "sidebar.payments": "Khoản thu (Hóa đơn)",
+    "sidebar.payments": "Khoản thu",
     "sidebar.expenses": "Khoản chi",
     "sidebar.tracking": "Định vị GPS",
     "sidebar.messages": "Tin nhắn",
@@ -138,7 +138,8 @@ const translations: Record<Language, Record<string, string>> = {
     "header.payments": "Khoản thu & Hóa đơn",
     "header.expenses": "Khoản chi & Chi phí",
     "header.financials": "Tài chính",
-    "profile.adminRole": "Tài khoản Super Admin",
+    "profile.adminRole": "Quản trị viên VinFast",
+    "profile.superAdmin": "Tài khoản Super Admin",
     "profile.overview": "Tổng quan Dashboard",
     "profile.settings": "Cài đặt tài khoản",
     "profile.logout": "Đăng xuất (Logout)",
@@ -158,6 +159,26 @@ const translations: Record<Language, Record<string, string>> = {
     "common.next": "Sau",
     "common.resultsPerPage": "Hiển thị mỗi trang",
     "common.swipeHint": "Vuốt ngang để xem đủ cột",
+    "common.check": "Kiểm tra",
+
+    // Overview Charts & Widgets
+    "overview.earningsSummary": "Thống kê doanh thu",
+    "overview.last8Month": "8 tháng qua",
+    "overview.thisWeek": "Tuần này",
+    "overview.thisYear": "Năm nay",
+    "overview.rentStatus": "Trạng thái thuê",
+    "overview.totalStatus": "Tổng trạng thái",
+    "overview.hired": "Đang thuê",
+    "overview.pending": "Chờ duyệt",
+    "overview.cancelled": "Đã hủy",
+    "overview.carAvailability": "Tra cứu xe sẵn sàng",
+    "overview.checkAvailability": "Kiểm tra ngay",
+    "overview.bookingsOverview": "Tổng quan đơn đặt",
+    "overview.reminders": "Nhắc nhở & Bảo dưỡng",
+    "overview.reminder1": "Kiểm tra và bảo dưỡng định kỳ các xe trong đội xe.",
+    "overview.reminder2": "Cập nhật bảng giá thuê xe cho mùa du lịch sắp tới.",
+    "overview.reminder3": "Xem xét đánh giá của khách hàng và cải thiện chất lượng dịch vụ.",
+    "overview.carTypes": "Phân loại dòng xe",
 
     // Metric Cards (Overview)
     "metrics.revenue": "Tổng doanh thu",
@@ -195,6 +216,8 @@ const translations: Record<Language, Record<string, string>> = {
     "financials.balance": "Số dư hiện tại",
     "financials.income": "Tổng thu nhập",
     "financials.expenses": "Tổng chi phí",
+    "financials.searchInvoice": "Tìm hóa đơn, khách hàng...",
+    "financials.searchExpense": "Tìm kiếm khoản chi...",
 
     // Tracking Module
     "tracking.searchPlaceholder": "Tìm xe, biển số, khách hàng...",
@@ -203,6 +226,10 @@ const translations: Record<Language, Record<string, string>> = {
     "tracking.range": "Quãng đường còn lại",
     "tracking.temp": "Nhiệt độ động cơ",
     "tracking.addVehicle": "Thêm xe theo dõi",
+    "tracking.sendMsg": "Gửi tin nhắn",
+    "tracking.carType": "Loại xe",
+    "tracking.carNumber": "Biển số xe",
+    "tracking.rentInfo": "Thông tin thuê",
 
     // Messages Module
     "messages.searchPlaceholder": "Tìm kiếm cuộc trò chuyện...",
@@ -212,6 +239,9 @@ const translations: Record<Language, Record<string, string>> = {
     "messages.send": "Gửi tin nhắn",
     "messages.today": "Hôm nay",
     "messages.yesterday": "Hôm qua",
+
+    // Footer
+    "footer.dashboardCopyright": "Nền tảng Quản trị & Vận hành Đội xe VinFast EV © 2026",
   },
   en: {
     // ─── Header Nav (Landing Page) ───
@@ -339,7 +369,8 @@ const translations: Record<Language, Record<string, string>> = {
     "header.payments": "Financials - Payments",
     "header.expenses": "Financials - Expenses",
     "header.financials": "Financials",
-    "profile.adminRole": "Super Admin Account",
+    "profile.adminRole": "Admin VinFast",
+    "profile.superAdmin": "Super Admin Account",
     "profile.overview": "Dashboard Overview",
     "profile.settings": "Account Settings",
     "profile.logout": "Logout",
@@ -359,6 +390,26 @@ const translations: Record<Language, Record<string, string>> = {
     "common.next": "Next",
     "common.resultsPerPage": "Results per page",
     "common.swipeHint": "Swipe horizontally to see all columns",
+    "common.check": "Check",
+
+    // Overview Charts & Widgets
+    "overview.earningsSummary": "Earnings Summary",
+    "overview.last8Month": "Last 8 Month",
+    "overview.thisWeek": "This Week",
+    "overview.thisYear": "This Year",
+    "overview.rentStatus": "Rent Status",
+    "overview.totalStatus": "Total Status",
+    "overview.hired": "Hired",
+    "overview.pending": "Pending",
+    "overview.cancelled": "Cancelled",
+    "overview.carAvailability": "Car Availability",
+    "overview.checkAvailability": "Check",
+    "overview.bookingsOverview": "Bookings Overview",
+    "overview.reminders": "Reminders",
+    "overview.reminder1": "Inspect and service the fleet vehicles.",
+    "overview.reminder2": "Update the car rental pricing plans for the upcoming season.",
+    "overview.reminder3": "Review customer feedback and implement improvements.",
+    "overview.carTypes": "Car Types",
 
     // Metric Cards (Overview)
     "metrics.revenue": "Total Revenue",
@@ -396,6 +447,8 @@ const translations: Record<Language, Record<string, string>> = {
     "financials.balance": "Total Balance",
     "financials.income": "Total Income",
     "financials.expenses": "Total Expenses",
+    "financials.searchInvoice": "Search Invoice, client name, etc",
+    "financials.searchExpense": "Search expense, item name...",
 
     // Tracking Module
     "tracking.searchPlaceholder": "Search vehicle, plate, client...",
@@ -404,6 +457,10 @@ const translations: Record<Language, Record<string, string>> = {
     "tracking.range": "Remaining Range",
     "tracking.temp": "Motor Temperature",
     "tracking.addVehicle": "Add to Tracking",
+    "tracking.sendMsg": "Send a Message",
+    "tracking.carType": "Car Type",
+    "tracking.carNumber": "Car Number",
+    "tracking.rentInfo": "Rent Info",
 
     // Messages Module
     "messages.searchPlaceholder": "Search conversations...",
@@ -413,6 +470,9 @@ const translations: Record<Language, Record<string, string>> = {
     "messages.send": "Send Message",
     "messages.today": "Today",
     "messages.yesterday": "Yesterday",
+
+    // Footer
+    "footer.dashboardCopyright": "VinFast EV Fleet Management Platform © 2026",
   },
 };
 
