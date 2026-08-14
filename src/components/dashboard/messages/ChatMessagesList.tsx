@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { CheckCheck } from "lucide-react";
-import { ConversationThread } from "@/domain/models";
+import { ConversationThread } from "@/types";
 
 interface ChatMessagesListProps {
   thread: ConversationThread;
@@ -11,10 +11,10 @@ interface ChatMessagesListProps {
 
 export function ChatMessagesList({ thread }: ChatMessagesListProps) {
   return (
-    <div className="flex-1 p-6 space-y-5 overflow-y-auto bg-white">
+    <div className="flex-1 p-6 space-y-5 overflow-y-auto bg-[#1f1f1f]">
       {/* Date Divider Pill */}
       <div className="flex items-center justify-center my-2">
-        <span className="px-4 py-1 rounded-full text-[11px] font-medium bg-[#f1f5f9] text-[#94a3b8]">
+        <span className="px-4 py-1 rounded-full text-[11px] font-medium bg-[#2a2a2a] text-slate-300">
           Today
         </span>
       </div>
@@ -29,7 +29,7 @@ export function ChatMessagesList({ thread }: ChatMessagesListProps) {
             className={`flex items-start gap-3 ${isClient ? "justify-start" : "justify-end"}`}
           >
             {isClient && (
-              <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-100 mt-1">
+              <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-neutral-700 mt-1">
                 <Image
                   src={thread.avatar}
                   alt={thread.clientName}
@@ -43,7 +43,7 @@ export function ChatMessagesList({ thread }: ChatMessagesListProps) {
             <div className={`space-y-1.5 max-w-[70%] ${isClient ? "items-start" : "items-end flex flex-col"}`}>
               {/* Image attachment card if present */}
               {msg.imageUrl && (
-                <div className="relative w-52 h-36 rounded-2xl overflow-hidden border border-slate-100 shadow-xs my-1">
+                <div className="relative w-52 h-36 rounded-2xl overflow-hidden border border-[#333333] shadow-xs my-1">
                   <Image
                     src={msg.imageUrl}
                     alt="Uploaded attachment"
@@ -54,13 +54,13 @@ export function ChatMessagesList({ thread }: ChatMessagesListProps) {
                 </div>
               )}
 
-              {/* Message text bubble */}
+              {/* Message text bubble (Charcoal Slate #2a2a2a) */}
               {msg.text && (
                 <div
                   className={`px-4 py-3 rounded-2xl text-xs font-medium leading-relaxed shadow-2xs ${
                     isClient
-                      ? "bg-[#f1f5f9] text-[#1e293b] rounded-tl-xs"
-                      : "bg-[#bae6fd] text-[#1e293b] rounded-tr-xs"
+                      ? "bg-[#2a2a2a] text-white rounded-tl-xs"
+                      : "bg-[#2a2a2a] border border-[#3a3a3a] text-white rounded-tr-xs"
                   }`}
                 >
                   <p>{msg.text}</p>
@@ -68,9 +68,9 @@ export function ChatMessagesList({ thread }: ChatMessagesListProps) {
               )}
 
               {/* Timestamp & Status */}
-              <div className="flex items-center gap-1 text-[10px] font-medium text-[#94a3b8] px-1">
+              <div className="flex items-center gap-1 text-[10px] font-medium text-slate-400 px-1">
                 <span>{msg.timestamp}</span>
-                {!isClient && <CheckCheck className="w-3.5 h-3.5 text-[#00a8ff]" />}
+                {!isClient && <CheckCheck className="w-3.5 h-3.5 text-slate-400" />}
               </div>
             </div>
           </div>

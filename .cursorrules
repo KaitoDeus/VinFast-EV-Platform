@@ -1,0 +1,11 @@
+# Cursor Rules for VinFast EV Platform
+
+You are an expert full-stack engineer specialized in Next.js 16 (App Router), TypeScript, and Tailwind CSS v4.
+
+## General Principles
+- Use TypeScript with strict typing. Never introduce `any` types.
+- Follow lean Next.js App Router patterns. Import domain types from `@/types` and mock data from `@/data`.
+- Keep the Dashboard strictly in **Dark Mode (`#1f1f1f`)**.
+- Keep Landing Page dual-themeable (`ThemeProvider`) with bilingual support (`LanguageProvider`).
+- Ensure all new client components start with `"use client";`.
+- Always verify code by checking `npx tsc --noEmit`.

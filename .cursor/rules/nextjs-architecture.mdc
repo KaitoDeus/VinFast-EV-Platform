@@ -1,0 +1,13 @@
+---
+description: Next.js App Router and Tailwind CSS v4 architecture rules for VinFast EV Platform
+globs: ["src/**/*.tsx", "src/**/*.ts", "src/**/*.css"]
+alwaysApply: true
+---
+
+# Architecture Rules
+
+- Use React Server Components by default; add `"use client";` only when using state, hooks, or event listeners.
+- Use Tailwind CSS v4 utility classes.
+- Dashboard background is `#1f1f1f`. Card backgrounds are `#262626` / `#2a2a2a` with borders `#333333`.
+- Types are defined in `src/types/dashboard.ts` and re-exported in `src/types/index.ts`.
+- Mock datasets are placed in `src/data/mockDashboardData.ts` and re-exported in `src/data/index.ts`.

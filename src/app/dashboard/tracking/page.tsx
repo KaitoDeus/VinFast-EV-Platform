@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ServiceContainer } from "@/infrastructure/di";
-import { TrackingModel } from "@/domain/models";
+import { MOCK_TRACKING_VEHICLES } from "@/data";
 import {
   TrackingSidebarList,
   TrackingInfoBar,
@@ -13,13 +12,17 @@ export default function TrackingPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedVehicleId, setSelectedVehicleId] = useState("TRK-003");
 
-  const trackingService = ServiceContainer.getInstance().getTrackingService();
-  const allVehicles: TrackingModel[] = trackingService.searchTrackedVehicles(searchQuery);
+  const filteredVehicles = MOCK_TRACKING_VEHICLES.filter(
+    (v) =>
+      v.clientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      v.carModel.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      v.carNumber.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const selectedVehicle =
-    allVehicles.find((v) => v.id === selectedVehicleId) ||
-    trackingService.getTrackedVehicleById("TRK-003") ||
-    allVehicles[0];
+    filteredVehicles.find((v) => v.id === selectedVehicleId) ||
+    MOCK_TRACKING_VEHICLES.find((v) => v.id === "TRK-003") ||
+    filteredVehicles[0];
 
   return (
     <div className="space-y-6">
@@ -28,7 +31,7 @@ export default function TrackingPage() {
         {/* Left — vehicle list */}
         <div className="lg:col-span-4">
           <TrackingSidebarList
-            vehicles={allVehicles}
+            vehicles={filteredVehicles}
             selectedVehicleId={selectedVehicle?.id || "TRK-003"}
             onSelectVehicle={(v) => setSelectedVehicleId(v.id)}
             searchQuery={searchQuery}

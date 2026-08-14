@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { ServiceContainer } from "@/infrastructure/di";
-import { PaymentModel } from "@/domain/models";
+import { MOCK_PAYMENTS } from "@/data";
+import { PaymentItem } from "@/types";
 import {
   PaymentsKpiCards,
   PaymentsHeaderControls,
@@ -12,35 +12,43 @@ import {
 import { ClientsPagination } from "@/components/dashboard/clients/ClientsPagination";
 
 export default function PaymentsPage() {
+  const [payments, setPayments] = useState<PaymentItem[]>(MOCK_PAYMENTS);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [paymentToEdit, setPaymentToEdit] = useState<PaymentModel | null>(null);
+  const [paymentToEdit, setPaymentToEdit] = useState<PaymentItem | null>(null);
 
-  const paymentService = ServiceContainer.getInstance().getPaymentService();
-  const allPayments: PaymentModel[] = paymentService.searchPayments(searchQuery, statusFilter);
+  const filteredPayments = payments.filter((p) => {
+    const matchesQ =
+      !searchQuery ||
+      p.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.clientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.carModel.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesStatus =
+      !statusFilter || statusFilter === "All" || p.status === statusFilter;
+
+    return matchesQ && matchesStatus;
+  });
 
   const handleOpenCreateModal = () => {
     setPaymentToEdit(null);
     setIsModalOpen(true);
   };
 
-  const handleOpenEditModal = (payment: PaymentModel) => {
+  const handleOpenEditModal = (payment: PaymentItem) => {
     setPaymentToEdit(payment);
     setIsModalOpen(true);
   };
 
   const handleDeletePayment = (id: string) => {
     if (confirm(`Are you sure you want to delete invoice ${id}?`)) {
-      alert(`Invoice ${id} deleted successfully.`);
+      setPayments((prev) => prev.filter((p) => p.id !== id));
     }
   };
 
   return (
     <div className="space-y-6">
-      {/* Page Title */}
-      <h2 className="text-2xl font-extrabold theme-text tracking-tight">Payments</h2>
-
       {/* Top 3 Financial Summary Cards */}
       <PaymentsKpiCards />
 
@@ -55,7 +63,7 @@ export default function PaymentsPage() {
 
       {/* Payments Invoices Table */}
       <PaymentsTable
-        payments={allPayments}
+        payments={filteredPayments}
         onEditPayment={handleOpenEditModal}
         onDeletePayment={handleDeletePayment}
       />
@@ -70,7 +78,7 @@ export default function PaymentsPage() {
         onSuccess={() => {
           alert("Invoice saved successfully!");
         }}
-        paymentToEdit={paymentToEdit}
+        paymentToEdit={paymentToEdit as any}
       />
     </div>
   );

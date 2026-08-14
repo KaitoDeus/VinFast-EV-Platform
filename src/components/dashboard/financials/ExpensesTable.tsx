@@ -2,12 +2,12 @@
 
 import React, { useState } from "react";
 import { ArrowUpDown } from "lucide-react";
-import { ExpenseModel } from "@/domain/models";
+import { ExpenseItem } from "@/types";
 import { useTheme } from "@/components/theme-provider";
 
 interface ExpensesTableProps {
-  expenses: ExpenseModel[];
-  onEditExpense: (expense: ExpenseModel) => void;
+  expenses: ExpenseItem[];
+  onEditExpense: (expense: ExpenseItem) => void;
   onDeleteExpense: (id: string) => void;
 }
 

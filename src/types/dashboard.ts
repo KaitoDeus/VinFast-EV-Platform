@@ -39,26 +39,24 @@ export interface ConversationThread {
 
 export interface PaymentItem {
   id: string;
-  invoiceId: string;
   clientName: string;
-  clientAvatar: string;
   carModel: string;
+  ratePerDay: number;
+  rentalPeriodDays: number;
   amount: number;
-  date: string;
-  paymentMethod: "Credit Card" | "Bank Transfer" | "E-Wallet" | "Cash";
-  status: "Completed" | "Pending" | "Failed" | "Refunded";
+  dueDate: string;
+  status: "Completed" | "Awaiting" | "Overdue";
+  selected?: boolean;
 }
 
 export interface ExpenseItem {
   id: string;
-  expenseId: string;
-  category: "Charging & Power" | "Maintenance & Repair" | "Insurance" | "Fleet Operations" | "Software & Telematics";
-  description: string;
-  carModel?: string;
+  name: string;
+  category: string;
+  quantity: number;
   amount: number;
   date: string;
-  vendor: string;
-  status: "Approved" | "Pending" | "Processing";
+  status: "Completed" | "Pending";
 }
 
 export interface DriverItem {

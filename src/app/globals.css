@@ -46,15 +46,15 @@
 }
 
 [data-theme="dark"] {
-  --background: #434343;
+  --background: #1f1f1f;
   --foreground: #ffffff;
   --header-bg: #1f1f1f;
-  --card-bg: #333333;
-  --card-border: rgba(255, 255, 255, 0.15);
+  --card-bg: #262626;
+  --card-border: rgba(255, 255, 255, 0.1);
   --muted-text: #e2e8f0;
 
   --contact-form-bg: #242424;
-  --contact-showcase-bg: #333333;
+  --contact-showcase-bg: #2a2a2a;
   --input-bg: #181818;
   --input-border: #334155;
   --input-text: #ffffff;

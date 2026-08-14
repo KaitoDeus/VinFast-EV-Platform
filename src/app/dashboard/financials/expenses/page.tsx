@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { ServiceContainer } from "@/infrastructure/di";
-import { ExpenseModel } from "@/domain/models";
+import { MOCK_EXPENSES } from "@/data";
+import { ExpenseItem } from "@/types";
 import {
   ExpensesKpiCards,
   CashflowChart,
@@ -13,19 +13,30 @@ import {
 import { ClientsPagination } from "@/components/dashboard/clients/ClientsPagination";
 
 export default function ExpensesPage() {
+  const [expenses, setExpenses] = useState<ExpenseItem[]>(MOCK_EXPENSES);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
-  const expenseService = ServiceContainer.getInstance().getExpenseService();
-  const allExpenses: ExpenseModel[] = expenseService.searchExpenses(searchQuery, statusFilter);
+  const filteredExpenses = expenses.filter((e) => {
+    const matchesQ =
+      !searchQuery ||
+      e.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      e.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      e.category.toLowerCase().includes(searchQuery.toLowerCase());
 
-  const handleEditExpense = (exp: ExpenseModel) => {
+    const matchesStatus =
+      !statusFilter || statusFilter === "All" || e.status === statusFilter;
+
+    return matchesQ && matchesStatus;
+  });
+
+  const handleEditExpense = (exp: ExpenseItem) => {
     alert(`Editing transaction ${exp.name} (${exp.id})`);
   };
 
   const handleDeleteExpense = (id: string) => {
     if (confirm(`Are you sure you want to delete transaction ${id}?`)) {
-      alert(`Transaction ${id} deleted successfully.`);
+      setExpenses((prev) => prev.filter((e) => e.id !== id));
     }
   };
 
@@ -35,9 +46,6 @@ export default function ExpensesPage() {
 
   return (
     <div className="space-y-6">
-      {/* Page Title */}
-      <h2 className="text-2xl font-extrabold theme-text tracking-tight">Expenses</h2>
-
       {/* Top 3 Summary KPI Cards */}
       <ExpensesKpiCards />
 
@@ -62,7 +70,7 @@ export default function ExpensesPage() {
 
       {/* Transactions Data Table */}
       <ExpensesTable
-        expenses={allExpenses}
+        expenses={filteredExpenses}
         onEditExpense={handleEditExpense}
         onDeleteExpense={handleDeleteExpense}
       />

@@ -2,12 +2,12 @@
 
 import React, { useState } from "react";
 import { ArrowUpDown } from "lucide-react";
-import { PaymentModel } from "@/domain/models";
+import { PaymentItem } from "@/types";
 import { useTheme } from "@/components/theme-provider";
 
 interface PaymentsTableProps {
-  payments: PaymentModel[];
-  onEditPayment: (payment: PaymentModel) => void;
+  payments: PaymentItem[];
+  onEditPayment: (payment: PaymentItem) => void;
   onDeletePayment: (id: string) => void;
 }
 

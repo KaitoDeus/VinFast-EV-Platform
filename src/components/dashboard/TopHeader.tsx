@@ -2,12 +2,10 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { useTheme } from "@/components/theme-provider";
 import { useLanguage } from "@/components/language-provider";
-import { Search, Settings, Bell, Sun, Moon } from "lucide-react";
+import { Search, Settings, Bell } from "lucide-react";
 
 export function TopHeader() {
-  const { theme, toggleTheme } = useTheme();
   const { lang, setLanguage } = useLanguage();
   const pathname = usePathname();
 
@@ -53,18 +51,6 @@ export function TopHeader() {
         <button className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 theme-text hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors relative">
           <Bell className="w-4 h-4" />
           <span className="w-2 h-2 rounded-full bg-rose-500 absolute top-2 right-2 ring-2 ring-white dark:ring-slate-900" />
-        </button>
-
-        {/* Theme Switcher */}
-        <button
-          onClick={toggleTheme}
-          className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 theme-text hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-        >
-          {theme === "dark" ? (
-            <Sun className="w-4 h-4 text-amber-400" />
-          ) : (
-            <Moon className="w-4 h-4 text-slate-700" />
-          )}
         </button>
 
         {/* Language Switcher */}

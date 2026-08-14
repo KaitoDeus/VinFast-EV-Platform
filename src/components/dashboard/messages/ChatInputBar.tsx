@@ -18,15 +18,15 @@ export function ChatInputBar({ onSendMessage }: ChatInputBarProps) {
   };
 
   return (
-    <div className="p-4 bg-white border-t border-[#f1f5f9]">
+    <div className="p-4 bg-[#1f1f1f] border-t border-[#333333]">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#f8fafc] border border-[#f1f5f9] rounded-2xl px-4 py-2 flex items-center gap-3"
+        className="bg-[#2a2a2a] border border-[#3a3a3a] rounded-2xl px-4 py-2 flex items-center gap-3"
       >
         {/* Emoji Button */}
         <button
           type="button"
-          className="text-[#94a3b8] hover:text-[#1e293b] transition-colors cursor-pointer"
+          className="text-slate-400 hover:text-white transition-colors cursor-pointer"
           title="Add Emoji"
         >
           <Smile className="w-5 h-5" />
@@ -38,13 +38,13 @@ export function ChatInputBar({ onSendMessage }: ChatInputBarProps) {
           placeholder="Type a message.."
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
-          className="flex-1 py-2 text-xs bg-transparent outline-none text-[#1e293b] placeholder:text-[#94a3b8] font-normal"
+          className="flex-1 py-2 text-xs bg-transparent outline-none text-white placeholder:text-slate-400 font-normal"
         />
 
         {/* Attachment Button */}
         <button
           type="button"
-          className="text-[#94a3b8] hover:text-[#1e293b] transition-colors cursor-pointer"
+          className="text-slate-400 hover:text-white transition-colors cursor-pointer"
           title="Attach File"
         >
           <Paperclip className="w-5 h-5" />
