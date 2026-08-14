@@ -297,6 +297,36 @@ const translations: Record<Language, Record<string, string>> = {
     "messages.today": "Hôm nay",
     "messages.yesterday": "Hôm qua",
 
+    // ═══════════════════════════════════════════════════════════════════════
+    // ─── AUTHENTICATION MODULE (SIGN UP & SIGN IN) ───
+    // ═══════════════════════════════════════════════════════════════════════
+    "auth.signUpTitle": "Đăng ký",
+    "auth.signInTitle": "Đăng nhập",
+    "auth.fullName": "Họ và tên",
+    "auth.fullNamePlaceholder": "Nguyễn Văn A",
+    "auth.email": "Địa chỉ Email",
+    "auth.emailPlaceholder": "example@domain.com",
+    "auth.password": "Mật khẩu",
+    "auth.passwordPlaceholder": "••••••••••••",
+    "auth.passwordStrength": "Độ mạnh mật khẩu",
+    "auth.strengthWeak": "Yếu",
+    "auth.strengthFair": "Trung bình",
+    "auth.strengthGood": "Khá",
+    "auth.strengthStrong": "Mạnh",
+    "auth.signUpButton": "Đăng ký",
+    "auth.signInButton": "Đăng nhập",
+    "auth.alreadyHaveAccount": "Đã có tài khoản?",
+    "auth.signInLink": "Đăng nhập",
+    "auth.dontHaveAccount": "Chưa có tài khoản?",
+    "auth.signUpLink": "Đăng ký",
+    "auth.signUpWithGoogle": "Đăng ký với Google",
+    "auth.signInWithGoogle": "Đăng nhập với Google",
+    "auth.privacyPolicy": "Chính sách bảo mật",
+    "auth.termsConditions": "Điều khoản dịch vụ",
+    "auth.copyright": "Bản quyền 2026 VinFast Platform ©",
+    "auth.rememberMe": "Ghi nhớ đăng nhập",
+    "auth.forgotPassword": "Quên mật khẩu?",
+
     // Footer
     "footer.dashboardCopyright": "Nền tảng Quản trị & Vận hành Đội xe VinFast EV © 2026",
   },
@@ -584,6 +614,36 @@ const translations: Record<Language, Record<string, string>> = {
     "messages.send": "Send Message",
     "messages.today": "Today",
     "messages.yesterday": "Yesterday",
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // ─── AUTHENTICATION MODULE (SIGN UP & SIGN IN) ───
+    // ═══════════════════════════════════════════════════════════════════════
+    "auth.signUpTitle": "Sign Up",
+    "auth.signInTitle": "Sign In",
+    "auth.fullName": "Full Name",
+    "auth.fullNamePlaceholder": "John Doe",
+    "auth.email": "Email Address",
+    "auth.emailPlaceholder": "elementary221b@gmail.com",
+    "auth.password": "Password",
+    "auth.passwordPlaceholder": "••••••••••••",
+    "auth.passwordStrength": "Password strength",
+    "auth.strengthWeak": "Weak",
+    "auth.strengthFair": "Fair",
+    "auth.strengthGood": "Good",
+    "auth.strengthStrong": "Strong",
+    "auth.signUpButton": "Sign Up",
+    "auth.signInButton": "Sign In",
+    "auth.alreadyHaveAccount": "Already have an account?",
+    "auth.signInLink": "Sign In.",
+    "auth.dontHaveAccount": "Don't have an account?",
+    "auth.signUpLink": "Sign Up.",
+    "auth.signUpWithGoogle": "Sign Up With Google",
+    "auth.signInWithGoogle": "Sign In With Google",
+    "auth.privacyPolicy": "Privacy Policy",
+    "auth.termsConditions": "Terms & Conditions",
+    "auth.copyright": "Copyright 2026 VinFast Platform ©",
+    "auth.rememberMe": "Remember me",
+    "auth.forgotPassword": "Forgot password?",
 
     // Footer
     "footer.dashboardCopyright": "VinFast EV Fleet Management Platform © 2026",
