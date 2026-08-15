@@ -72,7 +72,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.q6": "Xe cần sạc thường xuyên khi chưa hết điện không?",
     "faq.a6": "Pin Lithium-ion cao cấp không bị hiện tượng chai pin khi sạc nhồi, bạn có thể sạc bất cứ lúc nào thuận tiện.",
 
-    // ─── Contact Section ───
+    // ─── Contact & Pre-order Section ───
     "contact.title": "Đặt mua xe ngay hôm nay để nhận những ưu đãi tốt nhất",
     "contact.phone": "Số điện thoại",
     "contact.name": "Họ Tên",
@@ -81,6 +81,16 @@ const translations: Record<Language, Record<string, string>> = {
     "contact.submit": "ĐẶT HÀNG NGAY",
     "contact.subtext": "* Thông tin của quý khách luôn được bảo mật.",
     "contact.alert": "Cảm ơn quý khách đã đăng ký đặt mua xe VinFast! Chúng tôi sẽ liên hệ trong thời gian sớm nhất.",
+    "contact.submitting": "Đang gửi đơn hàng...",
+    "contact.successTitle": "Đặt hàng thành công!",
+    "contact.successSubtitle": "Cảm ơn bạn đã lựa chọn dòng xe máy điện thông minh VinFast.",
+    "contact.accountCreatedNotice": "Tài khoản quản trị đơn hàng đã được tạo tự động:",
+    "contact.accountEmail": "Email đăng nhập:",
+    "contact.accountPhone": "Số điện thoại:",
+    "contact.passwordSentNotice": "Mật khẩu tạm thời đã được sinh ngẫu nhiên và gửi tới Email & SMS của quý khách.",
+    "contact.checkInboxNotice": "Vui lòng kiểm tra Hộp thư đến (hoặc mục Spam) và Tin nhắn SMS để nhận mật khẩu đăng nhập.",
+    "contact.loginNowBtn": "Đăng nhập ngay để theo dõi đơn hàng",
+    "contact.closeModal": "Đóng",
     "color.blue": "Xanh",
     "color.red": "Đỏ",
     "color.purple": "Tím",
@@ -408,7 +418,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.q6": "Does the battery require frequent charging before running out?",
     "faq.a6": "Advanced Lithium-ion cell chemistry prevents memory degradation, allowing convenient charging at any battery level.",
 
-    // ─── Contact Section ───
+    // ─── Contact & Pre-order Section ───
     "contact.title": "Pre-order your VinFast EV today for exclusive launch offers",
     "contact.phone": "Phone Number",
     "contact.name": "Full Name",
@@ -417,6 +427,16 @@ const translations: Record<Language, Record<string, string>> = {
     "contact.submit": "PRE-ORDER NOW",
     "contact.subtext": "* Your personal information is strictly confidential and protected.",
     "contact.alert": "Thank you for pre-ordering your VinFast EV! Our customer support team will contact you shortly.",
+    "contact.submitting": "Submitting order...",
+    "contact.successTitle": "Pre-order Placed Successfully!",
+    "contact.successSubtitle": "Thank you for choosing VinFast Smart Electric Scooter.",
+    "contact.accountCreatedNotice": "Your order management account has been created automatically:",
+    "contact.accountEmail": "Login Email:",
+    "contact.accountPhone": "Phone Number:",
+    "contact.passwordSentNotice": "A secure temporary password has been randomly generated and sent to your Email & SMS.",
+    "contact.checkInboxNotice": "Please check your inbox (or spam folder) and SMS messages to retrieve your temporary password.",
+    "contact.loginNowBtn": "Log in now to track your order",
+    "contact.closeModal": "Close",
     "color.blue": "Blue",
     "color.red": "Red",
     "color.purple": "Purple",

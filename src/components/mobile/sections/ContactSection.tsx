@@ -4,15 +4,29 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/components/language-provider";
 import { AnalyticsManager } from "@/infrastructure/analytics";
+import { PreorderSuccessModal } from "@/components/common/PreorderSuccessModal";
 
 export function ContactSection() {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({ phone: "", name: "", email: "", content: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    AnalyticsManager.getInstance().trackContactSubmit(formData);
-    alert(t("contact.alert"));
+    setIsSubmitting(true);
+
+    // Simulate API call to POST /api/v1/preorders
+    setTimeout(() => {
+      AnalyticsManager.getInstance().trackContactSubmit(formData);
+      setIsSubmitting(false);
+      setIsSuccessModalOpen(true);
+    }, 600);
+  };
+
+  const handleCloseModal = () => {
+    setIsSuccessModalOpen(false);
+    setFormData({ phone: "", name: "", email: "", content: "" });
   };
 
   return (
@@ -87,9 +101,14 @@ export function ContactSection() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-[#00a8ff] active:bg-[#0093e0] text-white font-extrabold text-[18px] py-3.5 rounded-full shadow-md uppercase tracking-wider cursor-pointer transition-all active:scale-[0.99]"
+                disabled={isSubmitting}
+                className="w-full bg-[#00a8ff] active:bg-[#0093e0] text-white font-extrabold text-[18px] py-3.5 rounded-full shadow-md uppercase tracking-wider cursor-pointer transition-all active:scale-[0.99] flex items-center justify-center gap-2"
               >
-                {t("contact.submit")}
+                {isSubmitting ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <span>{t("contact.submit")}</span>
+                )}
               </button>
 
               {/* Subtext */}
@@ -100,6 +119,17 @@ export function ContactSection() {
           </div>
         </div>
       </div>
+
+      {/* Success Modal */}
+      <PreorderSuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={handleCloseModal}
+        customerData={{
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+        }}
+      />
     </section>
   );
 }
