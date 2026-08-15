@@ -2,7 +2,7 @@
 # DỰ ÁN: NỀN TẢNG ĐẶT CỌC & QUẢN TRỊ ĐỘI XE ĐIỆN VINFAST (VINFAST EV PLATFORM)
 
 > **Dành cho:** Đội ngũ Kỹ sư Frontend (Frontend Development Team) & Fullstack Engineers  
-> **Phiên bản tài liệu:** v1.0.0  
+> **Phiên bản tài liệu:** v1.1.0  
 > **Ngăn xếp công nghệ:** Next.js 16 (App Router), React 19, TypeScript 5, Tailwind CSS v4, Turbopack  
 > **Repository:** `https://github.com/KaitoDeus/VinFast-FE`  
 > **Ngày phát hành:** 15/08/2026
@@ -15,7 +15,7 @@
 2. [Cấu Trúc Thư Mục Dự Án (Project File Tree)](#2-cấu-trúc-thư-mục-dự-án-project-file-tree)
 3. [Hệ Thống Thiết Kế (Design System & Color Tokens)](#3-hệ-thống-thiết-kế-design-system--color-tokens)
 4. [Đặc Tả Phân Hệ & Tuyến Đường (Routes & Page Specifications)](#4-đặc-tả-phân-hệ--tuyến-đường-routes--page-specifications)
-   - 4.1. B2C Landing Page (`/`)
+   - 4.1. B2C Landing Page (`/`) & Modal Cấp Tài Khoản Tự Động
    - 4.2. Authentication Suite (`/login`, `/register`, `/forgot-password`)
    - 4.3. B2B Fleet Management Dashboard (`/dashboard/*`)
 5. [Kiến Trúc Quản Lý Trạng Thái & Providers](#5-kiến-trúc-quản-lý-trạng-thái--providers)
@@ -30,8 +30,8 @@
 Hệ thống Frontend được xây dựng theo chuẩn **Next.js 16 App Router** kết hợp với **Server & Client Components** phân tách rõ ràng, sử dụng **Tailwind CSS v4** và trình biên dịch siêu tốc **Turbopack**.
 
 ### 🌟 3 Phân hệ Nòng cốt:
-1. **B2C Consumer Landing Page (`/`)**: Trưng bày, tương tác chọn màu 360°, cấu hình kỹ thuật pin LFP/CATL và đặt cọc trực tuyến xe máy điện thông minh VinFast (Klara, Feliz, Vento, Evo200). Hỗ trợ song ngữ (VI/EN) và chuyển đổi Light/Dark mode.
-2. **Authentication Suite (`/login`, `/register`, `/forgot-password`)**: Hệ thống đăng nhập, đăng ký với thanh đo độ mạnh mật khẩu (Password Strength Meter), đặt lại mật khẩu và nhập mã OTP 6 số thời gian thực kèm bộ đếm ngược.
+1. **B2C Consumer Landing Page (`/`)**: Trưng bày, tương tác chọn màu 360°, cấu hình kỹ thuật pin LFP/CATL và đặt cọc trực tuyến xe máy điện thông minh VinFast (Klara, Feliz, Vento, Evo200). Tích hợp **Modal thông báo cấp tài khoản & mật khẩu ngẫu nhiên tự động** qua Email/SMS. Hỗ trợ song ngữ (VI/EN) và chuyển đổi Light/Dark mode.
+2. **Authentication Suite (`/login`, `/register`, `/forgot-password`)**: Hệ thống đăng nhập, đăng ký với thanh đo độ mạnh mật khẩu (Password Strength Meter), đặt lại mật khẩu và nhập mã OTP 6 số thời gian thực kèm bộ đếm ngược. Hỗ trợ tự động điền Email (`?email=...`) khi chuyển hướng từ đơn đặt hàng.
 3. **B2B Fleet Management Dashboard (`/dashboard/*`)**: Bảng điều khiển quản trị vận hành đội xe toàn diện gồm 8 phân hệ (Tracking GPS, Messages, Bookings, Units, Calendar, Clients, Drivers, Financials). Toàn bộ Dashboard được **khóa cứng Dark Mode `#1f1f1f`**.
 
 ```
@@ -52,7 +52,8 @@ Hệ thống Frontend được xây dựng theo chuẩn **Next.js 16 App Router*
   │   (Light/Dark toggle)  │      │ • LanguageProvider     │      │   (`bg-[#1f1f1f]`)     │
   │ • LanguageProvider     │      │ • Centered VinFast Logo│      │ • SidebarProvider      │
   │ • 360° Color Picker    │      │ • 6-Digit OTP & Meter  │      │ • Dual-View Mobile     │
-  │ • Pre-order Lead Form  │      │ • Flag Switcher (VIE)  │      │ • Real-time GPS Maps   │
+  │ • Auto Account Modal   │      │ • Auto Email Prefill   │      │ • Real-time GPS Maps   │
+  │ • Pre-order Lead Form  │      │ • Flag Switcher (VIE)  │      │ • B2B Chat System      │
   └────────────────────────┘      └────────────────────────┘      └────────────────────────┘
 ```
 
@@ -77,7 +78,7 @@ VinFast-FE/
 │   ├── app/                             # Next.js App Router (Pages & Layouts)
 │   │   ├── layout.tsx                   # Root HTML Layout & JSON-LD Metadata
 │   │   ├── page.tsx                     # B2C Landing Page
-│   │   ├── login/                       # Trang Đăng nhập
+│   │   ├── login/                       # Trang Đăng nhập (Wrapped in Suspense for email prefill)
 │   │   ├── register/                    # Trang Đăng ký tài khoản
 │   │   ├── forgot-password/             # Trang Quên mật khẩu & OTP 6 số
 │   │   └── dashboard/                   # Toàn bộ phân hệ Dashboard quản trị
@@ -93,6 +94,14 @@ VinFast-FE/
 │   │       └── units/                   # Quản lý kho xe & Chi tiết xe (`[id]`)
 │   ├── components/                      # React UI Components
 │   │   ├── auth/                        # Form Đăng nhập, Đăng ký, OTP, Layout Auth
+│   │   │   ├── AuthLayout.tsx           # Layout Auth có Flag Switcher SVG
+│   │   │   ├── OtpInput.tsx             # 6-digit numeric input with auto-advance & paste
+│   │   │   ├── PasswordStrengthMeter.tsx# 4-segment dynamic strength bar
+│   │   │   ├── SignInForm.tsx           # Sign In Form with ?email=... prefill
+│   │   │   ├── SignUpForm.tsx           # Sign Up Form with elevated VinFast logo
+│   │   │   └── ResetPasswordForm.tsx    # Multi-step Reset Password & OTP countdown
+│   │   ├── common/                      # Reusable components
+│   │   │   └── PreorderSuccessModal.tsx # Modal thông báo cấp tài khoản & mật khẩu tạm
 │   │   ├── dashboard/                   # Components giao diện Dashboard
 │   │   ├── desktop/                     # Components Landing page bản Desktop
 │   │   ├── mobile/                      # Components Landing page bản Mobile
@@ -100,8 +109,6 @@ VinFast-FE/
 │   ├── domain/                          # Models & Entities
 │   ├── infrastructure/                  # Analytics & Utility Handlers
 │   └── types/                           # TypeScript Interface definitions
-├── BACKEND_JAVA_SPECIFICATION.md        # Bản sao đặc tả Backend ngoài root
-├── FRONTEND_SPECIFICATION.md            # Bản sao đặc tả Frontend ngoài root
 └── package.json                         # Dependencies & Scripts
 ```
 
@@ -137,7 +144,14 @@ Hệ thống thiết kế tuân thủ nghiêm ngặt các mã màu và kích th�
 - **Hero Section:** Tiêu đề động "BỀN ĐẸP - THÔNG MINH - SINH THÁI".
 - **360° Color Selector:** Bộ chọn 6 màu sơn (Xanh, Đỏ, Tím, Vàng, Trắng, Xám) với hiệu ứng chuyển đổi mượt mà.
 - **Features & Tech Specs:** Động cơ điện Bosch, pin CATL, tiêu chuẩn chống nước IP57, cốp 22L.
-- **Pre-order Form:** Đặt cọc xe máy điện trực tuyến lưu thông tin khách hàng.
+- **Pre-order Form & Modal Cấp Tài khoản Tự động (`PreorderSuccessModal.tsx`):**
+  - Khách hàng điền: Số điện thoại, Họ tên, Email, Nội dung.
+  - Bấm **"ĐẶT HÀNG NGAY"** ➔ Nút hiển thị spinner loading ➔ Mở Modal xác nhận thành công.
+  - Modal hiển thị thông báo:
+    - 🚗 Logo VinFast & Tích xanh thành công.
+    - 🔑 Tài khoản quản trị đơn hàng đã được tạo tự động: Email & Số điện thoại.
+    - 🔒 Mật khẩu đăng nhập tạm thời đã được sinh ngẫu nhiên và gửi về **Email** & **SMS** của khách hàng.
+    - 🔘 Nút bấm **"Đăng nhập ngay để theo dõi đơn hàng ➔"**: Tự động chuyển hướng tới `/login?email=...` với Email được điền sẵn trong form đăng nhập.
 - **Language & Theme Switcher:** Nút cờ SVG `🇻🇳 VIE` / `🇺🇸 ENG` và nút chuyển Light/Dark mode.
 
 ---
@@ -155,6 +169,8 @@ Hệ thống thiết kế tuân thủ nghiêm ngặt các mã màu và kích th�
 - **Chuyển hướng:** *Already have an account? Sign In.*
 
 #### 2. Đăng nhập hệ thống (`/login` & `/auth/login`)
+- **Bọc `<Suspense>` tại trang `/login/page.tsx`** để hỗ trợ `useSearchParams` an toàn khi build tĩnh.
+- **Tự động điền Email:** Trích xuất tham số `?email=...` từ URL và điền sẵn vào ô Email input.
 - Email, Mật khẩu có mắt ẩn/hiện, checkbox *Remember me* và liên kết *Forgot password?* trỏ tới `/forgot-password`.
 - Nút `Sign In ➔` (`Đăng nhập ➔`) và nút `Sign In With Google`.
 
@@ -217,7 +233,7 @@ Toàn bộ văn bản hiển thị trên hệ thống được định nghĩa t�
     return <h1>{t("overview.earningsSummary")}</h1>;
   }
   ```
-- **Các nhóm khóa chính:** `nav.*`, `hero.*`, `features.*`, `specs.*`, `sidebar.*`, `header.*`, `common.*`, `overview.*`, `bookings.*`, `units.*`, `calendar.*`, `clients.*`, `drivers.*`, `financials.*`, `tracking.*`, `messages.*`, `auth.*`.
+- **Các nhóm khóa chính:** `nav.*`, `hero.*`, `features.*`, `specs.*`, `contact.*` (kèm các khóa cho Modal thông báo cấp tài khoản & mật khẩu), `sidebar.*`, `header.*`, `common.*`, `overview.*`, `bookings.*`, `units.*`, `calendar.*`, `clients.*`, `drivers.*`, `financials.*`, `tracking.*`, `messages.*`, `auth.*`.
 
 ---
 
